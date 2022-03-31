@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetAdditionDto {
+public class GetCorporateCustomerDto {
 
-    int additionId;
-    String additionName;
-    double additionDailyPrice;
-    int amountOfAddition;
+    private int userId;
+    private String companyName;
+    private String taxNumber;
+    private String email;
 }

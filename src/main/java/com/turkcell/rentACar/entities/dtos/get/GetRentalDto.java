@@ -1,7 +1,6 @@
 package com.turkcell.rentACar.entities.dtos.get;
 
 import com.turkcell.rentACar.entities.dtos.list.AdditionListDto;
-import com.turkcell.rentACar.entities.sourceEntities.City;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,8 +15,10 @@ public class GetRentalDto {
     private int rentId;
     private LocalDate rentDate;
     private LocalDate rentReturnDate;
-    private int carId;
+    private String brandName;
+    private String description;
     private String fromCityName;
     private String  toCityName;
     private List<AdditionListDto> additionList;
+    private int userId;
 }

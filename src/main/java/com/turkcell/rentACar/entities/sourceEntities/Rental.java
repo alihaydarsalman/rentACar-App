@@ -1,6 +1,6 @@
 package com.turkcell.rentACar.entities.sourceEntities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,13 +35,17 @@ public class Rental {
     @JoinTable(name = "rentals_additions",
             joinColumns = {@JoinColumn(name = "rent_id")},
             inverseJoinColumns = {@JoinColumn(name = "addition_id")})
-    private List<Addition> additions;
+    private List<Addition> additionList;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "from_city_id")
     private City fromCity;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "to_city_id")
     private City toCity;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Customer customer;
 }

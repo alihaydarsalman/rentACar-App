@@ -1,11 +1,12 @@
 package com.turkcell.rentACar.entities.sourceEntities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Data
@@ -23,10 +24,10 @@ public class City {
     @Column(name = "city_name")
     private String cityName;
 
-    @OneToOne(mappedBy = "fromCity")
-    private Rental fromCity;
+    @OneToMany(mappedBy = "fromCity")
+    private List<Rental> fromCity;
 
-    @OneToOne(mappedBy = "toCity")
-    private Rental toCity;
+    @OneToMany(mappedBy = "toCity")
+    private List<Rental> toCity;
 
 }

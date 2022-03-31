@@ -40,5 +40,7 @@ public class UpdateRentalRequest {
 
     private List<Integer> additionId;
 
+    @NotNull
+    private int userId;
 
 }

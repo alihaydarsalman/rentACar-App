@@ -94,7 +94,7 @@ public class CarMaintenanceManager implements CarMaintenanceService {
         this.carService.isExistsByCarId(carId);
         isExistsByCarIdOnMaintenanceTable(carId);
 
-        List<CarMaintenance> carMaintenances = this.carMaintenanceDao.getCarMaintenanceByCar_CarId(carId);
+        List<CarMaintenance> carMaintenances = this.carMaintenanceDao.findCarMaintenanceByCar_CarId(carId);
         List<CarMaintenanceListDto> result = carMaintenances.stream()
                 .map(carMaintenance -> this.modelMapperService.forDto().map(carMaintenance,CarMaintenanceListDto.class))
                 .collect(Collectors.toList());

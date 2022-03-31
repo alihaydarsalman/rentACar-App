@@ -1,29 +1,36 @@
 package com.turkcell.rentACar.entities.requests.update;
 
-
 import com.turkcell.rentACar.business.constants.messages.ValidationMessages;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class UpdateAdditionRequest {
+@NoArgsConstructor
+public class UpdateCorporateCustomerRequest {
 
     @NotNull
     @Min(value = 1, message = ValidationMessages.ID_CANNOT_LESS_THEN_ONE)
-    int additionId;
+    private int userId;
+
+    @NotBlank
+    @NotNull
+    private String companyName;
+
+    @NotBlank
+    @NotNull
+    @Size(min = 11,max = 11)
+    private String taxNumber;
+
+    @Email
     @NotNull
     @NotBlank
-    private String additionName;
+    private String email;
+
     @NotNull
-    @Min(value = 0, message = ValidationMessages.PRICE_CANNOT_NEGATIVE)
-    private double additionDailyPrice;
-    @NotNull
-    int amountOfAddition;
+    @NotBlank
+    private String password;
 }

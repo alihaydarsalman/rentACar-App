@@ -19,12 +19,12 @@ public final class BusinessMessages {
 
 
     //COLOR
-    public static final String ERROR_COLOR_NAME_EXISTS = "Color name is already exists.";
+    public static final String ERROR_COLOR_NAME_EXISTS = "Color name has already exists.";
     public static final String ERROR_COLOR_NOT_FOUND = "Color not found! Color id is not exists.";
 
 
     //BRAND
-    public static final String ERROR_BRAND_NAME_EXISTS = "Brand name is already exists.";
+    public static final String ERROR_BRAND_NAME_EXISTS = "Brand name has already exists.";
     public static final String ERROR_BRAND_NOT_FOUND = "Brand not found! Brand id is not exists.";
 
 
@@ -52,5 +52,15 @@ public final class BusinessMessages {
 
     //ADDITIONS
     public static final String ERROR_ADDITION_NOT_FOUND = "Addition not found! Addition id is not exists.";
-    public static final String ERROR_ADDITION_NAME_EXISTS = "Addition name is already exists.";
+    public static final String ERROR_ADDITION_NAME_EXISTS = "Addition name has already exists.";
+
+    //CITY
+    public static final String ERROR_CITY_NOT_FOUND = "City not found! City id is not exists.";
+
+    //CUSTOMERS-USERS
+    public static final String ERROR_USER_NOT_FOUND = "User not found! User id is not exists.";
+    public static final String ERROR_TAX_NUMBER_ALREADY_EXISTS = "Tax number has already exists.";
+    public static final String ERROR_EMAIL_ALREADY_EXISTS = "Email already has exists.";
+    public static final String ERROR_NATIONAL_IDENTITY_ALREADY_EXISTS = "National identity has already exists.";
+
 }

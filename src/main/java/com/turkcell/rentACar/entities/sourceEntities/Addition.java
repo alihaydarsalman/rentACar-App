@@ -1,6 +1,5 @@
 package com.turkcell.rentACar.entities.sourceEntities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,4 +24,8 @@ public class Addition {
 
     @Column(name = "addition_daily_price")
     double additionDailyPrice;
+
+    @Column(name="amount_of_addition")
+    int amountOfAddition;
+
 }

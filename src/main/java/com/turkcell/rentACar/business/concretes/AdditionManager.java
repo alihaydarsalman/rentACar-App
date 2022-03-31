@@ -91,9 +91,7 @@ public class AdditionManager implements AdditionService {
 
         isExistsByAdditionId(additionId);
 
-        Addition addition = this.additionDao.findAdditionByAdditionId(additionId);
-
-        return addition;
+        return this.additionDao.findAdditionByAdditionId(additionId);
     }
 
     @Override

@@ -47,7 +47,7 @@ public class CarsController {
     }
 
     @GetMapping("/getById")
-    public DataResult<GetCarDto> getById(int carId) throws BusinessException {
+    public DataResult<GetCarDto> getById(@RequestParam int carId) throws BusinessException {
         return this.carService.getById(carId);
     }
 

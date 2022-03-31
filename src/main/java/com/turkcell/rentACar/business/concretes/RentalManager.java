@@ -1,9 +1,6 @@
 package com.turkcell.rentACar.business.concretes;
 
-import com.turkcell.rentACar.business.abstracts.AdditionService;
-import com.turkcell.rentACar.business.abstracts.CarMaintenanceService;
-import com.turkcell.rentACar.business.abstracts.CarService;
-import com.turkcell.rentACar.business.abstracts.RentalService;
+import com.turkcell.rentACar.business.abstracts.*;
 import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
@@ -33,15 +30,17 @@ public class RentalManager implements RentalService {
     private CarService carService;
     private CarMaintenanceService carMaintenanceService;
     private AdditionService additionService;
+    private CityService cityService;
 
     public RentalManager(ModelMapperService modelMapperService, RentalDao rentalDao, CarService carService
                         , @Lazy CarMaintenanceService carMaintenanceService
-                        , AdditionService additionService) {
+                        , AdditionService additionService, CityService cityService) {
         this.modelMapperService = modelMapperService;
         this.rentalDao = rentalDao;
         this.carService = carService;
         this.carMaintenanceService=carMaintenanceService;
         this.additionService=additionService;
+        this.cityService = cityService;
     }
 
     @Override
@@ -58,29 +57,27 @@ public class RentalManager implements RentalService {
     @Override
     public Result add(CreateRentalRequest createRentalRequest) throws BusinessException {
 
+        Rental rental = this.modelMapperService.forRequest().map(createRentalRequest,Rental.class);
+
         this.carService.isExistsByCarId(createRentalRequest.getCarId());
         this.carMaintenanceService.isCarUnderMaintenance(createRentalRequest.getCarId());
+        this.cityService.isExistsByCityId(createRentalRequest.getFromCityId());
+        this.cityService.isExistsByCityId(createRentalRequest.getToCityId());
         areDatesValid(createRentalRequest.getRentDate());
         isRentDateAfterReturnDate(createRentalRequest.getRentDate(),createRentalRequest.getRentReturnDate());
         isCarCanRented(createRentalRequest);
-        List<Addition> tempAdditions = new ArrayList<>();
+        checkIfAdditionsNull(rental, createRentalRequest);
 
-        for (Integer addId: createRentalRequest.getAdditionId()){
-            this.additionService.isExistsByAdditionId(addId);
-            Addition addition = this.additionService.getAdditionById(addId);
-            tempAdditions.add(addition);
-        }
-
-        Rental rental = this.modelMapperService.forRequest().map(createRentalRequest,Rental.class);
-        rental.setRentId(0);
-        rental.setAdditions(tempAdditions);
         this.rentalDao.save(rental);
 
         return new SuccessResult(BusinessMessages.SUCCESS_ADD);
     }
 
+
     @Override
     public Result update(UpdateRentalRequest updateRentalRequest) throws BusinessException {
+
+        Rental rental=this.modelMapperService.forRequest().map(updateRentalRequest,Rental.class);
 
         isExistsByRentalId(updateRentalRequest.getRentId());
         this.carService.isExistsByCarId(updateRentalRequest.getCarId());
@@ -88,18 +85,9 @@ public class RentalManager implements RentalService {
         areDatesValid(updateRentalRequest.getRentDate());
         isRentDateAfterReturnDate(updateRentalRequest.getRentDate(),updateRentalRequest.getRentReturnDate());
         isCarCanRented(updateRentalRequest);
-        List<Addition> tempAdditions = new ArrayList<>();
+        checkIfAdditionsNull(rental, updateRentalRequest);
 
-        for (Integer addId: updateRentalRequest.getAdditionId()){
-            this.additionService.isExistsByAdditionId(addId);
-            Addition addition = this.additionService.getAdditionById(addId);
-            tempAdditions.add(addition);
-        }
-
-        Rental rental=this.modelMapperService.forRequest().map(updateRentalRequest,Rental.class);
-        rental.setAdditions(tempAdditions);
         this.rentalDao.save(rental);
-
 
         return new SuccessResult(BusinessMessages.SUCCESS_UPDATE);
     }
@@ -175,25 +163,25 @@ public class RentalManager implements RentalService {
 
 
     private void isCarCanRented(CreateRentalRequest createRentalRequest) throws BusinessException{
-        List<Rental> rentals = this.rentalDao.getRentalByCar_CarId(createRentalRequest.getCarId());
+        List<Rental> rentals = this.rentalDao.findAllByCar_CarId(createRentalRequest.getCarId());
         for(Rental rental:rentals){
             if (createRentalRequest.getRentDate().isBefore(rental.getRentDate())){
                 if(createRentalRequest.getRentReturnDate().isAfter(rental.getRentReturnDate())){
                     throw new BusinessException(BusinessMessages.ERROR_CAR_ALREADY_RENTED);
                 }
                 if ( (createRentalRequest.getRentReturnDate().isBefore(rental.getRentReturnDate())) || (createRentalRequest.getRentReturnDate().isEqual(rental.getRentReturnDate()))){
-
                     if( (createRentalRequest.getRentReturnDate().isAfter(rental.getRentDate())) || (createRentalRequest.getRentReturnDate().isEqual(rental.getRentDate()))){
                         throw new BusinessException(BusinessMessages.ERROR_CAR_ALREADY_RENTED);
                     }
                 }
             }
+            if(createRentalRequest.getRentDate().isEqual(rental.getRentDate())){
+                throw new BusinessException(BusinessMessages.ERROR_CAR_ALREADY_RENTED);
+            }
             if( (createRentalRequest.getRentDate().isAfter(rental.getRentDate()) || createRentalRequest.getRentDate().isEqual(rental.getRentDate()))) {
                 if ( (createRentalRequest.getRentDate().isBefore(rental.getRentReturnDate())) || (createRentalRequest.getRentDate().isEqual(rental.getRentReturnDate()))){
-                    if( (createRentalRequest.getRentReturnDate().isAfter(rental.getRentReturnDate())) ||
-                            (createRentalRequest.getRentReturnDate().isBefore(rental.getRentReturnDate()))){
                         throw new BusinessException(BusinessMessages.ERROR_CAR_ALREADY_RENTED);
-                    }
+
                 }
             }
         }
@@ -204,7 +192,7 @@ public class RentalManager implements RentalService {
         List<Rental> rentals = this.rentalDao.getRentalByCar_CarId(updateRentalRequest.getCarId());
         for(Rental rental:rentals){
             if (updateRentalRequest.getRentDate().isBefore(rental.getRentDate())){
-                if((updateRentalRequest.getRentReturnDate().isAfter(rental.getRentReturnDate())) &&  (rental.getRentId() != updateRentalRequest.getRentId())){
+                if((updateRentalRequest.getRentReturnDate().isAfter(rental.getRentReturnDate())) && (rental.getRentId() != updateRentalRequest.getRentId())){
                     throw new BusinessException(BusinessMessages.ERROR_CAR_ALREADY_RENTED);
                 }
                 if (updateRentalRequest.getRentReturnDate().isBefore(rental.getRentReturnDate())){
@@ -222,6 +210,41 @@ public class RentalManager implements RentalService {
                         throw new BusinessException(BusinessMessages.ERROR_CAR_ALREADY_RENTED);
                     }
                 }
+            }
+        }
+    }
+
+
+    private void checkIfAdditionsNull(Rental rental, CreateRentalRequest createRentalRequest) throws BusinessException {
+        if(createRentalRequest.getAdditionId().isEmpty() || createRentalRequest.getAdditionId()==null){
+            rental.setAdditionList(null);
+        }
+        else{
+            List<Addition> tempAdditions = new ArrayList<>();
+
+            for (Integer addId: createRentalRequest.getAdditionId()){
+                this.additionService.isExistsByAdditionId(addId);
+                Addition addition = this.additionService.getAdditionById(addId);
+                tempAdditions.add(addition);
+
+                rental.setAdditionList(tempAdditions);
+            }
+        }
+    }
+
+    private void checkIfAdditionsNull(Rental rental, UpdateRentalRequest updateRentalRequest) throws BusinessException {
+        if(updateRentalRequest.getAdditionId().isEmpty() || updateRentalRequest.getAdditionId()==null){
+            rental.setAdditionList(null);
+        }
+        else{
+            List<Addition> tempAdditions = new ArrayList<>();
+
+            for (Integer addId: updateRentalRequest.getAdditionId()){
+                this.additionService.isExistsByAdditionId(addId);
+                Addition addition = this.additionService.getAdditionById(addId);
+                tempAdditions.add(addition);
+
+                rental.setAdditionList(tempAdditions);
             }
         }
     }

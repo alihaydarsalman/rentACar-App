@@ -4,13 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdditionListDto {
+public class IndividualCustomerListDto {
 
-    int additionId;
-    String additionName;
-    double additionDailyPrice;
-    int amountOfAddition;
+    private int userId;
+    private String nationalId;
+    private String firstName;
+    private String lastName;
+    private String email;
 }

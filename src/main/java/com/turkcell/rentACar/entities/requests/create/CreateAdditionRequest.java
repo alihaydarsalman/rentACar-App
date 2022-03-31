@@ -21,4 +21,6 @@ public class CreateAdditionRequest {
     @NotNull
     @Min(value = 0, message = ValidationMessages.PRICE_CANNOT_NEGATIVE)
     private double additionDailyPrice;
+    @NotNull
+    int amountOfAddition;
 }
