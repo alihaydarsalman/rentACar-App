@@ -41,5 +41,7 @@ public class UpdateIndividualCustomerRequest {
 
     @NotNull
     @NotBlank
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$",
+             message = ValidationMessages.PASSWORD_VALIDATION_ERROR)
     private String password;
 }
