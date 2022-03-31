@@ -1,13 +1,11 @@
 package com.turkcell.rentACar.entities.requests.create;
 
+import com.turkcell.rentACar.business.constants.messages.ValidationMessages;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
@@ -16,15 +14,20 @@ public class CreateIndividualCustomerRequest {
 
     @NotBlank
     @NotNull
+    @Pattern(regexp = "^[abcçdefgğhıijklmnoöprsştuüvwqyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVWQYZ ]{2,50}",
+             message = ValidationMessages.CUSTOMER_NAME_VALIDATION_ERROR)
     private String firstName;
 
     @NotBlank
     @NotNull
+    @Pattern(regexp = "^[abcçdefgğhıijklmnoöprsştuüvwqyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVWQYZ ]{2,50}",
+             message = ValidationMessages.CUSTOMER_LAST_NAME_VALIDATION_ERROR)
     private String lastName;
 
     @NotBlank
     @NotNull
-    @Size(min = 11, max = 11)
+    @Pattern(regexp = "^[0-9]{11}",
+             message = ValidationMessages.NATIONAL_IDENTITY_VALIDATION_ERROR)
     private String nationalId;
 
     @Email
@@ -35,5 +38,4 @@ public class CreateIndividualCustomerRequest {
     @NotNull
     @NotBlank
     private String password;
-
 }

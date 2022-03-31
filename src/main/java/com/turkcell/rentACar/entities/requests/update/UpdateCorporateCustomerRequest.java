@@ -18,11 +18,14 @@ public class UpdateCorporateCustomerRequest {
 
     @NotBlank
     @NotNull
+    @Pattern(regexp = "^[abcçdefgğhıijklmnoöprsştuüvwqyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVWQYZ 0-9]{5,50}",
+             message = ValidationMessages.COMPANY_NAME_VALIDATION_ERROR)
     private String companyName;
 
     @NotBlank
     @NotNull
-    @Size(min = 11,max = 11)
+    @Pattern(regexp = "^[0-9]{10}",
+             message = ValidationMessages.TAX_NUMBER_VALIDATION_ERROR)
     private String taxNumber;
 
     @Email

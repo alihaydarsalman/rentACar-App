@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
 @NoArgsConstructor
@@ -21,6 +18,7 @@ public class UpdateBrandRequest {
 
     @NotNull
     @NotBlank
-    @Size(min = 3, message = "Brand name has to be greater than 3 chars.")
+    @Pattern(regexp = "^[abcçdefgğhıijklmnoöprsştuüvwqyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVWQYZ 0-9]{2,50}",
+             message = ValidationMessages.BRAND_NAME_VALIDATION_ERROR)
     private String brandName;
 }

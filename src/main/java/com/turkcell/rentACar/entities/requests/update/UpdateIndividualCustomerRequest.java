@@ -18,15 +18,20 @@ public class UpdateIndividualCustomerRequest {
 
     @NotBlank
     @NotNull
+    @Pattern(regexp = "^[abcçdefgğhıijklmnoöprsştuüvwqyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVWQYZ ]{2,50}",
+             message = ValidationMessages.CUSTOMER_NAME_VALIDATION_ERROR)
     private String firstName;
 
     @NotBlank
     @NotNull
+    @Pattern(regexp = "^[abcçdefgğhıijklmnoöprsştuüvwqyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVWQYZ ]{2,50}",
+             message = ValidationMessages.CUSTOMER_LAST_NAME_VALIDATION_ERROR)
     private String lastName;
 
     @NotBlank
     @NotNull
-    @Size(min = 11,max = 11)
+    @Pattern(regexp = "^[0-9]{11}",
+             message = ValidationMessages.NATIONAL_IDENTITY_VALIDATION_ERROR)
     private String nationalId;
 
     @Email
@@ -37,5 +42,4 @@ public class UpdateIndividualCustomerRequest {
     @NotNull
     @NotBlank
     private String password;
-
 }

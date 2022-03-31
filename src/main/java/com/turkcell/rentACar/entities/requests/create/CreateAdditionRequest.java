@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Data
 @NoArgsConstructor
@@ -17,10 +18,11 @@ public class CreateAdditionRequest {
 
     @NotNull
     @NotBlank
+    @Pattern(regexp = "^[abcçdefgğhıijklmnoöprsştuüvwqyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVWQYZ 0-9]{2,50}",
+            message = ValidationMessages.ADDITION_NAME_VALIDATION_ERROR)
     private String additionName;
+
     @NotNull
     @Min(value = 0, message = ValidationMessages.PRICE_CANNOT_NEGATIVE)
     private double additionDailyPrice;
-    @NotNull
-    int amountOfAddition;
 }

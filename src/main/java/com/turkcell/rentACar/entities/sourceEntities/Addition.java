@@ -25,7 +25,4 @@ public class Addition {
     @Column(name = "addition_daily_price")
     double additionDailyPrice;
 
-    @Column(name="amount_of_addition")
-    int amountOfAddition;
-
 }

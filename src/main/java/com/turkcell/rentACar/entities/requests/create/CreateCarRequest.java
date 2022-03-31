@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
@@ -16,13 +13,17 @@ import javax.validation.constraints.Size;
 public class CreateCarRequest {
 
     @NotNull
+    @Min(value = 0,message = ValidationMessages.PRICE_CANNOT_NEGATIVE)
     private double dailyPrice;
 
     @NotNull
+    @Min(value = 1990, message = ValidationMessages.CAR_MODEL_YEAR_VALIDATION_ERROR)
     private int modelYear;
 
     @NotNull
     @NotBlank
+    @Pattern(regexp = "^[abcçdefgğhıijklmnoöprsştuüvwqyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVWQYZ 0-9]{3,100}",
+             message = ValidationMessages.CAR_DESCRIPTION_VALIDATION_ERROR)
     private String description;
 
     @NotNull

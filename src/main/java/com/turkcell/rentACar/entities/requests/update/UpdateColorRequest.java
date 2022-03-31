@@ -1,13 +1,12 @@
 package com.turkcell.rentACar.entities.requests.update;
 
+import com.turkcell.rentACar.business.constants.messages.ValidationMessages;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
@@ -15,11 +14,12 @@ import javax.validation.constraints.Size;
 public class UpdateColorRequest {
 
     @NotNull
-    @Min(1)
+    @Min(value = 1, message = ValidationMessages.ID_CANNOT_LESS_THEN_ONE)
     private int colorId;
 
     @NotBlank
     @NotNull
-    @Size(min = 3, message = "Color name has to be greater than 3 chars.")
+    @Pattern(regexp = "^[abcçdefgğhıijklmnoöprsştuüvwqyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVWQYZ]{3,50}",
+             message = ValidationMessages.COLOR_NAME_VALIDATION_ERROR)
     private String colorName;
 }
