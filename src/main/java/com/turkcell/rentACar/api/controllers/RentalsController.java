@@ -29,10 +29,17 @@ public class RentalsController {
         return this.rentalService.getAll();
     }
 
-    @PostMapping("/add")
-    public Result add(@RequestBody @Valid CreateRentalRequest createRentalRequest) throws BusinessException
+    @PostMapping("/addForIndividual")
+    public Result addForIndividualCustomer(@RequestBody @Valid CreateRentalRequest createRentalRequest) throws BusinessException
     {
-        return this.rentalService.add(createRentalRequest);
+        return this.rentalService.addRentalForIndividualCustomer(createRentalRequest);
+    }
+
+
+    @PostMapping("/addForCorporate")
+    public Result addForCorporateCustomer(@RequestBody @Valid CreateRentalRequest createRentalRequest) throws BusinessException
+    {
+        return this.rentalService.addRentalForCorporateCustomer(createRentalRequest);
     }
 
     @PutMapping("/update")
