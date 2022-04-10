@@ -12,8 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PasswordValidatorTest {
 
-
-
     @ParameterizedTest(name = "#{index} - Run test with password = {0}")
     @MethodSource("validPasswordProvider")
     void test_password_regex_valid(String password) {

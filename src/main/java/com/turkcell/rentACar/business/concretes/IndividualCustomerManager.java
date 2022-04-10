@@ -14,10 +14,10 @@ import com.turkcell.rentACar.entities.dtos.get.GetIndividualCustomerDto;
 import com.turkcell.rentACar.entities.dtos.list.IndividualCustomerListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateIndividualCustomerRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateIndividualCustomerRequest;
-import com.turkcell.rentACar.entities.sourceEntities.Customer;
 import com.turkcell.rentACar.entities.sourceEntities.IndividualCustomer;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,6 +50,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
     public DataResult<GetIndividualCustomerDto> getById(int userId) throws BusinessException {
 
         this.userService.isExistsUserByUserId(userId);
+        isIndividualCustomerExistsById(userId);
 
         IndividualCustomer customer = this.individualCustomerDao.getById(userId);
         GetIndividualCustomerDto result = this.modelMapperService.forDto().map(customer,GetIndividualCustomerDto.class);
@@ -64,7 +65,6 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         isIndividualCustomerExistsByNationalId(createIndividualCustomerRequest.getNationalId());
 
         IndividualCustomer customer= this.modelMapperService.forRequest().map(createIndividualCustomerRequest, IndividualCustomer.class);
-        customer.setUserId(0);
         this.individualCustomerDao.save(customer);
 
         return new SuccessResult(BusinessMessages.SUCCESS_ADD);
@@ -74,10 +74,13 @@ public class IndividualCustomerManager implements IndividualCustomerService {
     public Result update(UpdateIndividualCustomerRequest updateIndividualCustomerRequest) throws BusinessException {
 
         this.userService.isExistsUserByUserId(updateIndividualCustomerRequest.getUserId());
+        isIndividualCustomerExistsById(updateIndividualCustomerRequest.getUserId());
         this.userService.isExistsUserByEmail(updateIndividualCustomerRequest.getEmail());
         isIndividualCustomerExistsByNationalId(updateIndividualCustomerRequest.getNationalId());
+        LocalDate creationDate = this.individualCustomerDao.findById(updateIndividualCustomerRequest.getUserId()).get().getRegisterDate();
 
         IndividualCustomer customer = this.modelMapperService.forRequest().map(updateIndividualCustomerRequest, IndividualCustomer.class);
+        customer.setRegisterDate(creationDate);
         this.individualCustomerDao.save(customer);
 
         return new SuccessResult(BusinessMessages.SUCCESS_UPDATE);
@@ -87,6 +90,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
     public Result delete(int userId) throws BusinessException {
 
         this.userService.isExistsUserByUserId(userId);
+        isIndividualCustomerExistsById(userId);
 
         this.individualCustomerDao.deleteById(userId);
 
@@ -100,5 +104,16 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         }
     }
 
+    @Override
+    public IndividualCustomer getCustomerById(int id){
+        return this.individualCustomerDao.getById(id);
+    }
+
+    @Override
+    public void isIndividualCustomerExistsById(int id) throws BusinessException {
+        if (!this.individualCustomerDao.existsById(id)){
+            throw new BusinessException(BusinessMessages.ERROR_INDIVIDUAL_CUSTOMER_NOT_FOUND);
+        }
+    }
 
 }

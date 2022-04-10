@@ -8,6 +8,7 @@ import com.turkcell.rentACar.entities.dtos.list.CarMaintenanceListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateCarMaintenanceRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateCarMaintenanceRequest;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface CarMaintenanceService {
@@ -28,5 +29,5 @@ public interface CarMaintenanceService {
 
     void isExistsCarByCarId(int carId) throws BusinessException;
 
-    void isCarUnderMaintenance(int carId) throws BusinessException; //Burayı kiralanabilme kontrolünde kullanacaksın!!!!
+    void isCarUnderMaintenanceForRental(int carId, LocalDate rentDate) throws BusinessException;
 }

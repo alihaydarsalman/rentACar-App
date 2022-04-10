@@ -7,6 +7,7 @@ import com.turkcell.rentACar.entities.dtos.get.GetIndividualCustomerDto;
 import com.turkcell.rentACar.entities.dtos.list.IndividualCustomerListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateIndividualCustomerRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateIndividualCustomerRequest;
+import com.turkcell.rentACar.entities.sourceEntities.IndividualCustomer;
 
 import java.util.List;
 
@@ -21,4 +22,9 @@ public interface IndividualCustomerService {
     Result update(UpdateIndividualCustomerRequest updateIndividualCustomerRequest) throws BusinessException;
 
     Result delete(int userId) throws BusinessException;
+
+    IndividualCustomer getCustomerById(int id);
+
+    void isIndividualCustomerExistsById(int id) throws BusinessException;
+
 }

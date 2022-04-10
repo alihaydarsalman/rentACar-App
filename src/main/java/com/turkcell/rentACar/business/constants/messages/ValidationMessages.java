@@ -21,5 +21,5 @@ public final class ValidationMessages {
     public static final String CUSTOMER_NAME_VALIDATION_ERROR = "Last name size has to be 2-50. And name cannot contains special characters.";
     public static final String CUSTOMER_LAST_NAME_VALIDATION_ERROR = "Last name size has to be 2-50. And name cannot contains special characters.";
     public static final String NATIONAL_IDENTITY_VALIDATION_ERROR = "National identity length has to be 11 characters and each characters has to be number.";
-    public static final String PASSWORD_VALIDATION_ERROR = "Password must contain at least digit, lowercase and uppercase and at least once special chars.";
+    public static final String PASSWORD_VALIDATION_ERROR = "Password must contain at least digit, lowercase and uppercase and at least once special chars and password size has to be 8-20 chars.";
 }

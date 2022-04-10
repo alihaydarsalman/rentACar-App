@@ -31,16 +31,21 @@ public class RentalManager implements RentalService {
     private CarMaintenanceService carMaintenanceService;
     private AdditionService additionService;
     private CityService cityService;
+    private IndividualCustomerService individualCustomerService;
+    private CorporateCustomerService corporateCustomerService;
 
     public RentalManager(ModelMapperService modelMapperService, RentalDao rentalDao, CarService carService
-                        , @Lazy CarMaintenanceService carMaintenanceService
-                        , AdditionService additionService, CityService cityService) {
+            , @Lazy CarMaintenanceService carMaintenanceService
+            , AdditionService additionService, CityService cityService
+            , IndividualCustomerService individualCustomerService, CorporateCustomerService corporateCustomerService) {
         this.modelMapperService = modelMapperService;
         this.rentalDao = rentalDao;
         this.carService = carService;
         this.carMaintenanceService=carMaintenanceService;
         this.additionService=additionService;
         this.cityService = cityService;
+        this.individualCustomerService = individualCustomerService;
+        this.corporateCustomerService = corporateCustomerService;
     }
 
     @Override
@@ -60,13 +65,15 @@ public class RentalManager implements RentalService {
         Rental rental = this.modelMapperService.forRequest().map(createRentalRequest,Rental.class);
 
         this.carService.isExistsByCarId(createRentalRequest.getCarId());
-        this.carMaintenanceService.isCarUnderMaintenance(createRentalRequest.getCarId());
         this.cityService.isExistsByCityId(createRentalRequest.getFromCityId());
         this.cityService.isExistsByCityId(createRentalRequest.getToCityId());
+        this.carMaintenanceService.isCarUnderMaintenanceForRental(createRentalRequest.getCarId(),createRentalRequest.getRentDate());
         areDatesValid(createRentalRequest.getRentDate());
         isRentDateAfterReturnDate(createRentalRequest.getRentDate(),createRentalRequest.getRentReturnDate());
         isCarCanRented(createRentalRequest);
         checkIfAdditionsNull(rental, createRentalRequest);
+        this.individualCustomerService.isIndividualCustomerExistsById(createRentalRequest.getUserId());
+        rental.setCustomer(this.individualCustomerService.getCustomerById(createRentalRequest.getUserId()));
 
         this.rentalDao.save(rental);
 
@@ -79,13 +86,15 @@ public class RentalManager implements RentalService {
         Rental rental = this.modelMapperService.forRequest().map(createRentalRequest,Rental.class);
 
         this.carService.isExistsByCarId(createRentalRequest.getCarId());
-        this.carMaintenanceService.isCarUnderMaintenance(createRentalRequest.getCarId());
         this.cityService.isExistsByCityId(createRentalRequest.getFromCityId());
         this.cityService.isExistsByCityId(createRentalRequest.getToCityId());
+        this.carMaintenanceService.isCarUnderMaintenanceForRental(createRentalRequest.getCarId(),createRentalRequest.getRentDate());
         areDatesValid(createRentalRequest.getRentDate());
         isRentDateAfterReturnDate(createRentalRequest.getRentDate(),createRentalRequest.getRentReturnDate());
         isCarCanRented(createRentalRequest);
         checkIfAdditionsNull(rental,createRentalRequest);
+        this.corporateCustomerService.isCorporateCustomerExistsById(createRentalRequest.getUserId());
+        rental.setCustomer(this.corporateCustomerService.getCustomerById(createRentalRequest.getUserId()));
 
         this.rentalDao.save(rental);
 
@@ -94,17 +103,40 @@ public class RentalManager implements RentalService {
 
 
     @Override
-    public Result update(UpdateRentalRequest updateRentalRequest) throws BusinessException {
+    public Result updateForIndividualCustomer(UpdateRentalRequest updateRentalRequest) throws BusinessException {
 
         Rental rental=this.modelMapperService.forRequest().map(updateRentalRequest,Rental.class);
 
         isExistsByRentalId(updateRentalRequest.getRentId());
         this.carService.isExistsByCarId(updateRentalRequest.getCarId());
-        this.carMaintenanceService.isCarUnderMaintenance(updateRentalRequest.getCarId());
+        this.carMaintenanceService.isCarUnderMaintenanceForRental(updateRentalRequest.getCarId(),updateRentalRequest.getRentDate());
         areDatesValid(updateRentalRequest.getRentDate());
         isRentDateAfterReturnDate(updateRentalRequest.getRentDate(),updateRentalRequest.getRentReturnDate());
         isCarCanRented(updateRentalRequest);
         checkIfAdditionsNull(rental, updateRentalRequest);
+        this.individualCustomerService.isIndividualCustomerExistsById(updateRentalRequest.getUserId());
+        rental.setCustomer(this.individualCustomerService.getCustomerById(updateRentalRequest.getUserId()));
+
+        this.rentalDao.save(rental);
+
+        return new SuccessResult(BusinessMessages.SUCCESS_UPDATE);
+    }
+
+
+    @Override
+    public Result updateForCorporateCustomer(UpdateRentalRequest updateRentalRequest) throws BusinessException {
+
+        Rental rental=this.modelMapperService.forRequest().map(updateRentalRequest,Rental.class);
+
+        isExistsByRentalId(updateRentalRequest.getRentId());
+        this.carService.isExistsByCarId(updateRentalRequest.getCarId());
+        this.carMaintenanceService.isCarUnderMaintenanceForRental(updateRentalRequest.getCarId(),updateRentalRequest.getRentDate());
+        areDatesValid(updateRentalRequest.getRentDate());
+        isRentDateAfterReturnDate(updateRentalRequest.getRentDate(),updateRentalRequest.getRentReturnDate());
+        isCarCanRented(updateRentalRequest);
+        checkIfAdditionsNull(rental, updateRentalRequest);
+        this.corporateCustomerService.isCorporateCustomerExistsById(updateRentalRequest.getUserId());
+        rental.setCustomer(this.corporateCustomerService.getCustomerById(updateRentalRequest.getUserId()));
 
         this.rentalDao.save(rental);
 
@@ -163,7 +195,7 @@ public class RentalManager implements RentalService {
         List<Rental> rentals = this.rentalDao.getRentalByCar_CarId(carId);
         for(Rental rental:rentals){
             if(rental.getRentReturnDate().isAfter(LocalDate.now())){
-                throw new BusinessException(BusinessMessages.ERROR_CAR_STILL_RENTED);
+                throw new BusinessException(BusinessMessages.ERROR_CAR_STILL_RENTED_CANNOT_GO_MAINTENANCE);
             }
         }
     }

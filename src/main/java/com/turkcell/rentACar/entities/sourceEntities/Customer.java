@@ -21,7 +21,7 @@ public class Customer extends User{
 
     @Column(name = "register_date")
     @CreationTimestamp
-    LocalDate registerDate;
+    private LocalDate registerDate;
 
     @OneToMany(mappedBy = "customer")
     private List<Rental> rentals;

@@ -18,7 +18,9 @@ public interface RentalService {
 
     Result addRentalForCorporateCustomer(CreateRentalRequest createRentalRequest) throws BusinessException;
 
-    Result update(UpdateRentalRequest updateRentalRequest) throws BusinessException;
+    Result updateForIndividualCustomer(UpdateRentalRequest updateRentalRequest) throws BusinessException;
+
+    Result updateForCorporateCustomer(UpdateRentalRequest updateRentalRequest) throws BusinessException;
 
     Result delete(int rentId) throws BusinessException;
 

@@ -23,6 +23,7 @@ public class RentalsController {
         this.rentalService = rentalService;
     }
 
+
     @GetMapping("/getAll")
     public DataResult<List<RentalListDto>> getAll()
     {
@@ -30,11 +31,9 @@ public class RentalsController {
     }
 
     @PostMapping("/addForIndividual")
-    public Result addForIndividualCustomer(@RequestBody @Valid CreateRentalRequest createRentalRequest) throws BusinessException
-    {
+    public Result addForIndividualCustomer(@RequestBody @Valid CreateRentalRequest createRentalRequest) throws BusinessException {
         return this.rentalService.addRentalForIndividualCustomer(createRentalRequest);
     }
-
 
     @PostMapping("/addForCorporate")
     public Result addForCorporateCustomer(@RequestBody @Valid CreateRentalRequest createRentalRequest) throws BusinessException
@@ -42,10 +41,16 @@ public class RentalsController {
         return this.rentalService.addRentalForCorporateCustomer(createRentalRequest);
     }
 
-    @PutMapping("/update")
-    public Result update(@RequestBody @Valid UpdateRentalRequest updateRentalRequest) throws BusinessException
+    @PutMapping("/updateForIndividual")
+    public Result updateForIndividualCustomer(@RequestBody @Valid UpdateRentalRequest updateRentalRequest) throws BusinessException
     {
-        return this.rentalService.update(updateRentalRequest);
+        return this.rentalService.updateForIndividualCustomer(updateRentalRequest);
+    }
+
+    @PutMapping("/updateForCorporate")
+    public Result updateForCorporateCustomer(@RequestBody @Valid UpdateRentalRequest updateRentalRequest) throws BusinessException
+    {
+        return this.rentalService.updateForCorporateCustomer(updateRentalRequest);
     }
 
     @DeleteMapping("/delete")

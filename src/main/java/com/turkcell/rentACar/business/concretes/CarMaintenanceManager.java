@@ -16,6 +16,7 @@ import com.turkcell.rentACar.entities.dtos.list.CarMaintenanceListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateCarMaintenanceRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateCarMaintenanceRequest;
 import com.turkcell.rentACar.entities.sourceEntities.CarMaintenance;
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
@@ -51,13 +52,12 @@ public class CarMaintenanceManager implements CarMaintenanceService {
     @Override
     public Result add(CreateCarMaintenanceRequest createCarMaintenanceRequest) throws BusinessException {
 
+        isMaintenanceReturnDateBeforeNow(createCarMaintenanceRequest.getMaintenanceReturnDate());
+        isCarStillUnderMaintenance(createCarMaintenanceRequest.getCarId());
         this.carService.isExistsByCarId(createCarMaintenanceRequest.getCarId());
-        isCarUnderMaintenance(createCarMaintenanceRequest.getCarId());
-        isMaintenanceReturnDateBeforeNow(createCarMaintenanceRequest);
         this.rentalService.isCarStillRented(createCarMaintenanceRequest.getCarId());
 
         CarMaintenance carMaintenance = this.modelMapperService.forRequest().map(createCarMaintenanceRequest, CarMaintenance.class);
-        carMaintenance.setMaintenanceId(0);
         this.carMaintenanceDao.save(carMaintenance);
 
         return new SuccessResult(BusinessMessages.SUCCESS_ADD);
@@ -66,10 +66,10 @@ public class CarMaintenanceManager implements CarMaintenanceService {
     @Override
     public Result update(UpdateCarMaintenanceRequest updateCarMaintenanceRequest) throws BusinessException {
 
+        isMaintenanceReturnDateBeforeNow(updateCarMaintenanceRequest.getMaintenanceReturnDate());
         isExistsByMaintenanceId(updateCarMaintenanceRequest.getMaintenanceId());
-        this.carService.isExistsByCarId(updateCarMaintenanceRequest.getCarId());
-        isMaintenanceReturnDateBeforeNow(updateCarMaintenanceRequest);
         isCarAlreadyReturnFromMaintenance(updateCarMaintenanceRequest.getMaintenanceId());
+        this.carService.isExistsByCarId(updateCarMaintenanceRequest.getCarId());
         this.rentalService.isCarStillRented(updateCarMaintenanceRequest.getCarId());
 
         CarMaintenance carMaintenance = this.modelMapperService.forRequest().map(updateCarMaintenanceRequest,CarMaintenance.class);
@@ -82,6 +82,7 @@ public class CarMaintenanceManager implements CarMaintenanceService {
     public Result delete(int maintenanceId) throws BusinessException{
 
         isExistsByMaintenanceId(maintenanceId);
+        isCarStillUnderMaintenance(maintenanceId);
 
         this.carMaintenanceDao.deleteById(maintenanceId);
 
@@ -120,38 +121,25 @@ public class CarMaintenanceManager implements CarMaintenanceService {
         }
     }
 
-    public void isExistsByCarIdOnMaintenanceTable(int carId) throws BusinessException{
+    private void isExistsByCarIdOnMaintenanceTable(int carId) throws BusinessException{
         if(!this.carMaintenanceDao.existsByCar_CarId(carId)){
             throw new BusinessException(BusinessMessages.ERROR_MAINTENANCE_NOT_FOUND_BY_CAR_ID);
         }
     }
 
-
-    public void isMaintenanceReturnDateBeforeNow(CreateCarMaintenanceRequest createCarMaintenanceRequest) throws BusinessException {
-        if(createCarMaintenanceRequest.getMaintenanceReturnDate().isBefore(LocalDate.now())){
-            throw new BusinessException(BusinessMessages.ERROR_MAINTENANCE_RETURN_DATE_CANNOT_BEFORE_NOW);
+    private void isMaintenanceReturnDateBeforeNow(LocalDate returnDate) throws BusinessException {
+        if (returnDate != null){
+            if(returnDate.isBefore(LocalDate.now())){
+                throw new BusinessException(BusinessMessages.ERROR_MAINTENANCE_RETURN_DATE_CANNOT_BEFORE_NOW);
+            }
         }
     }
 
-    public void isMaintenanceReturnDateBeforeNow(UpdateCarMaintenanceRequest updateCarMaintenanceRequest) throws BusinessException {
-        if(updateCarMaintenanceRequest.getMaintenanceReturnDate().isBefore(LocalDate.now())){
-            throw new BusinessException(BusinessMessages.ERROR_MAINTENANCE_RETURN_DATE_CANNOT_BEFORE_NOW);
-        }
-    }
-
-    public void isCarAlreadyReturnFromMaintenance(int maintenanceId) throws BusinessException {
+    private void isCarAlreadyReturnFromMaintenance(int maintenanceId) throws BusinessException {
         CarMaintenance carMaintenance= this.carMaintenanceDao.getById(maintenanceId);
-        if(carMaintenance.getMaintenanceReturnDate().isBefore(LocalDate.now())){
-            throw new BusinessException(BusinessMessages.ERROR_CAR_RETURNED_FROM_MAINTENANCE_CANNOT_UPDATE);
-        }
-    }
-
-    @Override
-    public void isCarUnderMaintenance(int carId) throws BusinessException{
-        List<CarMaintenance> carMaintenances = this.carMaintenanceDao.getCarMaintenanceByCar_CarId(carId);
-        for(CarMaintenance carMaintenance:carMaintenances) {
-            if (carMaintenance.getMaintenanceReturnDate()==null || carMaintenance.getMaintenanceReturnDate().isAfter(LocalDate.now())) {
-                throw new BusinessException(BusinessMessages.ERROR_CAR_ALREADY_UNDER_MAINTENANCE);
+        if (carMaintenance.getMaintenanceReturnDate() != null){
+            if(carMaintenance.getMaintenanceReturnDate().isBefore(LocalDate.now())){
+                throw new BusinessException(BusinessMessages.ERROR_CAR_RETURNED_FROM_MAINTENANCE_CANNOT_UPDATE);
             }
         }
     }
@@ -162,4 +150,52 @@ public class CarMaintenanceManager implements CarMaintenanceService {
             throw new BusinessException(BusinessMessages.ERROR_CAR_CANNOT_DELETE);
         }
     }
+
+    private void isCarStillUnderMaintenance(int carId) throws BusinessException{
+        List<CarMaintenance> carMaintenances = this.carMaintenanceDao.findCarMaintenanceByCar_CarId(carId);
+        for(CarMaintenance carMaintenance:carMaintenances) {
+            if (carMaintenance != null){
+                if (carMaintenance.getMaintenanceReturnDate()==null || carMaintenance.getMaintenanceReturnDate().isAfter(LocalDate.now())) {
+                    throw new BusinessException(BusinessMessages.ERROR_CAR_ALREADY_UNDER_MAINTENANCE);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void isCarUnderMaintenanceForRental(int carId, LocalDate rentDate) throws BusinessException {
+        List<CarMaintenance> carMaintenances = this.carMaintenanceDao.findCarMaintenanceByCar_CarId(carId);
+
+        if (carMaintenances != null){
+            for (CarMaintenance carMaintenance: carMaintenances){
+                if (carMaintenance.getMaintenanceReturnDate() == null){
+                    throw new BusinessException(BusinessMessages.ERROR_CAR_ALREADY_UNDER_MAINTENANCE_UNKNOWN_RETURN_DATE);
+                }
+                else{
+                    if (carMaintenance.getMaintenanceReturnDate().isAfter(rentDate) || carMaintenance.getMaintenanceReturnDate().isEqual(rentDate)){
+                        throw new BusinessException(BusinessMessages.ERROR_CAR_ALREADY_UNDER_MAINTENANCE_CANNOT_RENTED + carMaintenance.getMaintenanceReturnDate());
+                    }
+                }
+            }
+        }
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

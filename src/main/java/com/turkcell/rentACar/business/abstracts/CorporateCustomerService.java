@@ -7,6 +7,7 @@ import com.turkcell.rentACar.entities.dtos.get.GetCorporateCustomerDto;
 import com.turkcell.rentACar.entities.dtos.list.CorporateCustomerListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateCorporateCustomerRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateCorporateCustomerRequest;
+import com.turkcell.rentACar.entities.sourceEntities.CorporateCustomer;
 
 import java.util.List;
 
@@ -22,4 +23,7 @@ public interface CorporateCustomerService {
 
     Result delete(int userId) throws BusinessException;
 
+    CorporateCustomer getCustomerById(int id);
+
+    void isCorporateCustomerExistsById(int id) throws BusinessException;
 }
