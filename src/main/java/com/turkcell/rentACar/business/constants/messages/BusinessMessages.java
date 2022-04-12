@@ -72,5 +72,8 @@ public final class BusinessMessages {
     public static final String ERROR_INVOICE_NOT_FOUND = "Invoice not found! Invoice id is not exists.";
     public static final String INVOICE_NOT_FOUND_BY_CUSTOMER = "No purchase history found for this user.";
 
+    //DAMAGE
+    public static final String ERROR_DAMAGE_NOT_FOUND = "Damage info not found! Damage id is not exists.";
+    public static final String DAMAGE_NOT_FOUND_BY_CAR = "No damage info found for this car.";
 
 }

@@ -196,8 +196,7 @@ public class CarManager implements CarService {
 
     @Override
     public void isExistsByCarId(int carId) throws BusinessException {
-        if(!this.carDao.existsByCarId(carId))
-        {
+        if(!this.carDao.existsByCarId(carId)) {
             throw new BusinessException(BusinessMessages.ERROR_CAR_NOT_FOUND);
         }
     }

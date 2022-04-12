@@ -187,6 +187,7 @@ public class RentalManager implements RentalService {
 
     @Override
     public Rental getByRentalId(int rentId) throws BusinessException {
+
         isRentalExistsByRentalId(rentId);
 
         return this.rentalDao.getById(rentId);
