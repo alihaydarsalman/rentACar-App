@@ -24,5 +24,4 @@ public class Addition {
 
     @Column(name = "addition_daily_price")
     double additionDailyPrice;
-
 }

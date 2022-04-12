@@ -26,5 +26,4 @@ public interface IndividualCustomerService {
     IndividualCustomer getCustomerById(int id);
 
     void isIndividualCustomerExistsById(int id) throws BusinessException;
-
 }

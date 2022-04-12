@@ -66,6 +66,11 @@ public final class BusinessMessages {
     public static final String ERROR_NATIONAL_IDENTITY_ALREADY_EXISTS = "National identity has already exists.";
     public static final String ERROR_CORPORATE_CUSTOMER_NOT_FOUND = "Customer not found! Corporate customer id is not exists.";
     public static final String ERROR_INDIVIDUAL_CUSTOMER_NOT_FOUND = "Customer not found! Individual customer id is not exists.";
+    public static final String ERROR_CUSTOMER_NOT_FOUND = "Customer not found! Customer id is not exists.";
+
+    //INVOICE
+    public static final String ERROR_INVOICE_NOT_FOUND = "Invoice not found! Invoice id is not exists.";
+    public static final String INVOICE_NOT_FOUND_BY_CUSTOMER = "No purchase history found for this user.";
 
 
 }

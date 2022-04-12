@@ -29,5 +29,4 @@ public class City {
 
     @OneToMany(mappedBy = "toCity")
     private List<Rental> toCity;
-
 }

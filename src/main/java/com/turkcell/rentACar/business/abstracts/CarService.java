@@ -8,6 +8,7 @@ import com.turkcell.rentACar.entities.dtos.get.GetCarDto;
 import com.turkcell.rentACar.entities.dtos.list.CarListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateCarRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateCarRequest;
+import com.turkcell.rentACar.entities.sourceEntities.Car;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
@@ -23,6 +24,8 @@ public interface CarService {
     Result delete(int carId) throws BusinessException;
 
     DataResult<GetCarDto> getById(int carId) throws BusinessException;
+
+    Car getCarByCarId(int carId) throws BusinessException;
 
     void isExistsByCarId(int carId) throws BusinessException;
 

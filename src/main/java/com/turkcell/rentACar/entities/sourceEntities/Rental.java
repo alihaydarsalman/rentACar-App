@@ -48,4 +48,7 @@ public class Rental {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Customer customer;
+
+    @OneToMany(mappedBy = "rental")
+    private List<Invoice> invoices;
 }

@@ -7,12 +7,14 @@ import com.turkcell.rentACar.entities.dtos.get.GetRentalDto;
 import com.turkcell.rentACar.entities.dtos.list.RentalListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateRentalRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateRentalRequest;
+import com.turkcell.rentACar.entities.sourceEntities.Rental;
 
 import java.util.List;
 
 public interface RentalService {
 
     DataResult<List<RentalListDto>> getAll();
+
 
     Result addRentalForIndividualCustomer(CreateRentalRequest createRentalRequest) throws BusinessException;
 
@@ -26,7 +28,11 @@ public interface RentalService {
 
     DataResult<GetRentalDto> getById(int rentId) throws BusinessException;
 
+    Rental getByRentalId(int rentId) throws BusinessException;
+
     DataResult<List<RentalListDto>> getByCarId(int carId) throws BusinessException;
 
     void isCarStillRented(int carId) throws BusinessException;
+
+    void isRentalExistsByRentalId(int rentId) throws BusinessException;
 }

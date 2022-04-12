@@ -103,6 +103,11 @@ public class CarManager implements CarService {
         return new SuccessDataResult<>(result,BusinessMessages.SUCCESS_GET);
     }
 
+    @Override
+    public Car getCarByCarId(int carId) throws BusinessException {
+        isExistsByCarId(carId);
+        return this.carDao.getById(carId);
+    }
 
     @Override
     public DataResult<List<CarListDto>> getAllPaged(int pageNo, int pageSize) {

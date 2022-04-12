@@ -19,5 +19,5 @@ public class RentalListDto {
     private String fromCityName;
     private String  toCityName;
     private List<AdditionListDto> additionList;
-    private int userId;
+    private CustomerListDto customerListDto;
 }

@@ -4,12 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetAdditionDto {
+public class GetCustomerDto {
 
-    int additionId;
-    String additionName;
-    double additionDailyPrice;
+    private int userId;
+    private String email;
+    private LocalDate registerDate;
 }
