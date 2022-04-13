@@ -10,10 +10,12 @@ import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
 import com.turkcell.rentACar.core.utilities.results.SuccessResult;
 import com.turkcell.rentACar.dataAccess.RentalDao;
 import com.turkcell.rentACar.entities.dtos.get.GetRentalDto;
+import com.turkcell.rentACar.entities.dtos.list.AdditionListDto;
 import com.turkcell.rentACar.entities.dtos.list.RentalListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateRentalRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateRentalRequest;
 import com.turkcell.rentACar.entities.sourceEntities.Addition;
+import com.turkcell.rentACar.entities.sourceEntities.Car;
 import com.turkcell.rentACar.entities.sourceEntities.Rental;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -108,7 +110,7 @@ public class RentalManager implements RentalService {
 
 
     @Override
-    public Result updateForIndividualCustomer(UpdateRentalRequest updateRentalRequest) throws BusinessException {
+    public Result updateRentalForIndividualCustomer(UpdateRentalRequest updateRentalRequest) throws BusinessException {
 
         Rental rental=this.modelMapperService.forRequest().map(updateRentalRequest,Rental.class);
 
@@ -129,7 +131,7 @@ public class RentalManager implements RentalService {
 
 
     @Override
-    public Result updateForCorporateCustomer(UpdateRentalRequest updateRentalRequest) throws BusinessException {
+    public Result updateRentalForCorporateCustomer(UpdateRentalRequest updateRentalRequest) throws BusinessException {
 
         Rental rental=this.modelMapperService.forRequest().map(updateRentalRequest,Rental.class);
 
@@ -149,6 +151,37 @@ public class RentalManager implements RentalService {
     }
 
     @Override
+    public Result deliverCar(int rentId, int carId) throws BusinessException {
+
+        isExistsByCarIdOnRentalTable(carId);
+        isRentalExistsByRentalId(rentId);
+        this.carService.isExistsByCarId(carId);
+
+        Rental rental = this.rentalDao.getById(rentId);
+
+        rental.setRentKilometer(rental.getCar().getCurrentKilometer());
+
+        this.rentalDao.save(rental);
+
+        return new SuccessResult(BusinessMessages.SUCCESS_DELIVER);
+    }
+
+    @Override
+    public Result receiveCar(int rentId, int carId, double returnKilometer) throws BusinessException {
+
+        isExistsByCarIdOnRentalTable(carId);
+        isRentalExistsByRentalId(rentId);
+
+        Rental rental = this.rentalDao.getById(rentId);
+
+        this.carService.updateCurrentKilometer(carId, returnKilometer);
+        rental.setRentReturnKilometer(rental.getCar().getCurrentKilometer());
+        this.rentalDao.save(rental);
+
+        return new SuccessResult(BusinessMessages.SUCCESS_RECEIVE);
+    }
+
+    @Override
     public Result delete(int rentId) throws BusinessException {
 
         isRentalExistsByRentalId(rentId);
@@ -156,6 +189,20 @@ public class RentalManager implements RentalService {
         this.rentalDao.deleteById(rentId);
 
         return new SuccessResult(BusinessMessages.SUCCESS_DELETE);
+    }
+
+    @Override
+    public DataResult<List<AdditionListDto>> getOrdersByRent(int rentId) {
+
+        Rental rental = this.rentalDao.getById(rentId);
+
+        List<Addition> additions = rental.getAdditionList();
+
+        List<AdditionListDto> result = additions.stream()
+                .map(addition -> this.modelMapperService.forDto().map(addition, AdditionListDto.class))
+                .collect(Collectors.toList());
+
+        return new SuccessDataResult(result, BusinessMessages.SUCCESS_LIST);
     }
 
     @Override
@@ -315,4 +362,5 @@ public class RentalManager implements RentalService {
             }
         }
     }
+
 }

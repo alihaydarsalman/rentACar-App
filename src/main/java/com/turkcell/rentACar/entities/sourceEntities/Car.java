@@ -30,6 +30,9 @@ public class Car {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "kilometers_of_car")
+    private double currentKilometer;
+
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;

@@ -5,10 +5,10 @@ import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
 import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.entities.dtos.get.GetRentalDto;
+import com.turkcell.rentACar.entities.dtos.list.AdditionListDto;
 import com.turkcell.rentACar.entities.dtos.list.RentalListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateRentalRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateRentalRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -46,13 +46,13 @@ public class RentalsController {
     @PutMapping("/updateForIndividual")
     public Result updateForIndividualCustomer(@RequestBody @Valid UpdateRentalRequest updateRentalRequest) throws BusinessException
     {
-        return this.rentalService.updateForIndividualCustomer(updateRentalRequest);
+        return this.rentalService.updateRentalForIndividualCustomer(updateRentalRequest);
     }
 
     @PutMapping("/updateForCorporate")
     public Result updateForCorporateCustomer(@RequestBody @Valid UpdateRentalRequest updateRentalRequest) throws BusinessException
     {
-        return this.rentalService.updateForCorporateCustomer(updateRentalRequest);
+        return this.rentalService.updateRentalForCorporateCustomer(updateRentalRequest);
     }
 
     @DeleteMapping("/delete")
@@ -67,9 +67,26 @@ public class RentalsController {
         return this.rentalService.getById(rentId);
     }
 
+    @GetMapping("/getOrdersByRent")
+    public DataResult<List<AdditionListDto>> getOrdersByRent(@RequestParam int rentId){
+        return this.rentalService.getOrdersByRent(rentId);
+    }
+
     @GetMapping("/getByCarId")
     public DataResult<List<RentalListDto>> getByCarId(@RequestParam int carId) throws BusinessException
     {
         return this.rentalService.getByCarId(carId);
+    }
+
+    //Asagidaki iki endpoint firma tarafindan kullanilacak
+
+    @PutMapping("/deliver")
+    public Result deliverCar(@RequestParam int rentId, @RequestParam int carId) throws BusinessException{
+        return this.rentalService.deliverCar(rentId,carId);
+    }
+
+    @PutMapping("/receive")
+    public Result receiveCar(@RequestParam int rentId,@RequestParam int carId, @RequestParam double returnKilometer) throws BusinessException{
+        return this.rentalService.receiveCar(rentId,carId,returnKilometer);
     }
 }

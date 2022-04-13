@@ -25,6 +25,10 @@ public class UpdateCarRequest {
     private int modelYear;
 
     @NotNull
+    @Min(value = 0, message = ValidationMessages.KILOMETER_VALIDATION_ERROR)
+    private double currentKilometer;
+
+    @NotNull
     @NotBlank
     @Pattern(regexp = "^[abcçdefgğhıijklmnoöprsştuüvwqyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVWQYZ 0-9]{3,100}",
              message = ValidationMessages.CAR_DESCRIPTION_VALIDATION_ERROR)

@@ -27,6 +27,10 @@ public class CreateCarRequest {
     private String description;
 
     @NotNull
+    @Min(value = 0, message = ValidationMessages.KILOMETER_VALIDATION_ERROR)
+    private double currentKilometer;
+
+    @NotNull
     @Min(value = 1, message = ValidationMessages.ID_CANNOT_LESS_THEN_ONE)
     private int brandId;
 

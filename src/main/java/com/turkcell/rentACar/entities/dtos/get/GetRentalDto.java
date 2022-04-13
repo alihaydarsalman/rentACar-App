@@ -18,6 +18,8 @@ public class GetRentalDto {
     private LocalDate rentReturnDate;
     private String brandName;
     private String description;
+    private double rentKilometer;
+    private double rentReturnKilometer;
     private String fromCityName;
     private String  toCityName;
     private List<AdditionListDto> additionList;

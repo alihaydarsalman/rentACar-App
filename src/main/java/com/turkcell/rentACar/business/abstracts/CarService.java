@@ -46,4 +46,6 @@ public interface CarService {
     DataResult<List<CarListDto>> getAllByBrandId(int brandId) throws BusinessException;
 
     DataResult<List<CarListDto>> getAllByModelYear(int modelYear);
+
+    void updateCurrentKilometer(int carId, double returnKilometer) throws BusinessException;
 }

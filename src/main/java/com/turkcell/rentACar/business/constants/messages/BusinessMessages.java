@@ -12,6 +12,8 @@ public final class BusinessMessages {
     public static final String SUCCESS_UPDATE = "Updated Successfully.";
     public static final String SUCCESS_DELETE = "Deleted Successfully.";
     public static final String SUCCESS_LIST_PAGED = "Paged Listed Successfully.";
+    public static final String SUCCESS_DELIVER = "The Car Delivered Successfully.";
+    public static final String SUCCESS_RECEIVE = "The Car Received Successfully.";
 
 
     /********************************* SPECIAL STATUS STRINGS *********************************/
@@ -51,6 +53,7 @@ public final class BusinessMessages {
     public static final String ERROR_CAR_ALREADY_RENTED = "The car reserved or rented. You cannot rent this car between these dates that you entered.";
     public static final String ERROR_RENT_DATE_CANNOT_AFTER_RETURN_DATE = "Rent date cannot after return date.";
     public static final String ERROR_INVALID_DATES = "Rent date cannot before now.";
+    public static final String ERROR_INVALID_KILOMETER_INFO = "Starting kilometer cannot be equal or greater than return kilometer.";
 
     //ADDITIONS
     public static final String ERROR_ADDITION_NOT_FOUND = "Addition not found! Addition id is not exists.";

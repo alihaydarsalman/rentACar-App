@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GetCarDto {
 
+    private String brandName;
     private String description;
     private int modelYear;
-    private double dailyPrice;
-    private String brandName;
     private String colorName;
+    private double currentKilometer;
+    private double dailyPrice;
 }

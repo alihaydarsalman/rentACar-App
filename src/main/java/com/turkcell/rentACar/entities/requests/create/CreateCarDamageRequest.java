@@ -18,7 +18,7 @@ public class CreateCarDamageRequest {
     @NotNull
     @NotBlank
     @Pattern(regexp = "^[abcçdefgğhıijklmnoöprsştuüvwqyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVWQYZ.,! 0-9]{3,100}",
-            message = ValidationMessages.CAR_DESCRIPTION_VALIDATION_ERROR)
+            message = ValidationMessages.DAMAGE_DESCRIPTION_VALIDATION_ERROR)
     private String damageDescription;
 
     @NotNull

@@ -10,7 +10,7 @@ public final class ValidationMessages {
     public static final String PRICE_CANNOT_NEGATIVE="Price cannot negative.";
 
 
-    //FOR REGEX
+    //FOR ALL VALIDATIONS IN REQUESTS PACKAGE
     public static final String ADDITION_NAME_VALIDATION_ERROR = "Addition name size has to be 2-50 characters. And name cannot contains special characters.";
     public static final String BRAND_NAME_VALIDATION_ERROR = "Brand name size has to be 2-50 characters. And name cannot contains special characters.";
     public static final String MAINTENANCE_DESCRIPTION_VALIDATION_ERROR = "Maintenance description size has to be 10-200 characters. And description cannot contains special characters.";
@@ -25,4 +25,6 @@ public final class ValidationMessages {
     public static final String NATIONAL_IDENTITY_VALIDATION_ERROR = "National identity length has to be 11 characters and each characters has to be number.";
     public static final String PASSWORD_VALIDATION_ERROR = "Password must contain at least digit, lowercase and uppercase and at least once special chars and password size has to be 8-20 chars.";
     public static final String DAMAGE_DESCRIPTION_VALIDATION_ERROR = "Damage description size has to be 3-100 characters. And description cannot contains special characters.";
+    public static final String KILOMETER_VALIDATION_ERROR = "Kilometer informations cannot be less than zero.";
+
 }

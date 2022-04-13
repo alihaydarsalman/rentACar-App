@@ -3,6 +3,8 @@ package com.turkcell.rentACar.entities.dtos.list;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,6 +18,8 @@ public class RentalListDto {
     private LocalDate rentReturnDate;
     private String brandName;
     private String description;
+    private double rentKilometer;
+    private double rentReturnKilometer;
     private String fromCityName;
     private String  toCityName;
     private List<AdditionListDto> additionList;

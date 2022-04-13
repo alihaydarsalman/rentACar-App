@@ -195,6 +195,20 @@ public class CarManager implements CarService {
     }
 
     @Override
+    public void updateCurrentKilometer(int carId, double returnKilometer) throws BusinessException {
+
+        isExistsByCarId(carId);
+
+        Car car = this.carDao.getById(carId);
+
+        isCurrentKilometerGreaterThanReturnKilometer(car.getCurrentKilometer(), returnKilometer);
+
+        car.setCurrentKilometer(returnKilometer);
+
+        this.carDao.save(car);
+    }
+
+    @Override
     public void isExistsByCarId(int carId) throws BusinessException {
         if(!this.carDao.existsByCarId(carId)) {
             throw new BusinessException(BusinessMessages.ERROR_CAR_NOT_FOUND);
@@ -214,4 +228,12 @@ public class CarManager implements CarService {
             throw new BusinessException(BusinessMessages.ERROR_COLOR_CANNOT_DELETE);
         }
     }
+
+    private void isCurrentKilometerGreaterThanReturnKilometer(double startKilometer, double endKilometer) throws BusinessException {
+        if(startKilometer>=endKilometer){
+            throw new BusinessException(BusinessMessages.ERROR_INVALID_KILOMETER_INFO);
+        }
+    }
+
+
 }
