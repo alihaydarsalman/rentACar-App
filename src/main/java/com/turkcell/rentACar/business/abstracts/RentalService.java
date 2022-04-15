@@ -16,9 +16,9 @@ public interface RentalService {
 
     DataResult<List<RentalListDto>> getAll();
 
-    Result addRentalForIndividualCustomer(CreateRentalRequest createRentalRequest) throws BusinessException;
+    Rental addRentalForIndividualCustomer(CreateRentalRequest createRentalRequest) throws BusinessException;
 
-    Result addRentalForCorporateCustomer(CreateRentalRequest createRentalRequest) throws BusinessException;
+    Rental addRentalForCorporateCustomer(CreateRentalRequest createRentalRequest) throws BusinessException;
 
     Result updateRentalForIndividualCustomer(UpdateRentalRequest updateRentalRequest) throws BusinessException;
 
@@ -41,4 +41,8 @@ public interface RentalService {
     void isCarStillRented(int carId) throws BusinessException;
 
     void isRentalExistsByRentalId(int rentId) throws BusinessException;
+
+    void setAdditionForRental(Rental rental, CreateRentalRequest createRentalRequest) throws BusinessException;
+
+
 }

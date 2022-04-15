@@ -1,5 +1,6 @@
 package com.turkcell.rentACar.entities.sourceEntities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "invoices")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "Lazy"})
 public class Invoice {
 
     @Id
@@ -45,4 +47,7 @@ public class Invoice {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Customer customer;
+
+    @OneToOne(mappedBy = "invoice")
+    private Payment payment;
 }

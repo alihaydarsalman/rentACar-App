@@ -32,28 +32,6 @@ public class RentalsController {
         return this.rentalService.getAll();
     }
 
-    @PostMapping("/addForIndividual")
-    public Result addForIndividualCustomer(@RequestBody @Valid CreateRentalRequest createRentalRequest) throws BusinessException {
-        return this.rentalService.addRentalForIndividualCustomer(createRentalRequest);
-    }
-
-    @PostMapping("/addForCorporate")
-    public Result addForCorporateCustomer(@RequestBody @Valid CreateRentalRequest createRentalRequest) throws BusinessException
-    {
-        return this.rentalService.addRentalForCorporateCustomer(createRentalRequest);
-    }
-
-    @PutMapping("/updateForIndividual")
-    public Result updateForIndividualCustomer(@RequestBody @Valid UpdateRentalRequest updateRentalRequest) throws BusinessException
-    {
-        return this.rentalService.updateRentalForIndividualCustomer(updateRentalRequest);
-    }
-
-    @PutMapping("/updateForCorporate")
-    public Result updateForCorporateCustomer(@RequestBody @Valid UpdateRentalRequest updateRentalRequest) throws BusinessException
-    {
-        return this.rentalService.updateRentalForCorporateCustomer(updateRentalRequest);
-    }
 
     @DeleteMapping("/delete")
     public Result delete(@RequestParam int rentId) throws BusinessException
@@ -77,8 +55,6 @@ public class RentalsController {
     {
         return this.rentalService.getByCarId(carId);
     }
-
-    //Asagidaki iki endpoint firma tarafindan kullanilacak
 
     @PutMapping("/deliver")
     public Result deliverCar(@RequestParam int rentId, @RequestParam int carId) throws BusinessException{

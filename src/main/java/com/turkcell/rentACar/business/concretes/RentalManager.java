@@ -67,7 +67,7 @@ public class RentalManager implements RentalService {
     //Çünkü bireysel müşteri ve kurumsal müşteri için fiyatlandırma değişebilir.
 
     @Override
-    public Result addRentalForIndividualCustomer(CreateRentalRequest createRentalRequest) throws BusinessException {
+    public Rental addRentalForIndividualCustomer(CreateRentalRequest createRentalRequest) throws BusinessException {
 
         Rental rental = this.modelMapperService.forRequest().map(createRentalRequest,Rental.class);
 
@@ -84,11 +84,11 @@ public class RentalManager implements RentalService {
 
         this.rentalDao.save(rental);
 
-        return new SuccessResult(BusinessMessages.SUCCESS_ADD);
+        return rental;
     }
 
     @Override
-    public Result addRentalForCorporateCustomer(CreateRentalRequest createRentalRequest) throws BusinessException {
+    public Rental addRentalForCorporateCustomer(CreateRentalRequest createRentalRequest) throws BusinessException {
 
         Rental rental = this.modelMapperService.forRequest().map(createRentalRequest,Rental.class);
 
@@ -105,7 +105,7 @@ public class RentalManager implements RentalService {
 
         this.rentalDao.save(rental);
 
-        return new SuccessResult(BusinessMessages.SUCCESS_ADD);
+        return rental;
     }
 
 
@@ -153,9 +153,11 @@ public class RentalManager implements RentalService {
     @Override
     public Result deliverCar(int rentId, int carId) throws BusinessException {
 
-        isExistsByCarIdOnRentalTable(carId);
         isRentalExistsByRentalId(rentId);
+        isExistsByCarIdOnRentalTable(carId);
         this.carService.isExistsByCarId(carId);
+
+        //to do: alis kilometresi bos mu kontrolu
 
         Rental rental = this.rentalDao.getById(rentId);
 
@@ -169,8 +171,10 @@ public class RentalManager implements RentalService {
     @Override
     public Result receiveCar(int rentId, int carId, double returnKilometer) throws BusinessException {
 
-        isExistsByCarIdOnRentalTable(carId);
         isRentalExistsByRentalId(rentId);
+        isExistsByCarIdOnRentalTable(carId);
+
+        //to do: alis kilometresi dolu ve veris kilometresi bos mu kontrolu
 
         Rental rental = this.rentalDao.getById(rentId);
 
@@ -328,8 +332,8 @@ public class RentalManager implements RentalService {
         }
     }
 
-
-    private void setAdditionForRental(Rental rental, CreateRentalRequest createRentalRequest) throws BusinessException {
+    @Override
+    public void setAdditionForRental(Rental rental, CreateRentalRequest createRentalRequest) throws BusinessException {
         if(createRentalRequest.getAdditionId().isEmpty() || createRentalRequest.getAdditionId()==null){
             rental.setAdditionList(null);
         }
@@ -345,6 +349,7 @@ public class RentalManager implements RentalService {
             }
         }
     }
+
 
     private void setAdditionForRental(Rental rental, UpdateRentalRequest updateRentalRequest) throws BusinessException {
         if(updateRentalRequest.getAdditionId().isEmpty() || updateRentalRequest.getAdditionId()==null){

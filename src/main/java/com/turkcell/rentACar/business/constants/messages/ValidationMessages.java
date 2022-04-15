@@ -26,5 +26,11 @@ public final class ValidationMessages {
     public static final String PASSWORD_VALIDATION_ERROR = "Password must contain at least digit, lowercase and uppercase and at least once special chars and password size has to be 8-20 chars.";
     public static final String DAMAGE_DESCRIPTION_VALIDATION_ERROR = "Damage description size has to be 3-100 characters. And description cannot contains special characters.";
     public static final String KILOMETER_VALIDATION_ERROR = "Kilometer informations cannot be less than zero.";
+    public static final String PAYMENT_CARDHOLDER_VALIDATION_ERROR = "Bu alan 5 ila 40 karakter boyutunda harflerden oluşmalıdır.";
+    public static final String PAYMENT_MONTH_VALIDATION_ERROR = "Bu alan 4 karakter boyutunda olmalı ve rakamlardan oluşmalıdır.";
+    public static final String PAYMENT_YEAR_VALIDATION_ERROR = "Bu alan 2 karakter boyutunda olmalı ve 1 ila 12 arasındaki sayılardan oluşmalıdır.";
+    public static final String PAYMENT_CVV_VALIDATION_ERROR = "Bu alan 3 karakter boyutunda olmalı ve 0 ile başlamayan rakamlardan oluşmalıdır.";
+    public static final String PAYMENT_CARD_NUMBER_VALIDATION_ERROR = "Bu alan 16 karakter boyutunda olmalı ve rakamlardan oluşmalıdır.";
+
 
 }

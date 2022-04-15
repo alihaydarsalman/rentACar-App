@@ -40,18 +40,9 @@ public class InvoicesController {
         return this.invoiceService.getInvoicesByCustomer(customerId);
     }
 
-    @PostMapping("/add")
-    public Result add(@RequestBody @Valid CreateInvoiceRequest createInvoiceRequest) throws BusinessException {
-        return this.invoiceService.add(createInvoiceRequest);
-    }
-
-    @DeleteMapping("/delete")
-    public Result delete(@RequestParam int invoiceId) throws BusinessException {
-        return this.invoiceService.delete(invoiceId);
-    }
-
     @GetMapping("/getById")
     public DataResult<GetInvoiceDto> getById(@RequestParam int invoiceId) throws BusinessException {
         return this.invoiceService.getById(invoiceId);
     }
+
 }

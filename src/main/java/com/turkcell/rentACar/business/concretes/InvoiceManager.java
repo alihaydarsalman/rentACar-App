@@ -55,7 +55,7 @@ public class InvoiceManager implements InvoiceService {
     }
 
     @Override
-    public Result add(CreateInvoiceRequest createInvoiceRequest) throws BusinessException {
+    public Invoice add(CreateInvoiceRequest createInvoiceRequest) throws BusinessException {
 
         Rental rental = this.rentalService.getByRentalId(createInvoiceRequest.getRentId());
         Customer customer = this.customerService.getCustomerByCustomerId(rental.getCustomer().getUserId());
@@ -70,22 +70,11 @@ public class InvoiceManager implements InvoiceService {
         invoice.setInvoiceNo(invoiceNumberCreator(rental));
         invoice.setTotalRentalDays(calculateTotalRentDays(rental.getRentDate(), rental.getRentReturnDate()));
         invoice.setTotalPrice(calculateTotalPriceOfRental(rental));
-        //invoice.setCreationDate(LocalDate.now());
         invoice.setInvoiceId(0);
 
         this.invoiceDao.save(invoice);
 
-        return new SuccessResult(BusinessMessages.SUCCESS_ADD);
-    }
-
-    @Override
-    public Result delete(int invoiceId) throws BusinessException {
-
-        isInvoiceExistsByInvoiceId(invoiceId);
-
-        this.invoiceDao.deleteById(invoiceId);
-
-        return new SuccessResult(BusinessMessages.SUCCESS_DELETE);
+        return invoice;
     }
 
     @Override
@@ -139,7 +128,6 @@ public class InvoiceManager implements InvoiceService {
 
         return invoiceNumber;
     }
-
     private int calculateTotalRentDays(LocalDate rentDate, LocalDate returnDate){
 
         if (ChronoUnit.DAYS.between(rentDate,returnDate) == 0){
@@ -149,7 +137,8 @@ public class InvoiceManager implements InvoiceService {
         return  (int)(ChronoUnit.DAYS.between(rentDate,returnDate));
     }
 
-    private double calculateTotalPriceOfRental(Rental rental) throws BusinessException {
+    @Override
+    public double calculateTotalPriceOfRental(Rental rental) throws BusinessException {
 
         Car car = this.carService.getCarByCarId(rental.getCar().getCarId());
 

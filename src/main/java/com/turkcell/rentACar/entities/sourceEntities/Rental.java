@@ -1,6 +1,7 @@
 package com.turkcell.rentACar.entities.sourceEntities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "rentals")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "Lazy"})
 public class Rental {
 
     @Id

@@ -79,4 +79,10 @@ public final class BusinessMessages {
     public static final String ERROR_DAMAGE_NOT_FOUND = "Damage info not found! Damage id is not exists.";
     public static final String DAMAGE_NOT_FOUND_BY_CAR = "No damage info found for this car.";
 
+    //PAYMENT
+    public static final String PAYMENT_FAIL = "Payment failed. Try again later.";
+    public static final String PAYMENT_SUCCESS = "Payment successful.";
+    public static final String ERROR_PAYMENT_NOT_FOUND = "Payment not found! Payment id is not exists.";
+    public static final String PAYMENT_NOT_FOUND_BY_RENTAL= "No payment information found for this rental.";
+    public static final String PAYMENT_NOT_FOUND_BY_CUSTOMER= "No payment information found for this customer.";
 }
