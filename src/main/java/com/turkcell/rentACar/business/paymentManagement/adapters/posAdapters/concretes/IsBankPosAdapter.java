@@ -6,7 +6,7 @@ import com.turkcell.rentACar.business.paymentManagement.outServices.IsBankPosSer
 import com.turkcell.rentACar.core.utilities.results.ErrorResult;
 import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.core.utilities.results.SuccessResult;
-import com.turkcell.rentACar.entities.requests.create.CreatePaymentRequest;
+import com.turkcell.rentACar.entities.requests.create.CreateCardInfoRequest;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +15,15 @@ import org.springframework.stereotype.Service;
 public class IsBankPosAdapter implements PosService {
 
     @Override
-    public Result makePayment(double paymentAmount, CreatePaymentRequest createPaymentRequest) {
+    public Result makePayment(double paymentAmount, CreateCardInfoRequest createCardInfoRequest) {
 
         IsBankPosService isBankPosService = new IsBankPosService();
 
-        boolean paymentResult = isBankPosService.verifyPayment(createPaymentRequest.getCardNumber(),
-                createPaymentRequest.getMonth(),
-                createPaymentRequest.getYear(),
-                createPaymentRequest.getCvv(),
-                createPaymentRequest.getCardHolder(),
+        boolean paymentResult = isBankPosService.verifyPayment(createCardInfoRequest.getCardNumber(),
+                createCardInfoRequest.getExpirationMonth(),
+                createCardInfoRequest.getExpirationYear(),
+                createCardInfoRequest.getCvv(),
+                createCardInfoRequest.getCardHolder(),
                 paymentAmount);
 
         if (paymentResult){

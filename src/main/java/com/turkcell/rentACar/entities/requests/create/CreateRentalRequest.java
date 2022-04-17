@@ -35,5 +35,6 @@ public class CreateRentalRequest {
     private List<Integer> additionId;
 
     @NotNull
+    @Min(value = 1, message = ValidationMessages.ID_CANNOT_LESS_THEN_ONE)
     private int userId;
 }

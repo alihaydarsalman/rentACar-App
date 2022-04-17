@@ -27,4 +27,7 @@ public class Customer extends User{
 
     @OneToMany(mappedBy = "customer")
     private List<Invoice> invoices;
+
+    @OneToMany(mappedBy = "customer")
+    private List<CardInfo> cardInfos;
 }

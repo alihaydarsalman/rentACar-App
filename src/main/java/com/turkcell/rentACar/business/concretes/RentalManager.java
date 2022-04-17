@@ -63,9 +63,6 @@ public class RentalManager implements RentalService {
         return new SuccessDataResult<>(result, BusinessMessages.SUCCESS_LIST);
     }
 
-    //Ekleme metotları ileriye dönük olarak ayrıldı.
-    //Çünkü bireysel müşteri ve kurumsal müşteri için fiyatlandırma değişebilir.
-
     @Override
     public Rental addRentalForIndividualCustomer(CreateRentalRequest createRentalRequest) throws BusinessException {
 
@@ -157,8 +154,6 @@ public class RentalManager implements RentalService {
         isExistsByCarIdOnRentalTable(carId);
         this.carService.isExistsByCarId(carId);
 
-        //to do: alis kilometresi bos mu kontrolu
-
         Rental rental = this.rentalDao.getById(rentId);
 
         rental.setRentKilometer(rental.getCar().getCurrentKilometer());
@@ -173,8 +168,6 @@ public class RentalManager implements RentalService {
 
         isRentalExistsByRentalId(rentId);
         isExistsByCarIdOnRentalTable(carId);
-
-        //to do: alis kilometresi dolu ve veris kilometresi bos mu kontrolu
 
         Rental rental = this.rentalDao.getById(rentId);
 

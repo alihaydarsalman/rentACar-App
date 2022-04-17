@@ -31,6 +31,4 @@ public final class ValidationMessages {
     public static final String PAYMENT_YEAR_VALIDATION_ERROR = "Bu alan 2 karakter boyutunda olmalı ve 1 ila 12 arasındaki sayılardan oluşmalıdır.";
     public static final String PAYMENT_CVV_VALIDATION_ERROR = "Bu alan 3 karakter boyutunda olmalı ve 0 ile başlamayan rakamlardan oluşmalıdır.";
     public static final String PAYMENT_CARD_NUMBER_VALIDATION_ERROR = "Bu alan 16 karakter boyutunda olmalı ve rakamlardan oluşmalıdır.";
-
-
 }

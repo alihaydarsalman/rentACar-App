@@ -6,22 +6,22 @@ import com.turkcell.rentACar.business.paymentManagement.outServices.HalkBankPosS
 import com.turkcell.rentACar.core.utilities.results.ErrorResult;
 import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.core.utilities.results.SuccessResult;
-import com.turkcell.rentACar.entities.requests.create.CreatePaymentRequest;
+import com.turkcell.rentACar.entities.requests.create.CreateCardInfoRequest;
 import org.springframework.stereotype.Service;
 
 @Service
 public class HalkBankPosAdapter implements PosService {
 
     @Override
-    public Result makePayment(double paymentAmount, CreatePaymentRequest createPaymentRequest) {
+    public Result makePayment(double paymentAmount, CreateCardInfoRequest createCardInfoRequest) {
 
         HalkBankPosService halkBankPosService = new HalkBankPosService();
 
-        boolean paymentResult = halkBankPosService.verifyPayment(createPaymentRequest.getCardHolder(),
-                createPaymentRequest.getCardNumber(),
-                createPaymentRequest.getMonth(),
-                createPaymentRequest.getYear(),
-                createPaymentRequest.getCvv(),
+        boolean paymentResult = halkBankPosService.verifyPayment(createCardInfoRequest.getCardHolder(),
+                createCardInfoRequest.getCardNumber(),
+                createCardInfoRequest.getExpirationMonth(),
+                createCardInfoRequest.getExpirationYear(),
+                createCardInfoRequest.getCvv(),
                 paymentAmount);
 
         if (paymentResult){

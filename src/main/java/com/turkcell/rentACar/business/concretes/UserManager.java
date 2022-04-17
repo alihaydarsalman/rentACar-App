@@ -28,6 +28,4 @@ public class UserManager implements UserService {
             throw new BusinessException(BusinessMessages.ERROR_EMAIL_ALREADY_EXISTS);
         }
     }
-
-
 }

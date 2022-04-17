@@ -13,8 +13,8 @@ import com.turkcell.rentACar.core.utilities.results.SuccessResult;
 import com.turkcell.rentACar.dataAccess.PaymentDao;
 import com.turkcell.rentACar.entities.dtos.get.GetPaymentDto;
 import com.turkcell.rentACar.entities.dtos.list.PaymentListDto;
+import com.turkcell.rentACar.entities.requests.create.CreateCardInfoRequest;
 import com.turkcell.rentACar.entities.requests.create.CreateInvoiceRequest;
-import com.turkcell.rentACar.entities.requests.create.CreatePaymentRequest;
 import com.turkcell.rentACar.entities.sourceEntities.Invoice;
 import com.turkcell.rentACar.entities.sourceEntities.Payment;
 import com.turkcell.rentACar.entities.sourceEntities.Rental;
@@ -35,11 +35,12 @@ public class PaymentManager implements PaymentService {
     private PosService posService;
     private CarService carService;
     private InvoiceService invoiceService;
+    private CardInfoService cardInfoService;
 
     @Autowired
     public PaymentManager(ModelMapperService modelMapperService, PaymentDao paymentDao,
                           RentalService rentalService, UserService userService,
-                          PosService posService, CarService carService, InvoiceService invoiceService) {
+                          PosService posService, CarService carService, InvoiceService invoiceService, CardInfoService cardInfoService) {
         this.modelMapperService = modelMapperService;
         this.paymentDao = paymentDao;
         this.rentalService = rentalService;
@@ -47,6 +48,7 @@ public class PaymentManager implements PaymentService {
         this.posService = posService;
         this.carService = carService;
         this.invoiceService = invoiceService;
+        this.cardInfoService = cardInfoService;
     }
 
     @Override
@@ -61,11 +63,11 @@ public class PaymentManager implements PaymentService {
 
         double totalPayment = this.invoiceService.calculateTotalPriceOfRental(rental);
 
-        isPaymentVerified(totalPayment, paymentModel.getCreatePaymentRequest());
+        isPaymentVerified(totalPayment, paymentModel.getCreateCardInfoRequest());
 
         successorForIndividualCustomer(paymentModel);
 
-        return new SuccessResult(BusinessMessages.SUCCESS_ADD);
+        return new SuccessResult(BusinessMessages.PAYMENT_SUCCESS);
     }
 
     @Override
@@ -78,11 +80,11 @@ public class PaymentManager implements PaymentService {
 
         double totalPayment = this.invoiceService.calculateTotalPriceOfRental(rental);
 
-        isPaymentVerified(totalPayment, paymentModel.getCreatePaymentRequest());
+        isPaymentVerified(totalPayment, paymentModel.getCreateCardInfoRequest());
 
         successorForCorporateCustomer(paymentModel);
 
-        return new SuccessResult(BusinessMessages.SUCCESS_ADD);
+        return new SuccessResult(BusinessMessages.PAYMENT_SUCCESS);
     }
 
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = BusinessException.class)
@@ -95,9 +97,11 @@ public class PaymentManager implements PaymentService {
 
         Invoice invoice = this.invoiceService.add(createInvoiceRequest);
 
-        Payment payment = this.modelMapperService.forRequest().map(paymentModel.getCreatePaymentRequest(), Payment.class);
+        Payment payment = new Payment();
         payment.setInvoice(invoice);
         payment.setPaymentAmount(invoice.getTotalPrice());
+
+        decisionOfSaveCardInfo(paymentModel,rental);
 
         this.paymentDao.save(payment);
     }
@@ -112,12 +116,15 @@ public class PaymentManager implements PaymentService {
 
         Invoice invoice = this.invoiceService.add(createInvoiceRequest);
 
-        Payment payment = this.modelMapperService.forRequest().map(paymentModel.getCreatePaymentRequest(), Payment.class);
+        Payment payment = new Payment();
         payment.setInvoice(invoice);
         payment.setPaymentAmount(invoice.getTotalPrice());
 
+        decisionOfSaveCardInfo(paymentModel,rental);
+
         this.paymentDao.save(payment);
     }
+
 
     @Override
     public DataResult<List<PaymentListDto>> getAll() {
@@ -199,9 +206,17 @@ public class PaymentManager implements PaymentService {
         }
     }
 
-    private void isPaymentVerified(double paymentAmount, CreatePaymentRequest createPaymentRequest) throws BusinessException {
-        if(!this.posService.makePayment(paymentAmount,createPaymentRequest).isSuccess()){
+    private void isPaymentVerified(double paymentAmount, CreateCardInfoRequest createCardInfoRequest) throws BusinessException {
+        if(!this.posService.makePayment(paymentAmount,createCardInfoRequest).isSuccess()){
             throw new BusinessException(BusinessMessages.PAYMENT_FAIL);
+        }
+    }
+
+    private void decisionOfSaveCardInfo(PaymentModel paymentModel, Rental rental) throws BusinessException {
+        if(paymentModel.getSaveIt() == 1){
+            paymentModel.getCreateCardInfoRequest().setUserId(rental.getCustomer().getUserId());
+
+            this.cardInfoService.add(paymentModel.getCreateCardInfoRequest());
         }
     }
 
