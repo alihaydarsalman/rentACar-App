@@ -3,7 +3,7 @@ package com.turkcell.rentACar.business.concretes;
 import com.turkcell.rentACar.api.models.PaymentModel;
 import com.turkcell.rentACar.business.abstracts.*;
 import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
-import com.turkcell.rentACar.business.paymentManagement.adapters.posAdapters.abstracts.PosService;
+import com.turkcell.rentACar.business.adapters.posAdapters.abstracts.PosService;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
 import com.turkcell.rentACar.core.utilities.results.DataResult;

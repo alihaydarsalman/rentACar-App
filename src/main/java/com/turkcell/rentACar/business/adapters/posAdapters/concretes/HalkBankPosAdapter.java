@@ -1,8 +1,8 @@
-package com.turkcell.rentACar.business.paymentManagement.adapters.posAdapters.concretes;
+package com.turkcell.rentACar.business.adapters.posAdapters.concretes;
 
-import com.turkcell.rentACar.business.paymentManagement.adapters.posAdapters.abstracts.PosService;
+import com.turkcell.rentACar.business.adapters.posAdapters.abstracts.PosService;
 import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
-import com.turkcell.rentACar.business.paymentManagement.outServices.HalkBankPosService;
+import com.turkcell.rentACar.core.utilities.outServices.posServices.HalkBankPosService;
 import com.turkcell.rentACar.core.utilities.results.ErrorResult;
 import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.core.utilities.results.SuccessResult;

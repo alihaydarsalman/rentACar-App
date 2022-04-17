@@ -2,7 +2,7 @@ package com.turkcell.rentACar.business.concretes;
 
 import com.turkcell.rentACar.business.abstracts.CardInfoService;
 import com.turkcell.rentACar.business.abstracts.CustomerService;
-import com.turkcell.rentACar.business.cardSaveManagement.adapters.abstracts.CardControlService;
+import com.turkcell.rentACar.business.adapters.cardControlAdapters.abstracts.CardControlService;
 import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
@@ -31,7 +31,8 @@ public class CardInfoManager implements CardInfoService {
     private CardControlService cardControlService;
 
     @Autowired
-    public CardInfoManager(ModelMapperService modelMapperService, CardInfoDao cardInfoDao, CustomerService customerService, CardControlService cardControlService) {
+    public CardInfoManager(ModelMapperService modelMapperService, CardInfoDao cardInfoDao,
+                           CustomerService customerService, CardControlService cardControlService) {
         this.modelMapperService = modelMapperService;
         this.cardInfoDao = cardInfoDao;
         this.customerService = customerService;
@@ -106,7 +107,7 @@ public class CardInfoManager implements CardInfoService {
     }
 
     private void checkIfExpirationYearIsValid(int year) throws BusinessException {
-        int currentYear = (int)LocalDate.now().getYear();
+        int currentYear = LocalDate.now().getYear();
         if (year<currentYear){
             throw new BusinessException(BusinessMessages.ERROR_EXPIRATION_YEAR);
         }

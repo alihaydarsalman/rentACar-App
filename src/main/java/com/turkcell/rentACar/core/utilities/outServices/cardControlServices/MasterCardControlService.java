@@ -1,4 +1,4 @@
-package com.turkcell.rentACar.business.cardSaveManagement.outServices;
+package com.turkcell.rentACar.core.utilities.outServices.cardControlServices;
 
 import org.springframework.stereotype.Service;
 

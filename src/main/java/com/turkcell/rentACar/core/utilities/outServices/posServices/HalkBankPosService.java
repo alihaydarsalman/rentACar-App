@@ -1,4 +1,4 @@
-package com.turkcell.rentACar.business.paymentManagement.outServices;
+package com.turkcell.rentACar.core.utilities.outServices.posServices;
 
 import org.springframework.stereotype.Service;
 
