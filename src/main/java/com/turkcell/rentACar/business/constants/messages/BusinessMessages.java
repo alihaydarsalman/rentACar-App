@@ -54,8 +54,7 @@ public final class BusinessMessages {
     public static final String ERROR_RENT_DATE_CANNOT_AFTER_RETURN_DATE = "Rent date cannot after return date.";
     public static final String ERROR_INVALID_DATES = "Rent date cannot before now.";
     public static final String ERROR_INVALID_KILOMETER_INFO = "Starting kilometer cannot be equal or greater than return kilometer.";
-    public static final String ERROR_CAR_ALREADY_DELIVERED = "Bu araba zaten kullanıcıya teslim edilmiş durumda.";
-    public static final String ERROR_CAR_ALREADY_RECEIVED = "Bu araba zaten kullanıcıdan teslim alınmış durumda.";
+    public static final String ERROR_INVALID_DELAYED_DATE = "Delayed date cannot before or same expected return date.";
 
     //ADDITIONS
     public static final String ERROR_ADDITION_NOT_FOUND = "Addition not found! Addition id is not exists.";
@@ -84,6 +83,7 @@ public final class BusinessMessages {
     //PAYMENT
     public static final String PAYMENT_FAIL = "Payment failed. Try again later.";
     public static final String PAYMENT_SUCCESS = "Payment successful.";
+    public static final String DELAYED_RENT_PAYMENT_SUCCESS = "Delay payment received successfully.";
     public static final String ERROR_PAYMENT_NOT_FOUND = "Payment not found! Payment id is not exists.";
     public static final String PAYMENT_NOT_FOUND_BY_RENTAL= "No payment information found for this rental.";
     public static final String PAYMENT_NOT_FOUND_BY_CUSTOMER= "No payment information found for this customer.";

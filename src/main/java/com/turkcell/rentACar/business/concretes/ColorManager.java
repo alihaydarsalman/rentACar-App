@@ -14,7 +14,6 @@ import com.turkcell.rentACar.entities.dtos.get.GetColorDto;
 import com.turkcell.rentACar.entities.dtos.list.ColorListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateColorRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateColorRequest;
-import com.turkcell.rentACar.entities.sourceEntities.Car;
 import com.turkcell.rentACar.entities.sourceEntities.Color;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

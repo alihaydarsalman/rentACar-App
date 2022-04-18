@@ -31,14 +31,6 @@ public class UpdateRentalRequest {
     @Min(value = 1, message = ValidationMessages.ID_CANNOT_LESS_THEN_ONE)
     private int carId;
 
-    /*@NotNull
-    @Min(value = 0, message = ValidationMessages.KILOMETER_VALIDATION_ERROR)
-    private double rentKilometer;
-
-    @NotNull
-    @Min(value = 0, message = ValidationMessages.KILOMETER_VALIDATION_ERROR)
-    private double rentReturnKilometer;*/
-
     @NotNull
     @Min(value = 1, message = ValidationMessages.ID_CANNOT_LESS_THEN_ONE)
     private int fromCityId;

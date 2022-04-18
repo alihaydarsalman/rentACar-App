@@ -1,5 +1,6 @@
 package com.turkcell.rentACar.business.concretes;
 
+import com.turkcell.rentACar.api.models.UpdatePaymentModel;
 import com.turkcell.rentACar.business.abstracts.CarService;
 import com.turkcell.rentACar.business.abstracts.CustomerService;
 import com.turkcell.rentACar.business.abstracts.InvoiceService;
@@ -8,9 +9,7 @@ import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
-import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
-import com.turkcell.rentACar.core.utilities.results.SuccessResult;
 import com.turkcell.rentACar.dataAccess.InvoiceDao;
 import com.turkcell.rentACar.entities.dtos.get.GetInvoiceDto;
 import com.turkcell.rentACar.entities.dtos.list.InvoiceListDto;
@@ -68,8 +67,30 @@ public class InvoiceManager implements InvoiceService {
         invoice.setRentDate(rental.getRentDate());
         invoice.setRentReturnDate(rental.getRentReturnDate());
         invoice.setInvoiceNo(invoiceNumberCreator(rental));
-        invoice.setTotalRentalDays(calculateTotalRentDays(rental.getRentDate(), rental.getRentReturnDate()));
+        invoice.setTotalRentalDays(calculateTotalRentDays(invoice.getRentDate(), invoice.getRentReturnDate()));
         invoice.setTotalPrice(calculateTotalPriceOfRental(rental));
+        invoice.setInvoiceId(0);
+
+        this.invoiceDao.save(invoice);
+
+        return invoice;
+    }
+
+    @Override
+    public Invoice addInvoiceForDelay(Rental rental, UpdatePaymentModel updatePaymentModel) throws BusinessException {
+
+        Customer customer = this.customerService.getCustomerByCustomerId(rental.getCustomer().getUserId());
+
+        this.rentalService.isRentalExistsByRentalId(rental.getRentId());
+
+        Invoice invoice = this.modelMapperService.forRequest().map(rental,Invoice.class);
+        invoice.setRental(rental);
+        invoice.setCustomer(customer);
+        invoice.setInvoiceNo(invoiceNumberCreator(rental));
+        invoice.setRentDate(rental.getRentReturnDate());
+        invoice.setRentReturnDate(updatePaymentModel.getUpdateRentalRequestForDelay().getDelayedReturnDate());
+        invoice.setTotalRentalDays(calculateTotalRentDaysForDelay(invoice.getRentDate(),invoice.getRentReturnDate()));
+        invoice.setTotalPrice(calculateTotalPriceForDelay(invoice.getRentDate(),invoice.getRentReturnDate(),rental.getRentId()));
         invoice.setInvoiceId(0);
 
         this.invoiceDao.save(invoice);
@@ -138,6 +159,16 @@ public class InvoiceManager implements InvoiceService {
     }
 
     @Override
+    public int calculateTotalRentDaysForDelay(LocalDate expectedReturnDate, LocalDate actualReturnDate){
+
+        if (ChronoUnit.DAYS.between(expectedReturnDate,actualReturnDate) == 0){
+            return 1;
+        }
+
+        return  (int)(ChronoUnit.DAYS.between(expectedReturnDate,actualReturnDate));
+    }
+
+    @Override
     public double calculateTotalPriceOfRental(Rental rental) throws BusinessException {
 
         Car car = this.carService.getCarByCarId(rental.getCar().getCarId());
@@ -159,9 +190,36 @@ public class InvoiceManager implements InvoiceService {
         return totalPrice;
     }
 
+    @Override
+    public double calculateTotalPriceForDelay(LocalDate expectedReturnDate, LocalDate actualReturnDate, int rentId) throws BusinessException {
+
+        isRentDaysValid(expectedReturnDate,actualReturnDate);
+
+        Rental rental = this.rentalService.getByRentalId(rentId);
+        Car car = this.carService.getCarByCarId(rental.getCar().getCarId());
+
+        double totalPrice=0;
+        double additionsPrice=0;
+        double rentalPrice = calculateTotalRentDaysForDelay(expectedReturnDate,actualReturnDate) * (car.getDailyPrice());
+
+        for(Addition addition: rental.getAdditionList()){
+            additionsPrice+= addition.getAdditionDailyPrice() * calculateTotalRentDaysForDelay(expectedReturnDate,actualReturnDate);
+        }
+
+        totalPrice = rentalPrice + additionsPrice;
+
+        return totalPrice;
+    }
+
     private void isInvoiceExistsByCustomerIdOnInvoiceTable(int id) throws BusinessException{
         if(!this.invoiceDao.existsByCustomer_UserId(id)){
             throw new BusinessException(BusinessMessages.INVOICE_NOT_FOUND_BY_CUSTOMER);
+        }
+    }
+
+    private void isRentDaysValid(LocalDate expectedReturnDate, LocalDate actualReturnDate) throws BusinessException {
+        if (expectedReturnDate.isAfter(actualReturnDate) || expectedReturnDate.isEqual(actualReturnDate)){
+            throw new BusinessException(BusinessMessages.ERROR_INVALID_DELAYED_DATE);
         }
     }
 }

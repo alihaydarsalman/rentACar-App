@@ -1,6 +1,7 @@
 package com.turkcell.rentACar.business.abstracts;
 
 import com.turkcell.rentACar.api.models.PaymentModel;
+import com.turkcell.rentACar.api.models.UpdatePaymentModel;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
 import com.turkcell.rentACar.core.utilities.results.Result;
@@ -22,6 +23,8 @@ public interface PaymentService {
     Result addPaymentForIndividualCustomer(PaymentModel paymentModel) throws BusinessException;
 
     Result addPaymentForCorporateCustomer(PaymentModel paymentModel) throws BusinessException;
+
+    Result addPaymentForDelay(UpdatePaymentModel updatePaymentModel) throws BusinessException;
 
     Result delete(int paymentId) throws BusinessException;
 }

@@ -12,7 +12,6 @@ import com.turkcell.rentACar.core.utilities.results.SuccessResult;
 import com.turkcell.rentACar.dataAccess.CarDamageDao;
 import com.turkcell.rentACar.entities.dtos.get.GetCarDamageDto;
 import com.turkcell.rentACar.entities.dtos.list.CarDamageListDto;
-import com.turkcell.rentACar.entities.dtos.list.CarListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateCarDamageRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateCarDamageRequest;
 import com.turkcell.rentACar.entities.sourceEntities.CarDamage;

@@ -15,7 +15,6 @@ import com.turkcell.rentACar.entities.dtos.list.RentalListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateRentalRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateRentalRequest;
 import com.turkcell.rentACar.entities.sourceEntities.Addition;
-import com.turkcell.rentACar.entities.sourceEntities.Car;
 import com.turkcell.rentACar.entities.sourceEntities.Rental;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -177,6 +176,7 @@ public class RentalManager implements RentalService {
 
         return new SuccessResult(BusinessMessages.SUCCESS_RECEIVE);
     }
+
 
     @Override
     public Result delete(int rentId) throws BusinessException {

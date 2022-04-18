@@ -1,6 +1,7 @@
 package com.turkcell.rentACar.api.controllers;
 
 import com.turkcell.rentACar.api.models.PaymentModel;
+import com.turkcell.rentACar.api.models.UpdatePaymentModel;
 import com.turkcell.rentACar.business.abstracts.PaymentService;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
@@ -50,6 +51,11 @@ public class PaymentsController {
     @PostMapping("/addPaymentForCorporateCustomer")
     public Result addPaymentForCorporateCustomer(@RequestBody @Valid PaymentModel paymentModel) throws BusinessException{
         return this.paymentService.addPaymentForCorporateCustomer(paymentModel);
+    }
+
+    @PostMapping("/addPaymentForDelay")
+    public Result addPaymentForDelay(@RequestBody @Valid UpdatePaymentModel updatePaymentModel) throws BusinessException{
+        return this.paymentService.addPaymentForDelay(updatePaymentModel);
     }
 
     @DeleteMapping("/delete")

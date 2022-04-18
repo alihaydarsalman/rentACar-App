@@ -1,6 +1,7 @@
 package com.turkcell.rentACar.business.concretes;
 
 import com.turkcell.rentACar.api.models.PaymentModel;
+import com.turkcell.rentACar.api.models.UpdatePaymentModel;
 import com.turkcell.rentACar.business.abstracts.*;
 import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
 import com.turkcell.rentACar.business.adapters.posAdapters.abstracts.PosService;
@@ -22,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -70,6 +73,7 @@ public class PaymentManager implements PaymentService {
         return new SuccessResult(BusinessMessages.PAYMENT_SUCCESS);
     }
 
+
     @Override
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = BusinessException.class)
     public Result addPaymentForCorporateCustomer(PaymentModel paymentModel) throws BusinessException {
@@ -85,6 +89,40 @@ public class PaymentManager implements PaymentService {
         successorForCorporateCustomer(paymentModel);
 
         return new SuccessResult(BusinessMessages.PAYMENT_SUCCESS);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = BusinessException.class)
+    public Result addPaymentForDelay(UpdatePaymentModel updatePaymentModel) throws BusinessException {
+
+        Rental rental = this.rentalService.getByRentalId(updatePaymentModel.getUpdateRentalRequestForDelay().getRentId());
+
+        double totalPayment = this.invoiceService.calculateTotalPriceForDelay(rental.getRentReturnDate(),updatePaymentModel.getUpdateRentalRequestForDelay().getDelayedReturnDate(),rental.getRentId());
+
+        isPaymentVerified(totalPayment, updatePaymentModel.getCreateCardInfoRequest());
+
+        successorForDelay(updatePaymentModel);
+
+        return new SuccessResult(BusinessMessages.DELAYED_RENT_PAYMENT_SUCCESS);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = BusinessException.class)
+    public void successorForDelay(UpdatePaymentModel updatePaymentModel) throws BusinessException {
+
+        Rental rental = this.rentalService.getByRentalId(updatePaymentModel.getUpdateRentalRequestForDelay().getRentId());
+
+        Invoice invoice = this.invoiceService.addInvoiceForDelay(rental, updatePaymentModel);
+
+        Payment payment = new Payment();
+        payment.setInvoice(invoice);
+        payment.setPaymentDate(LocalDate.now());
+        payment.setPaymentAmount(invoice.getTotalPrice());
+
+        rental.setRentReturnDate(updatePaymentModel.getUpdateRentalRequestForDelay().getDelayedReturnDate());
+
+        decisionOfSaveCardInfo(updatePaymentModel, rental);
+
+        this.paymentDao.save(payment);
     }
 
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = BusinessException.class)
@@ -220,4 +258,11 @@ public class PaymentManager implements PaymentService {
         }
     }
 
+    private void decisionOfSaveCardInfo(UpdatePaymentModel paymentModel, Rental rental) throws BusinessException {
+        if(paymentModel.getSaveIt() == 1){
+            paymentModel.getCreateCardInfoRequest().setUserId(rental.getCustomer().getUserId());
+
+            this.cardInfoService.add(paymentModel.getCreateCardInfoRequest());
+        }
+    }
 }

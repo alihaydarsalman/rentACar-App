@@ -16,7 +16,6 @@ import com.turkcell.rentACar.entities.dtos.list.CarMaintenanceListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateCarMaintenanceRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateCarMaintenanceRequest;
 import com.turkcell.rentACar.entities.sourceEntities.CarMaintenance;
-import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
