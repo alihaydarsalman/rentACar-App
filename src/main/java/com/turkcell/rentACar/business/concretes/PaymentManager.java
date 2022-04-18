@@ -43,7 +43,8 @@ public class PaymentManager implements PaymentService {
     @Autowired
     public PaymentManager(ModelMapperService modelMapperService, PaymentDao paymentDao,
                           RentalService rentalService, UserService userService,
-                          PosService posService, CarService carService, InvoiceService invoiceService, CardInfoService cardInfoService) {
+                          PosService posService, CarService carService, InvoiceService invoiceService,
+                          CardInfoService cardInfoService) {
         this.modelMapperService = modelMapperService;
         this.paymentDao = paymentDao;
         this.rentalService = rentalService;

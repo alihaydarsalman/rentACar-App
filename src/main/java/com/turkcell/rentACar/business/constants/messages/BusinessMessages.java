@@ -82,7 +82,7 @@ public final class BusinessMessages {
 
     //PAYMENT
     public static final String PAYMENT_FAIL = "Payment failed. Try again later.";
-    public static final String PAYMENT_SUCCESS = "Payment successful.";
+    public static final String PAYMENT_SUCCESS = "Payment successful. Please be at our branch to pick up the car on the rental date.";
     public static final String DELAYED_RENT_PAYMENT_SUCCESS = "Delay payment received successfully.";
     public static final String ERROR_PAYMENT_NOT_FOUND = "Payment not found! Payment id is not exists.";
     public static final String PAYMENT_NOT_FOUND_BY_RENTAL= "No payment information found for this rental.";
