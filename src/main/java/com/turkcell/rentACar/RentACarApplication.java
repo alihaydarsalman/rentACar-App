@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestControllerAdvice
 @SpringBootApplication
 public class RentACarApplication {
 
@@ -29,26 +28,6 @@ public class RentACarApplication {
 		return new ModelMapper();
 	}
 
-	@ExceptionHandler
-	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	public ErrorDataResult<Object> handleValidationExceptions(MethodArgumentNotValidException methodArgumentNotValidException)
-	{
-		Map<String , String > validationError = new HashMap<String,String>();
 
-		for(FieldError fieldError: methodArgumentNotValidException.getBindingResult().getFieldErrors())
-		{
-			validationError.put(fieldError.getField(),fieldError.getDefaultMessage());
-		}
-
-		ErrorDataResult<Object> errorDataResult = new ErrorDataResult<Object>(validationError,"Validation.Error!");
-		return errorDataResult;
-	}
-
-	@ExceptionHandler
-	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	public ErrorDataResult<Object> handleBusinessExceptions(BusinessException businessException)
-	{
-		return new ErrorDataResult<Object>(businessException.getMessage());
-	}
 
 }
