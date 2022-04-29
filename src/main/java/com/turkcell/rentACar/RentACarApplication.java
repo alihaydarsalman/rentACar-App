@@ -28,6 +28,4 @@ public class RentACarApplication {
 		return new ModelMapper();
 	}
 
-
-
 }
