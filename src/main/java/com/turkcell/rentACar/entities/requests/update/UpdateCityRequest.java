@@ -14,7 +14,7 @@ public class UpdateCityRequest {
 
     @NotNull
     @Min(value = 1, message = ValidationMessages.ID_CANNOT_LESS_THEN_ONE)
-    int cityId;
+    int plateNo;
 
     @NotNull
     @NotBlank

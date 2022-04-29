@@ -17,6 +17,7 @@ import com.turkcell.rentACar.entities.sourceEntities.City;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,10 +56,11 @@ public class CityManager implements CityService {
     @Override
     public Result add(CreateCityRequest createCityRequest) throws BusinessException {
 
-        isCityExistsByCityName(createCityRequest.getCityName());
+        isCityExistsByCityName(createCityRequest.getCityName().toLowerCase(Locale.ROOT));
 
         City city = this.modelMapperService.forRequest().map(createCityRequest,City.class);
-        city.setCityId(0);
+        city.setCityId(createCityRequest.getPlateNo());
+        city.setCityName(createCityRequest.getCityName().toUpperCase(Locale.ROOT));
         this.cityDao.save(city);
 
         return new SuccessResult(BusinessMessages.SUCCESS_ADD);
@@ -67,10 +69,11 @@ public class CityManager implements CityService {
     @Override
     public Result update(UpdateCityRequest updateCityRequest) throws BusinessException {
 
-        isExistsByCityId(updateCityRequest.getCityId());
-        isCityExistsByCityName(updateCityRequest.getCityName().toLowerCase());
+        isExistsByCityId(updateCityRequest.getPlateNo());
 
         City city = this.modelMapperService.forRequest().map(updateCityRequest,City.class);
+        city.setCityId(updateCityRequest.getPlateNo());
+        city.setCityName(updateCityRequest.getCityName());
         this.cityDao.save(city);
 
         return new SuccessResult(BusinessMessages.SUCCESS_UPDATE);
@@ -95,7 +98,7 @@ public class CityManager implements CityService {
 
     public void isCityExistsByCityName(String cityName) throws BusinessException {
 
-        if(this.cityDao.existsByCityName(cityName)){
+        if(this.cityDao.existsByCityName(cityName.toLowerCase(Locale.ROOT))){
             throw new BusinessException(BusinessMessages.ERROR_CITY_ALREADY_EXISTS);
         }
     }

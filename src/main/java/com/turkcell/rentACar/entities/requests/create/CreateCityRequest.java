@@ -5,15 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateCityRequest {
+
+    @NotNull
+    @Min(value = 1, message = ValidationMessages.ID_CANNOT_LESS_THEN_ONE)
+    int plateNo;
 
     @NotNull
     @NotBlank
