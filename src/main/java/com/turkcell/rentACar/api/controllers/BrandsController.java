@@ -53,8 +53,4 @@ public class BrandsController {
         return this.brandService.getById(brandId);
     }
 
-    @GetMapping("/denemeENDPOINT")
-    public String deneme(){
-        return "DENEME ";
-    }
 }
