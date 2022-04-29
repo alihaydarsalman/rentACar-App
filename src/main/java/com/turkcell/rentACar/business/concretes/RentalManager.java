@@ -327,6 +327,8 @@ public class RentalManager implements RentalService {
 
     @Override
     public void setAdditionForRental(Rental rental, CreateRentalRequest createRentalRequest) throws BusinessException {
+
+
         if(createRentalRequest.getAdditionId().isEmpty() || createRentalRequest.getAdditionId()==null){
             rental.setAdditionList(null);
         }
@@ -337,14 +339,14 @@ public class RentalManager implements RentalService {
                 this.additionService.isExistsByAdditionId(addId);
                 Addition addition = this.additionService.getAdditionById(addId);
                 tempAdditions.add(addition);
-
-                rental.setAdditionList(tempAdditions);
             }
+            rental.setAdditionList(tempAdditions);
         }
     }
 
 
     private void setAdditionForRental(Rental rental, UpdateRentalRequest updateRentalRequest) throws BusinessException {
+
         if(updateRentalRequest.getAdditionId().isEmpty() || updateRentalRequest.getAdditionId()==null){
             rental.setAdditionList(null);
         }
@@ -356,8 +358,8 @@ public class RentalManager implements RentalService {
                 Addition addition = this.additionService.getAdditionById(addId);
                 tempAdditions.add(addition);
 
-                rental.setAdditionList(tempAdditions);
             }
+            rental.setAdditionList(tempAdditions);
         }
     }
 
