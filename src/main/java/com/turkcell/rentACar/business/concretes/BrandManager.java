@@ -103,6 +103,4 @@ public class BrandManager implements BrandService {
             throw new BusinessException(BusinessMessages.ERROR_BRAND_NOT_FOUND);
         }
     }
-
-
 }

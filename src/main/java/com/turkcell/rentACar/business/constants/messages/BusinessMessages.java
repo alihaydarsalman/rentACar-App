@@ -62,6 +62,7 @@ public final class BusinessMessages {
 
     //CITY
     public static final String ERROR_CITY_NOT_FOUND = "City not found! City id is not exists.";
+    public static final String ERROR_CITY_ALREADY_EXISTS = "City has already exists on our dB.";
 
     //CUSTOMERS-USERS
     public static final String ERROR_USER_NOT_FOUND = "User not found! User id is not exists.";

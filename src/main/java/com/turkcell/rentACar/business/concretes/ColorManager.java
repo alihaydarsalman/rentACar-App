@@ -107,5 +107,11 @@ public class ColorManager implements ColorService {
         }
     }
 
+    @Override
+    public Color getColorById(int colorId) throws BusinessException {
 
+        isExistsByColorId(colorId);
+
+        return this.colorDao.findByColorId(colorId);
+    }
 }

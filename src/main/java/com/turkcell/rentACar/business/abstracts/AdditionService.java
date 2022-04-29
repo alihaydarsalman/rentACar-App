@@ -1,7 +1,5 @@
 package com.turkcell.rentACar.business.abstracts;
 
-
-
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
 import com.turkcell.rentACar.core.utilities.results.Result;

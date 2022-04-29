@@ -10,5 +10,5 @@ import java.util.List;
 public interface ColorDao extends JpaRepository<Color,Integer> {
     boolean existsByColorName(String colorName);
     boolean existsByColorId(int colorId);
-
+    Color findByColorId(int id);
 }

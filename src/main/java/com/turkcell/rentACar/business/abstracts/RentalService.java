@@ -43,6 +43,4 @@ public interface RentalService {
     void isRentalExistsByRentalId(int rentId) throws BusinessException;
 
     void setAdditionForRental(Rental rental, CreateRentalRequest createRentalRequest) throws BusinessException;
-
-
 }
