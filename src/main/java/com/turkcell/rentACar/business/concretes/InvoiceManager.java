@@ -177,8 +177,10 @@ public class InvoiceManager implements InvoiceService {
         double additionsPrice = 0;
         double rentalPrice = calculateTotalRentDays(rental.getRentDate(), rental.getRentReturnDate()) * (car.getDailyPrice());
         double diffCityPrice = 0;
-        for (Addition addition: rental.getAdditionList()){
-            additionsPrice += addition.getAdditionDailyPrice() * calculateTotalRentDays(rental.getRentDate(), rental.getRentReturnDate());
+        if (!(rental.getAdditionList() == null || rental.getAdditionList().isEmpty())){
+            for (Addition addition: rental.getAdditionList()){
+                additionsPrice += addition.getAdditionDailyPrice() * calculateTotalRentDays(rental.getRentDate(), rental.getRentReturnDate());
+            }
         }
 
         if(rental.getToCity().getCityId() != rental.getFromCity().getCityId()){
@@ -202,8 +204,10 @@ public class InvoiceManager implements InvoiceService {
         double additionsPrice=0;
         double rentalPrice = calculateTotalRentDaysForDelay(expectedReturnDate,actualReturnDate) * (car.getDailyPrice());
 
-        for(Addition addition: rental.getAdditionList()){
-            additionsPrice+= addition.getAdditionDailyPrice() * calculateTotalRentDaysForDelay(expectedReturnDate,actualReturnDate);
+        if (!(rental.getAdditionList() == null || rental.getAdditionList().isEmpty())){
+            for(Addition addition: rental.getAdditionList()){
+                additionsPrice+= addition.getAdditionDailyPrice() * calculateTotalRentDaysForDelay(expectedReturnDate,actualReturnDate);
+            }
         }
 
         totalPrice = rentalPrice + additionsPrice;
