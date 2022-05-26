@@ -26,7 +26,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 
     private final ModelMapperService modelMapperService;
     private final IndividualCustomerDao individualCustomerDao;
-    private UserService userService;
+    private final UserService userService;
 
     public IndividualCustomerManager(ModelMapperService modelMapperService, IndividualCustomerDao individualCustomerDao
                                     , UserService userService) {
@@ -115,5 +115,4 @@ public class IndividualCustomerManager implements IndividualCustomerService {
             throw new BusinessException(BusinessMessages.ERROR_INDIVIDUAL_CUSTOMER_NOT_FOUND);
         }
     }
-
 }

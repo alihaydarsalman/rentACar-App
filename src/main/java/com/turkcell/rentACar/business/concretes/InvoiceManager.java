@@ -17,7 +17,6 @@ import com.turkcell.rentACar.entities.requests.create.CreateInvoiceRequest;
 import com.turkcell.rentACar.entities.sourceEntities.*;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -29,9 +28,9 @@ public class InvoiceManager implements InvoiceService {
 
     private final ModelMapperService modelMapperService;
     private final InvoiceDao invoiceDao;
-    private RentalService rentalService;
-    private CustomerService customerService;
-    private CarService carService;
+    private final RentalService rentalService;
+    private final CustomerService customerService;
+    private final CarService carService;
 
     public InvoiceManager(ModelMapperService modelMapperService, InvoiceDao invoiceDao,
                           @Lazy RentalService rentalService, @Lazy CustomerService customerService, CarService carService) {
@@ -168,6 +167,7 @@ public class InvoiceManager implements InvoiceService {
         return  (int)(ChronoUnit.DAYS.between(expectedReturnDate,actualReturnDate));
     }
 
+
     @Override
     public double calculateTotalPriceOfRental(Rental rental) throws BusinessException {
 
@@ -182,10 +182,10 @@ public class InvoiceManager implements InvoiceService {
         }
 
         if(rental.getToCity().getCityId() != rental.getFromCity().getCityId()){
-            diffCityPrice=750;
+            diffCityPrice= Invoice.diffCityPrice;
         }
 
-        totalPrice = rentalPrice+ additionsPrice+ diffCityPrice;
+        totalPrice = rentalPrice+ additionsPrice + diffCityPrice;
 
         return totalPrice;
     }

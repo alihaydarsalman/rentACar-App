@@ -50,4 +50,7 @@ public class Invoice {
 
     @OneToOne(mappedBy = "invoice")
     private Payment payment;
+
+    @Transient
+    public static double diffCityPrice = 750;
 }

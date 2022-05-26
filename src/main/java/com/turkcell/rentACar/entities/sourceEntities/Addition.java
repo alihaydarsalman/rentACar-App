@@ -1,5 +1,6 @@
 package com.turkcell.rentACar.entities.sourceEntities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,16 +13,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "additions")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "Lazy"})
 public class Addition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "addition_id")
-    int additionId;
+    private int additionId;
 
     @Column(name = "addition_name")
-    String additionName;
+    private String additionName;
 
     @Column(name = "addition_daily_price")
-    double additionDailyPrice;
+    private double additionDailyPrice;
 }

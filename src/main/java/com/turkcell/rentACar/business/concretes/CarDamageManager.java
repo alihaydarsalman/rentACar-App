@@ -24,7 +24,7 @@ public class CarDamageManager implements CarDamageService {
 
     private final ModelMapperService modelMapperService;
     private final CarDamageDao carDamageDao;
-    private CarService carService;
+    private final CarService carService;
 
     public CarDamageManager(ModelMapperService modelMapperService, CarDamageDao carDamageDao, CarService carService) {
         this.modelMapperService = modelMapperService;

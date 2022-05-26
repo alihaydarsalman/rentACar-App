@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -39,6 +41,7 @@ public class UpdateRentalRequest {
     @Min(value = 1, message = ValidationMessages.ID_CANNOT_LESS_THEN_ONE)
     private int toCityId;
 
+    @Nullable
     private List<Integer> additionId;
 
     @NotNull

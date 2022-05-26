@@ -33,12 +33,12 @@ public class PaymentManager implements PaymentService {
 
     private final ModelMapperService modelMapperService;
     private final PaymentDao paymentDao;
-    private RentalService rentalService;
-    private UserService userService;
-    private PosService posService;
-    private CarService carService;
-    private InvoiceService invoiceService;
-    private CardInfoService cardInfoService;
+    private final RentalService rentalService;
+    private final UserService userService;
+    private final PosService posService;
+    private final CarService carService;
+    private final InvoiceService invoiceService;
+    private final CardInfoService cardInfoService;
 
     @Autowired
     public PaymentManager(ModelMapperService modelMapperService, PaymentDao paymentDao,
@@ -63,7 +63,7 @@ public class PaymentManager implements PaymentService {
 
         rental.setCar(this.carService.getCarByCarId(paymentModel.getCreateRentalRequest().getCarId()));
 
-        this.rentalService.setAdditionForRental(rental,paymentModel.getCreateRentalRequest());
+        this.rentalService.setAdditionForRental(rental,paymentModel.getCreateRentalRequest().getAdditionIds());
 
         double totalPayment = this.invoiceService.calculateTotalPriceOfRental(rental);
 

@@ -26,8 +26,8 @@ public class CarMaintenanceManager implements CarMaintenanceService {
 
     private final ModelMapperService modelMapperService;
     private final CarMaintenanceDao carMaintenanceDao;
-    private CarService carService;
-    private RentalService rentalService;
+    private final CarService carService;
+    private final RentalService rentalService;
 
     public CarMaintenanceManager(ModelMapperService modelMapperService, CarMaintenanceDao carMaintenanceDao, CarService carService
                                 ,RentalService rentalService) {
@@ -178,5 +178,4 @@ public class CarMaintenanceManager implements CarMaintenanceService {
             }
         }
     }
-
 }

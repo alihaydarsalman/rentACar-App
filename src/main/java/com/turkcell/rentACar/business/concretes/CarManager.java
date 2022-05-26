@@ -27,10 +27,10 @@ public class CarManager implements CarService {
 
     private final ModelMapperService modelMapperService;
     private final CarDao carDao;
-    private ColorService colorService;
-    private BrandService brandService;
-    private CarMaintenanceService carMaintenanceService;
-    private RentalService rentalService;
+    private final ColorService colorService;
+    private final BrandService brandService;
+    private final CarMaintenanceService carMaintenanceService;
+    private final RentalService rentalService;
 
     public CarManager(ModelMapperService modelMapperService, CarDao carDao
             , @Lazy ColorService colorService, @Lazy BrandService brandService
@@ -234,6 +234,4 @@ public class CarManager implements CarService {
             throw new BusinessException(BusinessMessages.ERROR_INVALID_KILOMETER_INFO);
         }
     }
-
-
 }

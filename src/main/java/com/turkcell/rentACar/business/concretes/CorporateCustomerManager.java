@@ -27,7 +27,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 
     private final ModelMapperService modelMapperService;
     private final CorporateCustomerDao corporateCustomerDao;
-    private UserService userService;
+    private final UserService userService;
 
     public CorporateCustomerManager(ModelMapperService modelMapperService, CorporateCustomerDao corporateCustomerDao
                                     ,UserService userService) {

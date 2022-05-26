@@ -27,7 +27,7 @@ public class ColorManager implements ColorService {
 
     private final ModelMapperService modelMapperService;
     private final ColorDao colorDao;
-    private CarService carService;
+    private final CarService carService;
 
     @Autowired
     public ColorManager(ModelMapperService modelMapperService, ColorDao colorDao, CarService carService) {

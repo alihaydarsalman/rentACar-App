@@ -25,7 +25,7 @@ public class BrandManager implements BrandService {
 
     private final ModelMapperService modelMapperService;
     private final BrandDao brandDao;
-    private CarService carService;
+    private final CarService carService;
 
     public BrandManager(ModelMapperService modelMapperService, BrandDao brandDao
     ,CarService carService) {

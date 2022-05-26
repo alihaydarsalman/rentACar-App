@@ -27,8 +27,8 @@ public class CardInfoManager implements CardInfoService {
 
     private final ModelMapperService modelMapperService;
     private final CardInfoDao cardInfoDao;
-    private CustomerService customerService;
-    private CardControlService cardControlService;
+    private final CustomerService customerService;
+    private final CardControlService cardControlService;
 
     @Autowired
     public CardInfoManager(ModelMapperService modelMapperService, CardInfoDao cardInfoDao,
