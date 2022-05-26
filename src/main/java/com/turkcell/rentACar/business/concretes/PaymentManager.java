@@ -63,7 +63,7 @@ public class PaymentManager implements PaymentService {
 
         rental.setCar(this.carService.getCarByCarId(paymentModel.getCreateRentalRequest().getCarId()));
 
-        this.rentalService.setAdditionForRental(rental,paymentModel.getCreateRentalRequest().getAdditionIds());
+        this.rentalService.setAdditionForRental(rental,paymentModel.getCreateRentalRequest());
 
         double totalPayment = this.invoiceService.calculateTotalPriceOfRental(rental);
 

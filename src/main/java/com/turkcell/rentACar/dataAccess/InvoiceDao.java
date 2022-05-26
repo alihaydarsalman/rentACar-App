@@ -15,4 +15,6 @@ public interface InvoiceDao extends JpaRepository<Invoice, Integer> {
     List<Invoice> findAllByCustomer_UserId(int id);
 
     boolean existsByCustomer_UserId(int id);
+
+    boolean existsByInvoiceNo(String currInvoiceNo);
 }

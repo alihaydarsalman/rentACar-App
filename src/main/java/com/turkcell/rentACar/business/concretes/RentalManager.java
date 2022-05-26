@@ -74,7 +74,7 @@ public class RentalManager implements RentalService {
         areDatesValid(createRentalRequest.getRentDate());
         isRentDateAfterReturnDate(createRentalRequest.getRentDate(),createRentalRequest.getRentReturnDate());
         isCarCanRented(createRentalRequest);
-        setAdditionForRental(rental, createRentalRequest.getAdditionId());
+        setAdditionForRental(rental, createRentalRequest);
         this.individualCustomerService.isIndividualCustomerExistsById(createRentalRequest.getUserId());
         rental.setCustomer(this.individualCustomerService.getCustomerById(createRentalRequest.getUserId()));
 
@@ -95,7 +95,7 @@ public class RentalManager implements RentalService {
         areDatesValid(createRentalRequest.getRentDate());
         isRentDateAfterReturnDate(createRentalRequest.getRentDate(),createRentalRequest.getRentReturnDate());
         isCarCanRented(createRentalRequest);
-        setAdditionForRental(rental,createRentalRequest.getAdditionId());
+        setAdditionForRental(rental,createRentalRequest);
         this.corporateCustomerService.isCorporateCustomerExistsById(createRentalRequest.getUserId());
         rental.setCustomer(this.corporateCustomerService.getCustomerById(createRentalRequest.getUserId()));
 
@@ -234,7 +234,7 @@ public class RentalManager implements RentalService {
 
         isRentalExistsByRentalId(rentId);
 
-        return this.rentalDao.getById(rentId);
+        return this.rentalDao.findByRentId(rentId);
     }
 
     @Override
@@ -323,15 +323,15 @@ public class RentalManager implements RentalService {
     }
 
     @Override
-    public void setAdditionForRental(Rental rental, List<Integer> additionalServicesIds) throws BusinessException {
+    public void setAdditionForRental(Rental rental, CreateRentalRequest createRentalRequest) throws BusinessException {
 
-        if( additionalServicesIds == null || additionalServicesIds.isEmpty()){
+        if( createRentalRequest.getAdditionId() == null || createRentalRequest.getAdditionId().isEmpty()){
             rental.setAdditionList(null);
         }
         else{
             List<Addition> tempAdditions = new ArrayList<>();
 
-            for (Integer addId: additionalServicesIds){
+            for (Integer addId: createRentalRequest.getAdditionId()){
                 this.additionService.isExistsByAdditionId(addId);
 
                 Addition addition = this.additionService.getAdditionById(addId);

@@ -7,6 +7,7 @@ import com.turkcell.rentACar.business.abstracts.InvoiceService;
 import com.turkcell.rentACar.business.abstracts.RentalService;
 import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
+import com.turkcell.rentACar.core.utilities.generators.InvoiceNoGenerator;
 import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
 import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
@@ -140,20 +141,20 @@ public class InvoiceManager implements InvoiceService {
 
     private String invoiceNumberCreator(Rental rental) throws BusinessException {
 
-        String invoiceNumber = String.valueOf(rental.getCustomer().getUserId())+
-                String.valueOf(rental.getRentId())+
-                String.valueOf(rental.getRentDate().getYear()) +
-                String.valueOf(rental.getRentDate().getMonthValue()) +
-                String.valueOf(rental.getRentDate().getDayOfMonth());
+        String currInvoiceNo = InvoiceNoGenerator.generate();
 
-        return invoiceNumber;
+        while (true){
+            if (!this.invoiceDao.existsByInvoiceNo(currInvoiceNo)){
+                return currInvoiceNo;
+            }
+            currInvoiceNo = InvoiceNoGenerator.generate();
+        }
     }
     private int calculateTotalRentDays(LocalDate rentDate, LocalDate returnDate){
 
         if (ChronoUnit.DAYS.between(rentDate,returnDate) == 0){
             return 1;
         }
-
         return  (int)(ChronoUnit.DAYS.between(rentDate,returnDate));
     }
 
@@ -163,7 +164,6 @@ public class InvoiceManager implements InvoiceService {
         if (ChronoUnit.DAYS.between(expectedReturnDate,actualReturnDate) == 0){
             return 1;
         }
-
         return  (int)(ChronoUnit.DAYS.between(expectedReturnDate,actualReturnDate));
     }
 
