@@ -40,7 +40,7 @@
 
 ---
 
-   <h1 align='center'>ER DIAGRAM</h1>
+<h1 align='center'>ER DIAGRAM</h1>
 
 ![ERD](https://user-images.githubusercontent.com/83385573/171025062-e2f9d4b9-5bc4-431c-894e-bda1e417ea9d.JPG)
 
@@ -77,5 +77,6 @@
 
 <a href="https://github.com/hzyazilimci/rentACar-App/blob/master/src/main/java/com/turkcell/rentACar/api/controllers/CardInfosController.java">![cardInfo](https://user-images.githubusercontent.com/83385573/171030883-4ebb9383-253b-47c1-ab48-234f9289e959.JPG)</a>
 
-
+---
+<h1 align='center'>UNIT TEST COVERAGE RESULT WILL BE ADD</h1>
 
