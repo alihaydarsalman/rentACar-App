@@ -31,11 +31,11 @@
 <h1 align='center'>N-Layered Architecture File Structure</h1>  
 <li>
    <ul>
-      <li><h2><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/entities">Entity Layer</a> contains source entitie, dto, request classes.</h2></li>
-      <li><h2><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/dataAccess">Repository Layer</a> containing database related operations.</h2></li>
-      <li><h2><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/business">Business Layer</a> contains business logic codes.</h2></li>
-       <li><h2><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/api">Controller Layer</a> contains Rest API's.</h2></li>
-       <li><h2><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/core">Core Layer</a> contains cross-cutting concerns and common requirements.</h2></li>
+      <li><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/entities">Entity Layer</a> contains source entitie, dto, request classes.</li>
+      <li><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/dataAccess">Repository Layer</a> containing database related operations.</li>
+      <li><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/business">Business Layer</a> contains business logic codes</li>
+       <li><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/api">Controller Layer</a> contains Rest API's.</li>
+       <li><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/core">Core Layer</a> contains cross-cutting concerns and common requirements.</li>
    </ul>  
 </li>
 
