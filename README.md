@@ -53,6 +53,7 @@
 <br></br>
 
 <h1 align='center'> ENDPOINTS </h1>
+<h3 align = 'center'><strong>You can access endpoints by clicking screenshot that you want below.</strong></h3>
 
 <a href="https://github.com/hzyazilimci/rentACar-App/blob/master/src/main/java/com/turkcell/rentACar/api/controllers/CarsController.java">![cars](https://user-images.githubusercontent.com/83385573/171030427-6bce88f2-afcf-404c-8c56-f2dc4b2cbe72.JPG)</a>
 
