@@ -78,5 +78,5 @@
 <a href="https://github.com/hzyazilimci/rentACar-App/blob/master/src/main/java/com/turkcell/rentACar/api/controllers/CardInfosController.java">![cardInfo](https://user-images.githubusercontent.com/83385573/171030883-4ebb9383-253b-47c1-ab48-234f9289e959.JPG)</a>
 
 ---
-<h1 align='center'>UNIT TEST COVERAGE SS WILL BE ADD</h1>
+<h2 align='center'>UNIT TEST COVERAGE SS WILL BE ADDED</h2>
 
