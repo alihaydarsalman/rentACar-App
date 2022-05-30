@@ -1,4 +1,4 @@
-<h1 align='center'><strong>Restful Rent A Car Application</strong></h1>
+<h1 align='center'>🚗<strong>Restful Rent A Car Application</strong>🚗</h1>
 
 <p align='center'> 
    This project is a comprehensive, monolithic-nLayered Spring Boot application working with rest services. This project. This project was written purely defensively. It has been protected for all possible glitches. OOP rules and SOLID-DRY principles were adhered to throughout the project. You can see the technologies used in the project in the tech stack section.
