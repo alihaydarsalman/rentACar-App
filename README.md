@@ -51,6 +51,35 @@
 
 <br></br>
 
-<h1 align='center'> APIs </h1>
+<h1 align='center'> ENDPOINTS </h1>
+
+![cars](https://user-images.githubusercontent.com/83385573/171030427-6bce88f2-afcf-404c-8c56-f2dc4b2cbe72.JPG)
+
+![rental](https://user-images.githubusercontent.com/83385573/171030578-3421803a-2a7f-4f17-91dc-1aca3de7b33f.JPG)
+
+![payment](https://user-images.githubusercontent.com/83385573/171030588-794ae5b2-76e6-459d-aa35-450a8a6bc3df.JPG)
+
+![invoice](https://user-images.githubusercontent.com/83385573/171030599-4db4627e-aae7-4f79-8c1c-c2ba51656117.JPG)
+
+![additions](https://user-images.githubusercontent.com/83385573/171030545-535ed5e1-a304-4157-afde-a0aae2be1a25.JPG)
+
+![brands](https://user-images.githubusercontent.com/83385573/171030476-067426e1-942d-4812-9dba-d59e6fff92dd.JPG)
+
+![colors](https://user-images.githubusercontent.com/83385573/171030496-be605cb2-d4d6-41bb-9a9a-0ab32b789419.JPG)
+
+![cities](https://user-images.githubusercontent.com/83385573/171030512-dd4f42a3-c52d-4cf9-9ffd-8e3f902ff9ab.JPG)
+
+![maintenance](https://user-images.githubusercontent.com/83385573/171030619-af322fc1-12cb-49dd-85da-ee674e0903ed.JPG)
+
+![damage](https://user-images.githubusercontent.com/83385573/171030628-f8445828-d394-4ccd-90e0-d3c665239760.JPG)
+
+![customers](https://user-images.githubusercontent.com/83385573/171030819-168af1d0-73cf-44d0-8af1-0d7c657db82c.JPG)
+
+![corporateCus](https://user-images.githubusercontent.com/83385573/171030852-56f91204-3162-44e2-9ddf-36e47b5af1ad.JPG)
+
+![indviduual](https://user-images.githubusercontent.com/83385573/171030871-2dce8c77-d24c-442a-89df-976d3928c0cb.JPG)
+
+![cardInfo](https://user-images.githubusercontent.com/83385573/171030883-4ebb9383-253b-47c1-ab48-234f9289e959.JPG)
+
 
 
