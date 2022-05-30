@@ -27,7 +27,9 @@
 
 <hr></hr>
 
-<p><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/entities">Entity Layer</a> <br>This layer includes source entitie, dto, request classes.</br></p> 
+## `n-Layered Arch. Structure` 
+
+<p><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/entities">Entity Layer</a> includes source entitie, dto, request classes.</p> 
 
 <h2 align='center'> ER DIAGRAM </h2>
 
