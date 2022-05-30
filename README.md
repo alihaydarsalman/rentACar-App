@@ -28,6 +28,8 @@
 
 ---
 
+<hr></hr>
+
 <h1 align='center'>N-Layered Architecture File Structure</h1>  
 
 <ul><li><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/entities">Entity Layer</a> contains source entitie, dto, request classes.</li>
@@ -38,6 +40,8 @@
 </ul>
 
 ---
+
+<hr></hr>
 
 <h1 align='center'> ER DIAGRAM </h1>
 
