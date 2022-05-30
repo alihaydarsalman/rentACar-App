@@ -40,7 +40,7 @@
 
 ---
 
-<h1 align='center'><img src="![database](https://user-images.githubusercontent.com/83385573/171036110-dc715f2a-fcf3-4239-b7e8-11ad7440cef6.png)">ER DIAGRAM</h1>
+<h1 align='center'><img src="https://www.google.com/search?q=database+png&source=lnms&tbm=isch&sa=X&ved=2ahUKEwivpPOL24f4AhVhSvEDHXJEDKMQ_AUoAXoECAEQAw&biw=1920&bih=941&dpr=1#imgrc=MWykkIZTDlEc_M">ER DIAGRAM</h1>
 
 ![ERD](https://user-images.githubusercontent.com/83385573/171025062-e2f9d4b9-5bc4-431c-894e-bda1e417ea9d.JPG)
 
