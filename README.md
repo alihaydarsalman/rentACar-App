@@ -40,7 +40,7 @@
 
 ---
 
-<h1 align='center'> ER DIAGRAM </h1>
+<h1 align='center'><img src="https://www.flaticon.com/free-icon/database_148825?term=database&page=1&position=4&page=1&position=4&related_id=148825&origin=tag"></img>ER DIAGRAM</h1>
 
 
 ![ERD](https://user-images.githubusercontent.com/83385573/171025062-e2f9d4b9-5bc4-431c-894e-bda1e417ea9d.JPG)
