@@ -29,18 +29,18 @@
 ---
 
 <h1 align='center'>N-Layered Architecture File Structure</h1>  
+
 <li>
-   <ul>
       <li><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/entities">Entity Layer</a> contains source entitie, dto, request classes.</li>
       <li><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/dataAccess">Repository Layer</a> containing database related operations.</li>
       <li><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/business">Business Layer</a> contains business logic codes</li>
        <li><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/api">Controller Layer</a> contains Rest API's.</li>
        <li><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/core">Core Layer</a> contains cross-cutting concerns and common requirements.</li>
-   </ul>  
 </li>
 
+---
 
-<h2 align='center'> ER DIAGRAM </h2>
+<h1 align='center'> ER DIAGRAM </h1>
 
 ![ERD](https://user-images.githubusercontent.com/83385573/171025062-e2f9d4b9-5bc4-431c-894e-bda1e417ea9d.JPG)
 
