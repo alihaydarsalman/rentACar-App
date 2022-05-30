@@ -24,6 +24,6 @@
 - Heroku
 
 <h2 align='center'> ER DIAGRAM </h2>
-<br></br>
+
 ![ERD](https://user-images.githubusercontent.com/83385573/171025062-e2f9d4b9-5bc4-431c-894e-bda1e417ea9d.JPG)
 
