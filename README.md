@@ -6,9 +6,7 @@
 
 <hr></hr>
 
-## You can test my API by clicking the Heroku <a href="https://rent-a-car-application.herokuapp.com/swagger-ui/index.html">link</a>.
-
-<hr></hr>
+## You can test my API by clicking the Heroku <a href="https://rent-a-car-application.herokuapp.com/swagger-ui/index.html">link</a>
 
 ## Tech Stack
 
