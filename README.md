@@ -28,7 +28,7 @@
 
 ---
 
-<hr></hr>
+<br></br>
 
 <h1 align='center'>N-Layered Architecture File Structure</h1>  
 
@@ -41,7 +41,7 @@
 
 ---
 
-<hr></hr>
+<br></br>
 
 <h1 align='center'> ER DIAGRAM </h1>
 
