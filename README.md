@@ -6,7 +6,7 @@
 
 <hr></hr>
 
-## You can test my API by clicking the Heroku <a href="https://rent-a-car-application.herokuapp.com/swagger-ui/index.html">link</a>.
+<p align='center'> You can test my API by clicking the Heroku <a href="https://rent-a-car-application.herokuapp.com/swagger-ui/index.html">link</a>.</p>
 
 ## Tech Stack
 
@@ -27,9 +27,9 @@
 
 <hr></hr>
 
-## `n-Layered Arch. Structure` 
+<p align='center'> `n-Layered Architecture File Structure`</p> 
 
-<p><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/entities">Entity Layer</a> includes source entitie, dto, request classes.</p> 
+<p align='center'><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/entities">Entity Layer</a> includes source entitie, dto, request classes.</p> 
 
 <h2 align='center'> ER DIAGRAM </h2>
 
