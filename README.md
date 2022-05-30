@@ -61,7 +61,9 @@
 
 ![invoice](https://user-images.githubusercontent.com/83385573/171030599-4db4627e-aae7-4f79-8c1c-c2ba51656117.JPG)
 
-![additions](https://user-images.githubusercontent.com/83385573/171030545-535ed5e1-a304-4157-afde-a0aae2be1a25.JPG)
+![maintenance](https://user-images.githubusercontent.com/83385573/171030619-af322fc1-12cb-49dd-85da-ee674e0903ed.JPG)
+
+![damage](https://user-images.githubusercontent.com/83385573/171030628-f8445828-d394-4ccd-90e0-d3c665239760.JPG)
 
 ![brands](https://user-images.githubusercontent.com/83385573/171030476-067426e1-942d-4812-9dba-d59e6fff92dd.JPG)
 
@@ -69,9 +71,7 @@
 
 ![cities](https://user-images.githubusercontent.com/83385573/171030512-dd4f42a3-c52d-4cf9-9ffd-8e3f902ff9ab.JPG)
 
-![maintenance](https://user-images.githubusercontent.com/83385573/171030619-af322fc1-12cb-49dd-85da-ee674e0903ed.JPG)
-
-![damage](https://user-images.githubusercontent.com/83385573/171030628-f8445828-d394-4ccd-90e0-d3c665239760.JPG)
+![additions](https://user-images.githubusercontent.com/83385573/171030545-535ed5e1-a304-4157-afde-a0aae2be1a25.JPG)
 
 ![customers](https://user-images.githubusercontent.com/83385573/171030819-168af1d0-73cf-44d0-8af1-0d7c657db82c.JPG)
 
