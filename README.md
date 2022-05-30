@@ -8,8 +8,6 @@
 
 <h2 align='center'> You can test my API by clicking the Heroku <a href="https://rent-a-car-application.herokuapp.com/swagger-ui/index.html">link</a>.</h2>
 
-<br></br>
-
 ## Tech Stack
 ```
 - Java 8 (for deploy on Heroku)
@@ -28,10 +26,7 @@
 - Git Bash
 - Heroku
 ```
-
 ---
-
-<br></br>
 
 <h1 align='center'>N-Layered Architecture File Structure</h1>
 <h3 align = 'center'><strong>You can access the codes by clicking the layer links below.</strong></h3>
