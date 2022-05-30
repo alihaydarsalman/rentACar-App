@@ -1,4 +1,4 @@
-<h1 align='center'> Restful Rent A Car Application </h1>
+<h1 align='center'><strong>Restful Rent A Car Application</strong></h1>
 
 <p align='center'> 
    This project is a comprehensive, monolithic-nLayered Spring Boot application working with rest services. This project. This project was written purely defensively. It has been protected for all possible glitches. OOP rules and SOLID-DRY principles were adhered to throughout the project. You can see the technologies used in the project in the tech stack section.
@@ -23,13 +23,14 @@
 - Modelmapper
 - JUnit 5
 - Mockito
+- Git Bash
 - Heroku
 
-<hr></hr>
+---
 
-<p align='center'> `n-Layered Architecture File Structure`</p> 
+<h1 align='center'>N-Layered Architecture File Structure</h1>  
 
-<p align='center'><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/entities">Entity Layer</a> includes source entitie, dto, request classes.</p> 
+<h2 align='center'><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/entities">Entity Layer</a> includes source entitie, dto, request classes.</h2> 
 
 <h2 align='center'> ER DIAGRAM </h2>
 
