@@ -81,7 +81,7 @@
 
 <a href="https://github.com/hzyazilimci/rentACar-App/blob/master/src/main/java/com/turkcell/rentACar/api/controllers/IndividualCustomersController.java">![indviduual](https://user-images.githubusercontent.com/83385573/171030871-2dce8c77-d24c-442a-89df-976d3928c0cb.JPG)</a>
 
-<a href="https://github.com/hzyazilimci/rentACar-App/blob/master/src/main/java/com/turkcell/rentACar/api/controllers/CardInfosController.java>"![cardInfo](https://user-images.githubusercontent.com/83385573/171030883-4ebb9383-253b-47c1-ab48-234f9289e959.JPG)</a>
+<a href="https://github.com/hzyazilimci/rentACar-App/blob/master/src/main/java/com/turkcell/rentACar/api/controllers/CardInfosController.java">![cardInfo](https://user-images.githubusercontent.com/83385573/171030883-4ebb9383-253b-47c1-ab48-234f9289e959.JPG)</a>
 
 
 
