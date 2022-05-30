@@ -11,7 +11,7 @@
 <br></br>
 
 ## Tech Stack
-
+```
 - Java 8 (for deploy on Heroku)
 - Maven
 - Lombok
@@ -27,6 +27,7 @@
 - Mockito
 - Git Bash
 - Heroku
+```
 
 ---
 
@@ -46,7 +47,9 @@
 
 <br></br>
 
+
 <h1 align='center'> ER DIAGRAM </h1>
+
 
 ![ERD](https://user-images.githubusercontent.com/83385573/171025062-e2f9d4b9-5bc4-431c-894e-bda1e417ea9d.JPG)
 
