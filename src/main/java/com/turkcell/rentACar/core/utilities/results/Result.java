@@ -1,11 +1,9 @@
 package com.turkcell.rentACar.core.utilities.results;
 
-
 public class Result { //Super type
 
     private boolean success;
     private String message;
-
 
     public Result(boolean success) {
         this.success = success;

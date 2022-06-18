@@ -52,5 +52,5 @@ public class Invoice {
     private Payment payment;
 
     @Transient
-    public static double diffCityPrice = 750;
+    public static final double diffCityPrice = 750;
 }

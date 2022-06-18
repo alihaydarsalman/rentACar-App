@@ -191,6 +191,8 @@ public class RentalManager implements RentalService {
     @Override
     public DataResult<List<AdditionListDto>> getOrdersByRent(int rentId) {
 
+        isRentalExistsByRentalId(rentId);
+
         Rental rental = this.rentalDao.getById(rentId);
 
         List<Addition> additions = rental.getAdditionList();

@@ -129,6 +129,7 @@ public class InvoiceManager implements InvoiceService {
     @Override
     public DataResult<List<InvoiceListDto>> getInvoicesByCustomer(int customerId) throws BusinessException {
 
+        this.customerService.isCustomerExistsByCustomerId(customerId);
         isInvoiceExistsByCustomerIdOnInvoiceTable(customerId);
 
         List<Invoice> invoices = this.invoiceDao.findAllByCustomer_UserId(customerId);

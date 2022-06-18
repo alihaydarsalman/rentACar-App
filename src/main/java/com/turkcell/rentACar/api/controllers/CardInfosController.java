@@ -6,6 +6,7 @@ import com.turkcell.rentACar.core.utilities.results.DataResult;
 import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.entities.dtos.get.GetCardInfoDto;
 import com.turkcell.rentACar.entities.dtos.list.CardInfoListDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class CardInfosController {
 
     private final CardInfoService cardInfoService;
 
-
+    @Autowired
     public CardInfosController(CardInfoService cardInfoService) {
         this.cardInfoService = cardInfoService;
     }

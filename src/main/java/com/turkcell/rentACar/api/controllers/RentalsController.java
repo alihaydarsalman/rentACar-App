@@ -9,6 +9,7 @@ import com.turkcell.rentACar.entities.dtos.list.AdditionListDto;
 import com.turkcell.rentACar.entities.dtos.list.RentalListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateRentalRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateRentalRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,7 +21,7 @@ public class RentalsController {
 
     private final RentalService rentalService;
 
-
+    @Autowired
     public RentalsController(RentalService rentalService) {
         this.rentalService = rentalService;
     }

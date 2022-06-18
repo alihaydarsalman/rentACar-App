@@ -33,6 +33,6 @@ public class GlobalExceptionHandler {
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ErrorDataResult<Object> handleBusinessExceptions(BusinessException businessException)
     {
-        return new ErrorDataResult<Object>(businessException.getMessage());
+        return new ErrorDataResult<>(businessException.getMessage());
     }
 }

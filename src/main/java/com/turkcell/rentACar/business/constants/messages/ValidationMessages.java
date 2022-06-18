@@ -1,6 +1,5 @@
 package com.turkcell.rentACar.business.constants.messages;
 
-import javax.validation.constraints.Pattern;
 
 public final class ValidationMessages {
 
