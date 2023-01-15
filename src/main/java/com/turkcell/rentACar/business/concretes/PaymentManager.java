@@ -1,24 +1,25 @@
 package com.turkcell.rentACar.business.concretes;
 
 import com.turkcell.rentACar.api.models.PaymentModel;
-import com.turkcell.rentACar.api.models.UpdatePaymentModel;
 import com.turkcell.rentACar.business.abstracts.*;
 import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
-import com.turkcell.rentACar.business.adapters.posAdapters.abstracts.PosService;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
-import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
-import com.turkcell.rentACar.core.utilities.results.Result;
-import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
-import com.turkcell.rentACar.core.utilities.results.SuccessResult;
 import com.turkcell.rentACar.dataAccess.PaymentDao;
 import com.turkcell.rentACar.entities.dtos.get.GetPaymentDto;
 import com.turkcell.rentACar.entities.dtos.list.PaymentListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateCardInfoRequest;
 import com.turkcell.rentACar.entities.requests.create.CreateInvoiceRequest;
-import com.turkcell.rentACar.entities.sourceEntities.Invoice;
 import com.turkcell.rentACar.entities.sourceEntities.Payment;
 import com.turkcell.rentACar.entities.sourceEntities.Rental;
+import com.turkcell.rentACar.api.models.UpdatePaymentModel;
+import com.turkcell.rentACar.business.abstracts.*;
+import com.turkcell.rentACar.business.adapters.posAdapters.abstracts.PosService;
+import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
+import com.turkcell.rentACar.core.utilities.results.Result;
+import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
+import com.turkcell.rentACar.core.utilities.results.SuccessResult;
+import com.turkcell.rentACar.entities.sourceEntities.Invoice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -98,7 +99,8 @@ public class PaymentManager implements PaymentService {
 
         Rental rental = this.rentalService.getByRentalId(updatePaymentModel.getUpdateRentalRequestForDelay().getRentId());
 
-        double totalPayment = this.invoiceService.calculateTotalPriceForDelay(rental.getRentReturnDate(),updatePaymentModel.getUpdateRentalRequestForDelay().getDelayedReturnDate(),rental.getRentId());
+        double totalPayment = this.invoiceService.calculateTotalPriceForDelay(rental.getRentReturnDate(),
+                updatePaymentModel.getUpdateRentalRequestForDelay().getDelayedReturnDate(),rental.getRentId());
 
         isPaymentVerified(totalPayment, updatePaymentModel.getCreateCardInfoRequest());
 

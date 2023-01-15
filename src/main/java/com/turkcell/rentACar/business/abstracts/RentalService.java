@@ -2,13 +2,13 @@ package com.turkcell.rentACar.business.abstracts;
 
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
-import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.entities.dtos.get.GetRentalDto;
 import com.turkcell.rentACar.entities.dtos.list.AdditionListDto;
 import com.turkcell.rentACar.entities.dtos.list.RentalListDto;
-import com.turkcell.rentACar.entities.requests.create.CreateRentalRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateRentalRequest;
 import com.turkcell.rentACar.entities.sourceEntities.Rental;
+import com.turkcell.rentACar.core.utilities.results.Result;
+import com.turkcell.rentACar.entities.requests.create.CreateRentalRequest;
 
 import java.util.List;
 

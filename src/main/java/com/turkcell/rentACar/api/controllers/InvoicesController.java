@@ -3,14 +3,11 @@ package com.turkcell.rentACar.api.controllers;
 import com.turkcell.rentACar.business.abstracts.InvoiceService;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
-import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.entities.dtos.get.GetInvoiceDto;
 import com.turkcell.rentACar.entities.dtos.list.InvoiceListDto;
-import com.turkcell.rentACar.entities.requests.create.CreateInvoiceRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 

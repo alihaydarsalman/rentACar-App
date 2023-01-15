@@ -1,20 +1,20 @@
 package com.turkcell.rentACar.business.concretes;
 
-import com.turkcell.rentACar.business.abstracts.IndividualCustomerService;
-import com.turkcell.rentACar.business.abstracts.UserService;
 import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
-import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
-import com.turkcell.rentACar.core.utilities.results.Result;
-import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
-import com.turkcell.rentACar.core.utilities.results.SuccessResult;
 import com.turkcell.rentACar.dataAccess.IndividualCustomerDao;
 import com.turkcell.rentACar.entities.dtos.get.GetIndividualCustomerDto;
 import com.turkcell.rentACar.entities.dtos.list.IndividualCustomerListDto;
-import com.turkcell.rentACar.entities.requests.create.CreateIndividualCustomerRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateIndividualCustomerRequest;
 import com.turkcell.rentACar.entities.sourceEntities.IndividualCustomer;
+import com.turkcell.rentACar.business.abstracts.IndividualCustomerService;
+import com.turkcell.rentACar.business.abstracts.UserService;
+import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
+import com.turkcell.rentACar.core.utilities.results.Result;
+import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
+import com.turkcell.rentACar.core.utilities.results.SuccessResult;
+import com.turkcell.rentACar.entities.requests.create.CreateIndividualCustomerRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -43,7 +43,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 .map(individualCustomer -> this.modelMapperService.forDto().map(individualCustomer,IndividualCustomerListDto.class))
                 .collect(Collectors.toList());
 
-        return new SuccessDataResult<>(result,BusinessMessages.SUCCESS_LIST);
+        return new SuccessDataResult<>(result, BusinessMessages.SUCCESS_LIST);
     }
 
     @Override

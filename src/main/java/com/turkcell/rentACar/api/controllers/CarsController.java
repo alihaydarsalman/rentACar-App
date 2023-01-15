@@ -1,14 +1,13 @@
 package com.turkcell.rentACar.api.controllers;
 
-import com.turkcell.rentACar.business.abstracts.CarService;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
-import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.entities.dtos.get.GetCarDto;
 import com.turkcell.rentACar.entities.dtos.list.CarListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateCarRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateCarRequest;
-import com.turkcell.rentACar.entities.sourceEntities.Car;
+import com.turkcell.rentACar.business.abstracts.CarService;
+import com.turkcell.rentACar.core.utilities.results.Result;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,7 @@
 package com.turkcell.rentACar.entities.requests.create;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.turkcell.rentACar.business.constants.messages.ValidationMessages;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

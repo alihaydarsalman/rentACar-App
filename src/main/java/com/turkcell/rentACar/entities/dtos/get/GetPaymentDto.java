@@ -1,6 +1,5 @@
 package com.turkcell.rentACar.entities.dtos.get;
 
-import com.turkcell.rentACar.entities.dtos.list.InvoiceListDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

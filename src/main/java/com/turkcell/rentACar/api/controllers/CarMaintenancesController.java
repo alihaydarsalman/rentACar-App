@@ -3,11 +3,11 @@ package com.turkcell.rentACar.api.controllers;
 import com.turkcell.rentACar.business.abstracts.CarMaintenanceService;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
-import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.entities.dtos.get.GetCarMaintenanceDto;
 import com.turkcell.rentACar.entities.dtos.list.CarMaintenanceListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateCarMaintenanceRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateCarMaintenanceRequest;
+import com.turkcell.rentACar.core.utilities.results.Result;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

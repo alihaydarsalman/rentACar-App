@@ -17,6 +17,6 @@ public interface CityService {
     DataResult<List<CityListDto>> getAll();
     DataResult<GetCityDto> getById(int cityId) throws BusinessException;
     Result add(CreateCityRequest createCityRequest) throws BusinessException;
-    Result update(UpdateCityRequest updateCityRequest) throws BusinessException;
+    DataResult<GetCityDto> update(UpdateCityRequest updateCityRequest) throws BusinessException;
     Result delete(int cityId) throws BusinessException;
 }

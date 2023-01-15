@@ -14,7 +14,7 @@
 	<name>rentACar</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>8</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -60,8 +60,7 @@
         	<groupId>org.springframework.boot</groupId>
         	<artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-
-	</dependencies>
+        </dependencies>
 
 	<build>
 		<plugins>

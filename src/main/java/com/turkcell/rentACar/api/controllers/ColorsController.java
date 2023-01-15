@@ -3,10 +3,10 @@ package com.turkcell.rentACar.api.controllers;
 import com.turkcell.rentACar.business.abstracts.ColorService;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
-import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.entities.dtos.get.GetColorDto;
 import com.turkcell.rentACar.entities.dtos.list.ColorListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateColorRequest;
+import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.entities.requests.update.UpdateColorRequest;
 import org.springframework.web.bind.annotation.*;
 

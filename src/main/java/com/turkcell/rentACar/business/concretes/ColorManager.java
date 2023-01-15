@@ -1,24 +1,23 @@
 package com.turkcell.rentACar.business.concretes;
 
-import com.turkcell.rentACar.business.abstracts.CarService;
 import com.turkcell.rentACar.business.abstracts.ColorService;
-import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
-import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
-import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
-import com.turkcell.rentACar.core.utilities.results.Result;
-import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
-import com.turkcell.rentACar.core.utilities.results.SuccessResult;
 import com.turkcell.rentACar.dataAccess.ColorDao;
 import com.turkcell.rentACar.entities.dtos.get.GetColorDto;
 import com.turkcell.rentACar.entities.dtos.list.ColorListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateColorRequest;
-import com.turkcell.rentACar.entities.requests.update.UpdateColorRequest;
 import com.turkcell.rentACar.entities.sourceEntities.Color;
+import com.turkcell.rentACar.business.abstracts.CarService;
+import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
+import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
+import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
+import com.turkcell.rentACar.core.utilities.results.Result;
+import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
+import com.turkcell.rentACar.core.utilities.results.SuccessResult;
+import com.turkcell.rentACar.entities.requests.update.UpdateColorRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.PushBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
 

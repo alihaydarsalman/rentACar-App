@@ -3,16 +3,13 @@ package com.turkcell.rentACar.api.controllers;
 import com.turkcell.rentACar.business.abstracts.RentalService;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
-import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.entities.dtos.get.GetRentalDto;
 import com.turkcell.rentACar.entities.dtos.list.AdditionListDto;
 import com.turkcell.rentACar.entities.dtos.list.RentalListDto;
-import com.turkcell.rentACar.entities.requests.create.CreateRentalRequest;
-import com.turkcell.rentACar.entities.requests.update.UpdateRentalRequest;
+import com.turkcell.rentACar.core.utilities.results.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController

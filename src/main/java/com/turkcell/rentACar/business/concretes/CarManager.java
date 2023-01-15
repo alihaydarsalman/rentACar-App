@@ -3,17 +3,17 @@ package com.turkcell.rentACar.business.concretes;
 import com.turkcell.rentACar.business.abstracts.*;
 import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
-import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
-import com.turkcell.rentACar.core.utilities.results.Result;
-import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
-import com.turkcell.rentACar.core.utilities.results.SuccessResult;
 import com.turkcell.rentACar.dataAccess.CarDao;
 import com.turkcell.rentACar.entities.dtos.get.GetCarDto;
 import com.turkcell.rentACar.entities.dtos.list.CarListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateCarRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateCarRequest;
 import com.turkcell.rentACar.entities.sourceEntities.Car;
+import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
+import com.turkcell.rentACar.core.utilities.results.Result;
+import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
+import com.turkcell.rentACar.core.utilities.results.SuccessResult;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -52,7 +52,7 @@ public class CarManager implements CarService {
                 .map(car -> this.modelMapperService.forDto().map(car,CarListDto.class))
                 .collect(Collectors.toList());
 
-        return new SuccessDataResult<>(result,BusinessMessages.SUCCESS_LIST);
+        return new SuccessDataResult<>(result, BusinessMessages.SUCCESS_LIST);
     }
 
     @Override

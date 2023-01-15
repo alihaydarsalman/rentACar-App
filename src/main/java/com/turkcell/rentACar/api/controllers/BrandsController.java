@@ -3,11 +3,11 @@ package com.turkcell.rentACar.api.controllers;
 import com.turkcell.rentACar.business.abstracts.BrandService;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
-import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.entities.dtos.get.GetBrandDto;
 import com.turkcell.rentACar.entities.dtos.list.BrandListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateBrandRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateBrandRequest;
+import com.turkcell.rentACar.core.utilities.results.Result;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

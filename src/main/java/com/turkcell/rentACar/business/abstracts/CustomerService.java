@@ -5,6 +5,7 @@ import com.turkcell.rentACar.core.utilities.results.DataResult;
 import com.turkcell.rentACar.entities.dtos.get.GetCustomerDto;
 import com.turkcell.rentACar.entities.dtos.list.CustomerListDto;
 import com.turkcell.rentACar.entities.sourceEntities.Customer;
+
 import java.util.List;
 
 public interface CustomerService {

@@ -1,20 +1,20 @@
 package com.turkcell.rentACar.business.concretes;
 
 import com.turkcell.rentACar.business.abstracts.BrandService;
-import com.turkcell.rentACar.business.abstracts.CarService;
-import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
-import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
-import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
-import com.turkcell.rentACar.core.utilities.results.Result;
-import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
-import com.turkcell.rentACar.core.utilities.results.SuccessResult;
-import com.turkcell.rentACar.dataAccess.BrandDao;
 import com.turkcell.rentACar.entities.dtos.get.GetBrandDto;
 import com.turkcell.rentACar.entities.dtos.list.BrandListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateBrandRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateBrandRequest;
 import com.turkcell.rentACar.entities.sourceEntities.Brand;
+import com.turkcell.rentACar.business.abstracts.CarService;
+import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
+import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
+import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
+import com.turkcell.rentACar.core.utilities.results.Result;
+import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
+import com.turkcell.rentACar.core.utilities.results.SuccessResult;
+import com.turkcell.rentACar.dataAccess.BrandDao;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

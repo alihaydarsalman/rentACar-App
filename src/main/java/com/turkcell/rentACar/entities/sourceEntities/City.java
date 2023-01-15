@@ -1,9 +1,7 @@
 package com.turkcell.rentACar.entities.sourceEntities;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,6 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "cities")
+@Builder
+@EqualsAndHashCode
 public class City {
 
     @Id

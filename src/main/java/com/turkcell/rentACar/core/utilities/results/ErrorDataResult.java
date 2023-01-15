@@ -1,5 +1,8 @@
 package com.turkcell.rentACar.core.utilities.results;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 public class ErrorDataResult<T> extends DataResult<T> {
 
     public ErrorDataResult(T data, String message) {

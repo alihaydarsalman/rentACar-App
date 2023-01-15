@@ -1,5 +1,8 @@
 package com.turkcell.rentACar.core.utilities.results;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 public class SuccessDataResult<T> extends DataResult<T> {
 
     public SuccessDataResult(T data, String message) {
@@ -13,7 +16,6 @@ public class SuccessDataResult<T> extends DataResult<T> {
     public SuccessDataResult(String message) {
         super(null, true, message);
     }
-
 
     public SuccessDataResult() {
         super(null, true);

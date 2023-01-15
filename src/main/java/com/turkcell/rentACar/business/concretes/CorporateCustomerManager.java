@@ -1,21 +1,20 @@
 package com.turkcell.rentACar.business.concretes;
 
+import com.turkcell.rentACar.core.utilities.results.DataResult;
+import com.turkcell.rentACar.entities.dtos.get.GetCorporateCustomerDto;
+import com.turkcell.rentACar.entities.dtos.list.CorporateCustomerListDto;
+import com.turkcell.rentACar.entities.sourceEntities.CorporateCustomer;
 import com.turkcell.rentACar.business.abstracts.CorporateCustomerService;
 import com.turkcell.rentACar.business.abstracts.UserService;
 import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
-import com.turkcell.rentACar.core.utilities.results.DataResult;
 import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
 import com.turkcell.rentACar.core.utilities.results.SuccessResult;
 import com.turkcell.rentACar.dataAccess.CorporateCustomerDao;
-import com.turkcell.rentACar.entities.dtos.get.GetCorporateCustomerDto;
-import com.turkcell.rentACar.entities.dtos.list.CorporateCustomerListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateCorporateCustomerRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateCorporateCustomerRequest;
-import com.turkcell.rentACar.entities.sourceEntities.CorporateCustomer;
-import com.turkcell.rentACar.entities.sourceEntities.IndividualCustomer;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

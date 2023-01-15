@@ -1,10 +1,10 @@
 package com.turkcell.rentACar.api.controllers;
 
-import com.turkcell.rentACar.business.abstracts.CustomerService;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
 import com.turkcell.rentACar.entities.dtos.get.GetCustomerDto;
 import com.turkcell.rentACar.entities.dtos.list.CustomerListDto;
+import com.turkcell.rentACar.business.abstracts.CustomerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

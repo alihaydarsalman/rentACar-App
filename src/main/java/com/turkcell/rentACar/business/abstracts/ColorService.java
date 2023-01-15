@@ -1,5 +1,6 @@
 package com.turkcell.rentACar.business.abstracts;
 
+import com.turkcell.rentACar.entities.sourceEntities.Color;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
 import com.turkcell.rentACar.core.utilities.results.Result;
@@ -7,7 +8,6 @@ import com.turkcell.rentACar.entities.dtos.get.GetColorDto;
 import com.turkcell.rentACar.entities.dtos.list.ColorListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateColorRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateColorRequest;
-import com.turkcell.rentACar.entities.sourceEntities.Color;
 
 import java.util.List;
 

@@ -1,12 +1,12 @@
 package com.turkcell.rentACar.api.controllers;
 
-import com.turkcell.rentACar.business.abstracts.CarDamageService;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
-import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.entities.dtos.get.GetCarDamageDto;
 import com.turkcell.rentACar.entities.dtos.list.CarDamageListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateCarDamageRequest;
+import com.turkcell.rentACar.business.abstracts.CarDamageService;
+import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.entities.requests.update.UpdateCarDamageRequest;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +29,7 @@ public class CarDamagesController {
     }
 
     @GetMapping("/getById")
-    public DataResult<GetCarDamageDto> getById(@RequestParam int damageId) throws BusinessException{
+    public DataResult<GetCarDamageDto> getById(@RequestParam int damageId) throws BusinessException {
         return this.carDamageService.getById(damageId);
     }
 

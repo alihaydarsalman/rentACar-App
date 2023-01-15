@@ -1,8 +1,8 @@
 package com.turkcell.rentACar.business.adapters.cardControlAdapters.concretes;
 
 import com.turkcell.rentACar.business.adapters.cardControlAdapters.abstracts.CardControlService;
-import com.turkcell.rentACar.core.utilities.outServices.cardControlServices.MasterCardControlService;
 import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
+import com.turkcell.rentACar.core.utilities.outServices.cardControlServices.MasterCardControlService;
 import com.turkcell.rentACar.core.utilities.results.ErrorResult;
 import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.core.utilities.results.SuccessResult;

@@ -1,20 +1,20 @@
 package com.turkcell.rentACar.business.concretes;
 
+import com.turkcell.rentACar.core.utilities.results.DataResult;
+import com.turkcell.rentACar.dataAccess.CarDamageDao;
+import com.turkcell.rentACar.entities.dtos.get.GetCarDamageDto;
+import com.turkcell.rentACar.entities.dtos.list.CarDamageListDto;
+import com.turkcell.rentACar.entities.requests.create.CreateCarDamageRequest;
+import com.turkcell.rentACar.entities.sourceEntities.CarDamage;
 import com.turkcell.rentACar.business.abstracts.CarDamageService;
 import com.turkcell.rentACar.business.abstracts.CarService;
 import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
-import com.turkcell.rentACar.core.utilities.results.DataResult;
 import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
 import com.turkcell.rentACar.core.utilities.results.SuccessResult;
-import com.turkcell.rentACar.dataAccess.CarDamageDao;
-import com.turkcell.rentACar.entities.dtos.get.GetCarDamageDto;
-import com.turkcell.rentACar.entities.dtos.list.CarDamageListDto;
-import com.turkcell.rentACar.entities.requests.create.CreateCarDamageRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateCarDamageRequest;
-import com.turkcell.rentACar.entities.sourceEntities.CarDamage;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;

@@ -21,7 +21,7 @@ public class CreateIndividualCustomerRequest {
     @NotBlank
     @NotNull
     @Pattern(regexp = "^[abcçdefgğhıijklmnoöprsştuüvwqyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVWQYZ ]{2,50}",
-             message = ValidationMessages.CUSTOMER_LAST_NAME_VALIDATION_ERROR)
+            message = ValidationMessages.CUSTOMER_NAME_VALIDATION_ERROR)
     private String lastName;
 
     @NotBlank
