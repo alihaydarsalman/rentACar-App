@@ -24,7 +24,7 @@ public class CitiesController {
     }
 
     @GetMapping("/getAll")
-    public DataResult<List<CityListDto>> getAll(){
+    public DataResult<List<GetCityDto>> getAll(){
         return this.cityService.getAll();
     }
 

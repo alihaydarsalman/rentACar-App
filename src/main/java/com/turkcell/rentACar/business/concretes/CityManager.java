@@ -3,40 +3,34 @@ package com.turkcell.rentACar.business.concretes;
 import com.turkcell.rentACar.business.abstracts.CityService;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
 import com.turkcell.rentACar.dataAccess.CityDao;
+import com.turkcell.rentACar.entities.converters.CityConverter;
 import com.turkcell.rentACar.entities.dtos.get.GetCityDto;
-import com.turkcell.rentACar.entities.dtos.list.CityListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateCityRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateCityRequest;
 import com.turkcell.rentACar.entities.sourceEntities.City;
 import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
-import com.turkcell.rentACar.core.utilities.mapping.ModelMapperService;
 import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
 import com.turkcell.rentACar.core.utilities.results.SuccessResult;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
+
 
 @Service
+@RequiredArgsConstructor
 public class CityManager implements CityService {
 
-    private final ModelMapperService modelMapperService;
     private final CityDao cityDao;
-
-    public CityManager(ModelMapperService modelMapperService, CityDao cityDao) {
-        this.modelMapperService = modelMapperService;
-        this.cityDao = cityDao;
-    }
+    private final CityConverter cityConverter;
 
     @Override
-    public DataResult<List<CityListDto>> getAll() {
+    public DataResult<List<GetCityDto>> getAll() {
 
         List<City> cities = this.cityDao.findAll();
-        List<CityListDto> result = cities.stream()
-                .map(city -> this.modelMapperService.forDto().map(city,CityListDto.class))
-                .collect(Collectors.toList());
+        List<GetCityDto> result = this.cityConverter.convertCityToDto(cities);
 
         return new SuccessDataResult<>(result,BusinessMessages.SUCCESS_LIST);
     }
@@ -56,7 +50,7 @@ public class CityManager implements CityService {
     }
 
     @Override
-    public Result add(CreateCityRequest createCityRequest) throws BusinessException {
+    public DataResult<GetCityDto> add(CreateCityRequest createCityRequest) throws BusinessException {
 
         isCityExistsByCityName(createCityRequest.getCityName().toLowerCase(Locale.ROOT));
 
@@ -67,7 +61,7 @@ public class CityManager implements CityService {
 
         this.cityDao.save(city);
 
-        return new SuccessResult(BusinessMessages.SUCCESS_ADD);
+        return new SuccessDataResult<>(cityConverter.convertCityToDto(city),BusinessMessages.SUCCESS_ADD);
     }
 
     @Override
@@ -82,7 +76,7 @@ public class CityManager implements CityService {
 
         this.cityDao.save(city);
 
-        return new SuccessDataResult<>(convertCityToDto(city),BusinessMessages.SUCCESS_UPDATE);
+        return new SuccessDataResult<>(cityConverter.convertCityToDto(city),BusinessMessages.SUCCESS_UPDATE);
     }
 
     @Override
@@ -107,12 +101,5 @@ public class CityManager implements CityService {
         if(this.cityDao.existsByCityName(cityName.toLowerCase(Locale.ROOT))){
             throw new BusinessException(BusinessMessages.ERROR_CITY_ALREADY_EXISTS);
         }
-    }
-
-    public GetCityDto convertCityToDto(City city){
-        return GetCityDto.builder()
-                .cityId(city.getCityId())
-                .cityName(city.getCityName())
-                .build();
     }
 }

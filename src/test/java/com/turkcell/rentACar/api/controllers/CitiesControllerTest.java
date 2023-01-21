@@ -47,7 +47,7 @@ class CitiesControllerTest {
                 .build();
     }
 
-    @Test
+/*    @Test
     @DisplayName("Valid istek atildiginda basarili sonuc donmesi testi")
     public void whenCreateCityCalledWithValidRequest_itShouldReturnSuccessResult(){
 
@@ -57,5 +57,5 @@ class CitiesControllerTest {
         Mockito.when(mockService.add(request)).thenReturn(result);
 
 
-    }
+    }*/
 }

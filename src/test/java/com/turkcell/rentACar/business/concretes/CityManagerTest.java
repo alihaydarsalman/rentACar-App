@@ -7,6 +7,7 @@ import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.core.utilities.results.SuccessDataResult;
 import com.turkcell.rentACar.core.utilities.results.SuccessResult;
 import com.turkcell.rentACar.dataAccess.CityDao;
+import com.turkcell.rentACar.entities.converters.CityConverter;
 import com.turkcell.rentACar.entities.dtos.get.GetCityDto;
 import com.turkcell.rentACar.entities.requests.create.CreateCityRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateCityRequest;
@@ -18,6 +19,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -36,6 +40,9 @@ class CityManagerTest {
     @Mock
     private CityDao mockCityDao;
 
+    @Mock
+    private CityConverter mockConverter;
+
     @InjectMocks
     private CityManager cityManager;
 
@@ -45,31 +52,42 @@ class CityManagerTest {
     }
 
     @Test
-    @DisplayName("gecerli istek atilmasi durumu")
+    @DisplayName("add metodu icin gecerli istek atilmasi durumu")
     public void whenCreateCityCalledWithValidRequest_itShouldReturnSuccessResult(){
 
-        CreateCityRequest createCityRequest = generateCreateCityDto();
-        City city = generateCityModelForCreateRequests(createCityRequest);
-        SuccessResult expectedResult = new SuccessResult();
+        CreateCityRequest requestDto = generateCreateCityDto();
 
-        when(mockCityDao.existsByCityName(createCityRequest.getCityName().toLowerCase(Locale.ROOT))).thenReturn(false);
+        City city = City.builder()
+                .cityId(requestDto.getPlateNo())
+                .cityName(requestDto.getCityName())
+                .build();
+
+        GetCityDto cityDto = GetCityDto.builder()
+                .cityId(city.getCityId())
+                .cityName(city.getCityName())
+                .build();
+
+        SuccessDataResult expectedResult = new SuccessDataResult(cityDto);
+
+        when(mockCityDao.existsByCityName(requestDto.getCityName().toLowerCase(Locale.ROOT))).thenReturn(false);
         when(mockCityDao.save(city)).thenReturn(city);
+        when(mockConverter.convertCityToDto(city)).thenReturn(cityDto);
 
-        Result actualResult = cityManager.add(createCityRequest);
+        DataResult actualResult = cityManager.add(requestDto);
 
         assertAll(
-                () -> assertEquals(actualResult, expectedResult),
                 () -> assertTrue(actualResult.isSuccess()),
-                () -> assertEquals(city.getCityName(), createCityRequest.getCityName())
+                () -> assertEquals(actualResult,expectedResult),
+                () -> assertEquals(expectedResult.getData(),actualResult.getData())
         );
 
-        verify(mockCityDao).existsByCityName(createCityRequest.getCityName().toLowerCase(Locale.ROOT));
+        verify(mockCityDao).existsByCityName(requestDto.getCityName().toLowerCase(Locale.ROOT));
         verify(mockCityDao).save(city);
-        verifyNoInteractions(mockMapper);
+        verify(mockConverter).convertCityToDto(city);
     }
 
     @Test
-    @DisplayName("ayni isimle sehir gonderilmesi durumu")
+    @DisplayName("add metoduna var olan sehir icin istek atilmasi durumu")
     public void whenCreateCityCalledWithExistsCityName_itShouldThrowBusinessException(){
 
         CreateCityRequest requestDto = generateCreateCityDto();
@@ -91,7 +109,7 @@ class CityManagerTest {
         int id = 34;
         City city = generateCityModel();
 
-        SuccessDataResult expectedResult = new SuccessDataResult(generateGetCityDtoForGetById(city));
+        SuccessDataResult expectedResult = new SuccessDataResult(generateGetCityDto(city));
 
         when(mockCityDao.existsById(id)).thenReturn(true);
         when(mockCityDao.getById(id)).thenReturn(city);
@@ -129,47 +147,121 @@ class CityManagerTest {
     @Test
     @DisplayName("update ile basarili sekilde sehir guncelleme durumu")
     public void whenUpdateMethodExecuteSuccessfully_itShouldReturnSuccessResult(){
-
-        int id = 34;
+        int cityId = 34;
         String cityName = "Ankara";
 
-        City currCity = City.builder()   //eski hali - 34,ANKARA
-                .cityId(id)
-                .cityName(cityName)
-                .build();
+        City currCity = City.builder().cityId(cityId).cityName(cityName).build(); //34 - Ankara
+        UpdateCityRequest cityRequest = generateUpdateCityDto(); //34 - Istanbul request
+        City updatedCity = generateCityModelForUpdateRequests(cityRequest); //34 - Istanbul newCity
+        GetCityDto cityDto = GetCityDto.builder().cityId(updatedCity.getCityId()).cityName(updatedCity.getCityName()).build(); //34 - Istanbul GetCityDto
 
-        UpdateCityRequest requestObject = generateUpdateCityDto(); //istenen yeni alanlar bunla gelecek - 34,ISTANBUL
+        when(mockCityDao.existsById(cityRequest.getPlateNo())).thenReturn(true);
+        when(mockCityDao.save(updatedCity)).thenReturn(updatedCity);
+        when(mockConverter.convertCityToDto(updatedCity)).thenReturn(cityDto);
 
-        City newCity = City.builder()
-                        .cityId(requestObject.getPlateNo())
-                        .cityName(requestObject.getCityName())
-                        .build();
+        SuccessDataResult expectedResult = new SuccessDataResult(cityDto);
 
-        SuccessDataResult expectedResult = new SuccessDataResult(GetCityDto.builder()
-                .cityId(newCity.getCityId())
-                .cityName(newCity.getCityName())
-                .build());
-
-        when(mockCityDao.existsById(requestObject.getPlateNo())).thenReturn(true);
-        when(mockCityDao.save(newCity)).thenReturn(newCity);
-
-        DataResult actualResult = cityManager.update(requestObject); //db' ye save edilen son halini dondu
+        DataResult actualResult = cityManager.update(cityRequest);
 
         assertAll(
                 () -> assertNotNull(actualResult),
                 () -> assertTrue(actualResult.isSuccess()),
-                () -> assertEquals(actualResult,expectedResult),
-                () -> assertEquals(expectedResult.getData(),actualResult.getData()),
-                () -> assertNotEquals(currCity,actualResult.getData())
+                () -> assertEquals(expectedResult,actualResult),
+                () -> assertNotEquals(actualResult.getData(), currCity),
+                () -> assertEquals(expectedResult.getData(),actualResult.getData())
         );
 
-        verify(mockCityDao).existsById(requestObject.getPlateNo());
-        verify(mockCityDao).save(newCity);
-        verifyNoInteractions(mockMapper);
+        verify(mockCityDao).existsById(cityRequest.getPlateNo());
+        verify(mockCityDao).save(updatedCity);
+        verify(mockConverter).convertCityToDto(updatedCity);
     }
 
     @Test
-    @DisplayName("update ile var olmayan bir id")
+    @DisplayName("update ile var olmayan bir id icin guncelleme istegi atilmasi durumu")
+    public void whenRequestSentWithIdThatDoesNotExist_itShouldThrowBusinessException(){
+
+        UpdateCityRequest request = generateUpdateCityDto(); //34 - Istanbul
+
+        when(mockCityDao.existsById(request.getPlateNo())).thenReturn(false);
+
+        assertThrows(BusinessException.class,() -> cityManager.update(request));
+
+        verify(mockCityDao).existsById(request.getPlateNo());
+        verifyNoMoreInteractions(mockCityDao);
+        verifyNoInteractions(mockConverter);
+    }
+
+    @Test
+    @DisplayName("basarili sekilde kayit silme durumu")
+    public void whenDeleteCalledForAnExistingRecord_itShouldReturnSuccessResult(){
+
+        int id = 34;
+
+        when(mockCityDao.existsById(id)).thenReturn(true);
+        doNothing().when(mockCityDao).deleteById(id);
+
+        SuccessResult expectedResult = new SuccessResult();
+        Result actualResult = cityManager.delete(id);
+
+        assertAll(
+                () -> assertEquals(actualResult,expectedResult)
+        );
+
+        verify(mockCityDao).existsById(id);
+        verifyNoInteractions(mockConverter);
+        verifyNoMoreInteractions(mockCityDao);
+    }
+
+    @Test
+    @DisplayName("var olmayan bir kaydin silinmek istenmesi durumu")
+    public void whenDeleteCalledForDoesNotExistRecord_itShouldReturnBusinessException(){
+
+        int id = 79;
+
+        when(mockCityDao.existsById(id)).thenReturn(false);
+
+        assertThrows(BusinessException.class,() -> cityManager.delete(id));
+
+        verify(mockCityDao).existsById(id);
+        verifyNoInteractions(mockConverter);
+        verifyNoMoreInteractions(mockCityDao);
+    }
+
+    @Test
+    public void whenGetAllCalled_itShouldReturnListOfGetCityDto(){
+
+        City city1 = generateCityModel2();
+        City city2 = generateCityModel3();
+        GetCityDto getCityDto1 = generateGetCityDto(city1);
+        GetCityDto getCityDto2 = generateGetCityDto(city2);
+
+        List<City> cityList = new ArrayList<>();
+        cityList.add(city1);
+        cityList.add(city2);
+
+        List<GetCityDto> getCityDtoList = new ArrayList<>();
+        getCityDtoList.add(getCityDto2);
+        getCityDtoList.add(getCityDto1);
+
+        when(mockCityDao.findAll()).thenReturn(cityList);
+        when(mockConverter.convertCityToDto(cityList)).thenReturn(getCityDtoList);
+
+        SuccessDataResult expectedResult = new SuccessDataResult(getCityDtoList);
+
+        DataResult actualResult = cityManager.getAll();
+
+        assertAll(
+                () -> assertNotNull(actualResult),
+                () -> assertEquals(actualResult,expectedResult),
+                () -> assertEquals(actualResult.getData(),expectedResult.getData()),
+                () -> assertEquals(getCityDtoList,actualResult.getData())
+        );
+
+        verify(mockCityDao).findAll();
+        verify(mockConverter).convertCityToDto(cityList);
+        verifyNoMoreInteractions(mockCityDao);
+        verifyNoMoreInteractions(mockConverter);
+    }
 
     private City generateCityModel(){
 
@@ -179,7 +271,23 @@ class CityManagerTest {
                 .build();
     }
 
-    private GetCityDto generateGetCityDtoForGetById(City city){
+    private City generateCityModel2(){
+
+        return City.builder()
+                .cityId(35)
+                .cityName("Izmir")
+                .build();
+    }
+
+    private City generateCityModel3(){
+
+        return City.builder()
+                .cityId(38)
+                .cityName("Kayseri")
+                .build();
+    }
+
+    private GetCityDto generateGetCityDto(City city){
 
         return GetCityDto.builder()
                 .cityId(city.getCityId())
