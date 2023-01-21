@@ -16,24 +16,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.function.Executable;
-import org.mockito.*;
-import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-
-import static org.mockito.Mockito.*;
 
 /**
  * @author hzyazilimci
@@ -99,7 +88,7 @@ class RentalManagerTest {
     }
 
     @Test
-    @DisplayName("dogru bir kiralama kaydi istegi atilmasi durumu")
+    @DisplayName("dogru bir kiralama kaydi istegi atilmasi durumu(individual customer)")
     public void whenAddRentalForIndCustomerWithValidRequest_itShouldReturnRental(){
 
         IndividualCustomer customer = generateIndividualCustomer();
@@ -161,8 +150,68 @@ class RentalManagerTest {
     }
 
     @Test
-    @DisplayName("dogru bir kiralama kaydi istegi atilmasi durumu")
-    public void updateRentalForIndividualCustomerCalledForDoesNotExistRentId_itShouldReturn(){
+    @DisplayName("dogru bir kiralama kaydi istegi atilmasi durumu(corporate customer)")
+    public void whenAddRentalForCorpCustomerWithValidRequest_itShouldReturnRental(){
+
+        CorporateCustomer customer = generateCorporateCustomer();
+        City fromCity = generateCityList().get(0);
+        City toCity = generateCityList().get(1);
+        Car car = generateCarModel();
+        List<Addition> additionList = generateAdditionList();
+
+        CreateRentalRequest request = CreateRentalRequest.builder()
+                .rentDate(LocalDate.now())
+                .rentReturnDate(LocalDate.now().plusDays(3))
+                .carId(car.getCarId())
+                .fromCityId(generateCityList().get(0).getCityId())
+                .toCityId(generateCityList().get(1).getCityId())
+                .userId(USER_ID)
+                .additionId(Collections.singletonList(ADDITION_ID))
+                .build();
+
+        Rental rental = Rental.builder()
+                .rentDate(request.getRentDate())
+                .rentReturnDate(request.getRentReturnDate())
+                .car(car)
+                .customer(customer)
+                .fromCity(fromCity)
+                .toCity(toCity)
+                .additionList(additionList)
+                .build();
+
+        doNothing().when(carService).isExistsByCarId(request.getCarId());
+        doNothing().when(cityService).isExistsByCityId(request.getFromCityId());
+        doNothing().when(cityService).isExistsByCityId(request.getToCityId());
+        doNothing().when(carMaintenanceService).isCarUnderMaintenanceForRental(request.getCarId(),request.getRentDate());
+        doNothing().when(corporateCustomerService).isCorporateCustomerExistsById(request.getUserId());
+        when(carService.getCarByCarId(request.getCarId())).thenReturn(generateCarModel());
+        when(corporateCustomerService.getCustomerById(USER_ID)).thenReturn(customer);
+        when(cityService.getCityById(request.getFromCityId())).thenReturn(fromCity);
+        when(cityService.getCityById(request.getToCityId())).thenReturn(toCity);
+        when(additionService.getAdditionById(ADDITION_ID)).thenReturn(additionList.get(0));
+        doNothing().when(additionService).isExistsByAdditionId(ADDITION_ID);
+        when(mockDao.save(rental)).thenReturn(rental);
+
+        Rental actualRental = underTest.addRentalForCorporateCustomer(request);
+
+        assertAll(
+                () -> assertNotNull(rental),
+                () -> assertEquals(rental, actualRental),
+                () -> assertEquals(actualRental.getCar().getCarId(),request.getCarId())
+        );
+
+        verify(carService).getCarByCarId(request.getCarId());
+        verify(corporateCustomerService).getCustomerById(USER_ID);
+        verify(cityService).getCityById(request.getFromCityId());
+        verify(cityService).getCityById(request.getToCityId());
+        verify(additionService).getAdditionById(ADDITION_ID);
+        verify(mockDao).save(rental);
+    }
+
+
+    @Test
+    @DisplayName("olmayan bir kiralamanin guncellenmek istenmesi(ind cust)")
+    public void updateRentalForIndividualCustomerCalledForDoesNotExistRentId_itShouldThrowBusinessException(){
 
         Car car = generateCarModel();
 
@@ -187,8 +236,39 @@ class RentalManagerTest {
         verifyNoInteractions(individualCustomerService);
     }
 
+    @Test
+    @DisplayName("olmayan bir kiralamanin guncellenmek istenmesi(corp cus)")
+    public void updateRentalForCorporateCustomerCalledForDoesNotExistRentId_itShouldThrowBusinessException(){
+
+        Car car = generateCarModel();
+
+        UpdateRentalRequest request = UpdateRentalRequest.builder()
+                .rentDate(LocalDate.now())
+                .rentReturnDate(LocalDate.now().plusDays(3))
+                .carId(car.getCarId())
+                .fromCityId(generateCityList().get(0).getCityId())
+                .toCityId(generateCityList().get(1).getCityId())
+                .userId(USER_ID)
+                .additionId(Collections.singletonList(ADDITION_ID))
+                .build();
+
+        when(mockDao.existsById(request.getRentId())).thenReturn(false);
+
+        assertThrows(BusinessException.class, () -> underTest.updateRentalForCorporateCustomer(request));
+
+        verify(mockDao).existsById(request.getRentId());
+        verifyNoMoreInteractions(mockDao);
+        verifyNoInteractions(carService);
+        verifyNoInteractions(carMaintenanceService);
+        verifyNoInteractions(corporateCustomerService);
+    }
+
     private IndividualCustomer generateIndividualCustomer(){
         return new IndividualCustomer("12312312312","Alihaydar","Salman");
+    }
+
+    private CorporateCustomer generateCorporateCustomer(){
+        return new CorporateCustomer("1110002221","hzyazilimci co");
     }
 
     private List<City> generateCityList(){

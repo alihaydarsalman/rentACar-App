@@ -95,8 +95,6 @@ public class RentalManager implements RentalService {
     @Override
     public Rental addRentalForCorporateCustomer(CreateRentalRequest createRentalRequest) throws BusinessException {
 
-        Rental rental = this.modelMapperService.forRequest().map(createRentalRequest,Rental.class);
-
         this.carService.isExistsByCarId(createRentalRequest.getCarId());
         this.cityService.isExistsByCityId(createRentalRequest.getFromCityId());
         this.cityService.isExistsByCityId(createRentalRequest.getToCityId());
@@ -104,9 +102,18 @@ public class RentalManager implements RentalService {
         areDatesValid(createRentalRequest.getRentDate());
         isRentDateAfterReturnDate(createRentalRequest.getRentDate(),createRentalRequest.getRentReturnDate());
         isCarCanRented(createRentalRequest);
-        setAdditionForRental(rental,createRentalRequest);
         this.corporateCustomerService.isCorporateCustomerExistsById(createRentalRequest.getUserId());
-        rental.setCustomer(this.corporateCustomerService.getCustomerById(createRentalRequest.getUserId()));
+
+        Rental rental = Rental.builder()
+                .rentDate(createRentalRequest.getRentDate())
+                .rentReturnDate(createRentalRequest.getRentReturnDate())
+                .car(this.carService.getCarByCarId(createRentalRequest.getCarId()))
+                .customer(this.corporateCustomerService.getCustomerById(createRentalRequest.getUserId()))
+                .fromCity(this.cityService.getCityById(createRentalRequest.getFromCityId()))
+                .toCity(this.cityService.getCityById(createRentalRequest.getToCityId()))
+                .build();
+
+        setAdditionForRental(rental,createRentalRequest);
 
         this.rentalDao.save(rental);
 
@@ -146,17 +153,25 @@ public class RentalManager implements RentalService {
     @Override
     public Result updateRentalForCorporateCustomer(UpdateRentalRequest updateRentalRequest) throws BusinessException {
 
-        Rental rental=this.modelMapperService.forRequest().map(updateRentalRequest,Rental.class);
-
         isRentalExistsByRentalId(updateRentalRequest.getRentId());
         this.carService.isExistsByCarId(updateRentalRequest.getCarId());
         this.carMaintenanceService.isCarUnderMaintenanceForRental(updateRentalRequest.getCarId(),updateRentalRequest.getRentDate());
         areDatesValid(updateRentalRequest.getRentDate());
         isRentDateAfterReturnDate(updateRentalRequest.getRentDate(),updateRentalRequest.getRentReturnDate());
         isCarCanRented(updateRentalRequest);
-        setAdditionForRental(rental, updateRentalRequest);
         this.corporateCustomerService.isCorporateCustomerExistsById(updateRentalRequest.getUserId());
-        rental.setCustomer(this.corporateCustomerService.getCustomerById(updateRentalRequest.getUserId()));
+
+        Rental rental = Rental.builder()
+                .rentId(updateRentalRequest.getRentId())
+                .rentDate(updateRentalRequest.getRentDate())
+                .rentReturnDate(updateRentalRequest.getRentReturnDate())
+                .car(this.carService.getCarByCarId(updateRentalRequest.getCarId()))
+                .customer(this.corporateCustomerService.getCustomerById(updateRentalRequest.getUserId()))
+                .fromCity(this.cityService.getCityById(updateRentalRequest.getFromCityId()))
+                .toCity(this.cityService.getCityById(updateRentalRequest.getToCityId()))
+                .build();
+
+        setAdditionForRental(rental, updateRentalRequest);
 
         this.rentalDao.save(rental);
 
