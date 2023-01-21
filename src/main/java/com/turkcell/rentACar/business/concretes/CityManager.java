@@ -96,6 +96,13 @@ public class CityManager implements CityService {
         }
     }
 
+    @Override
+    public City getCityById(int id){
+        isExistsByCityId(id);
+
+        return cityDao.getById(id);
+    }
+
     public void isCityExistsByCityName(String cityName) throws BusinessException {
 
         if(this.cityDao.existsByCityName(cityName.toLowerCase(Locale.ROOT))){

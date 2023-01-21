@@ -5,6 +5,7 @@ import com.turkcell.rentACar.business.constants.messages.BusinessMessages;
 import com.turkcell.rentACar.core.utilities.exceptions.BusinessException;
 import com.turkcell.rentACar.core.utilities.results.DataResult;
 import com.turkcell.rentACar.dataAccess.RentalDao;
+import com.turkcell.rentACar.entities.converters.RentalConverter;
 import com.turkcell.rentACar.entities.dtos.get.GetRentalDto;
 import com.turkcell.rentACar.entities.dtos.list.AdditionListDto;
 import com.turkcell.rentACar.entities.dtos.list.RentalListDto;
@@ -35,12 +36,14 @@ public class RentalManager implements RentalService {
     private final CityService cityService;
     private final IndividualCustomerService individualCustomerService;
     private final CorporateCustomerService corporateCustomerService;
+    private final RentalConverter rentalConverter;
 
     @Autowired
     public RentalManager(ModelMapperService modelMapperService, RentalDao rentalDao, CarService carService
             , @Lazy CarMaintenanceService carMaintenanceService
             , AdditionService additionService, CityService cityService
-            , IndividualCustomerService individualCustomerService, CorporateCustomerService corporateCustomerService) {
+            , IndividualCustomerService individualCustomerService, CorporateCustomerService corporateCustomerService
+            , RentalConverter rentalConverter) {
         this.modelMapperService = modelMapperService;
         this.rentalDao = rentalDao;
         this.carService = carService;
@@ -49,23 +52,20 @@ public class RentalManager implements RentalService {
         this.cityService = cityService;
         this.individualCustomerService = individualCustomerService;
         this.corporateCustomerService = corporateCustomerService;
+        this.rentalConverter = rentalConverter;
     }
 
     @Override
-    public DataResult<List<RentalListDto>> getAll() {
+    public DataResult<List<GetRentalDto>> getAll() {
 
         List<Rental> rentals=this.rentalDao.findAll();
-        List<RentalListDto> result=rentals.stream()
-                .map(rental -> this.modelMapperService.forDto().map(rental,RentalListDto.class))
-                .collect(Collectors.toList());
+        List<GetRentalDto> result = this.rentalConverter.convertRentalToDto(rentals);
 
         return new SuccessDataResult<>(result, BusinessMessages.SUCCESS_LIST);
     }
 
     @Override
     public Rental addRentalForIndividualCustomer(CreateRentalRequest createRentalRequest) throws BusinessException {
-
-        Rental rental = this.modelMapperService.forRequest().map(createRentalRequest,Rental.class);
 
         this.carService.isExistsByCarId(createRentalRequest.getCarId());
         this.cityService.isExistsByCityId(createRentalRequest.getFromCityId());
@@ -74,9 +74,18 @@ public class RentalManager implements RentalService {
         areDatesValid(createRentalRequest.getRentDate());
         isRentDateAfterReturnDate(createRentalRequest.getRentDate(),createRentalRequest.getRentReturnDate());
         isCarCanRented(createRentalRequest);
-        setAdditionForRental(rental, createRentalRequest);
         this.individualCustomerService.isIndividualCustomerExistsById(createRentalRequest.getUserId());
-        rental.setCustomer(this.individualCustomerService.getCustomerById(createRentalRequest.getUserId()));
+
+        Rental rental = Rental.builder()
+                .rentDate(createRentalRequest.getRentDate())
+                .rentReturnDate(createRentalRequest.getRentReturnDate())
+                .car(this.carService.getCarByCarId(createRentalRequest.getCarId()))
+                .customer(this.individualCustomerService.getCustomerById(createRentalRequest.getUserId()))
+                .fromCity(this.cityService.getCityById(createRentalRequest.getFromCityId()))
+                .toCity(this.cityService.getCityById(createRentalRequest.getToCityId()))
+                .build();
+
+        setAdditionForRental(rental, createRentalRequest);
 
         this.rentalDao.save(rental);
 

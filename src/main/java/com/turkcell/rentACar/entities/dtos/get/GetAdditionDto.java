@@ -1,8 +1,6 @@
 package com.turkcell.rentACar.entities.dtos.get;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor

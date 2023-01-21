@@ -1,9 +1,7 @@
 package com.turkcell.rentACar.entities.requests.update;
 
 import com.turkcell.rentACar.business.constants.messages.ValidationMessages;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
@@ -15,6 +13,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@EqualsAndHashCode
 public class UpdateRentalRequest {
 
     @NotNull

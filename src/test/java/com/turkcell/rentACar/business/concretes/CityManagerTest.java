@@ -19,7 +19,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -198,7 +197,7 @@ class CityManagerTest {
         int id = 34;
 
         when(mockCityDao.existsById(id)).thenReturn(true);
-        doNothing().when(mockCityDao).deleteById(id);
+        doNothing().when(mockCityDao).deleteById(id); // only void methods can doNothing()
 
         SuccessResult expectedResult = new SuccessResult();
         Result actualResult = cityManager.delete(id);

@@ -6,6 +6,7 @@ import com.turkcell.rentACar.core.utilities.results.Result;
 import com.turkcell.rentACar.entities.dtos.get.GetCityDto;
 import com.turkcell.rentACar.entities.requests.create.CreateCityRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateCityRequest;
+import com.turkcell.rentACar.entities.sourceEntities.City;
 
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface CityService {
     Result add(CreateCityRequest createCityRequest) throws BusinessException;
     DataResult<GetCityDto> update(UpdateCityRequest updateCityRequest) throws BusinessException;
     Result delete(int cityId) throws BusinessException;
+    City getCityById(int id);
 }

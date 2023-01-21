@@ -5,9 +5,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Entity
@@ -15,6 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "rentals")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "Lazy"})
+@Builder
+@EqualsAndHashCode
 public class Rental {
 
     @Id

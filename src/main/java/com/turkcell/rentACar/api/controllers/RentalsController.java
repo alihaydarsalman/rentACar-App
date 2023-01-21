@@ -25,7 +25,7 @@ public class RentalsController {
 
 
     @GetMapping("/getAll")
-    public DataResult<List<RentalListDto>> getAll()
+    public DataResult<List<GetRentalDto>> getAll()
     {
         return this.rentalService.getAll();
     }

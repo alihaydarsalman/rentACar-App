@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface RentalService {
 
-    DataResult<List<RentalListDto>> getAll();
+    DataResult<List<GetRentalDto>> getAll();
 
     Rental addRentalForIndividualCustomer(CreateRentalRequest createRentalRequest) throws BusinessException;
 

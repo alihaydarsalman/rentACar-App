@@ -2,15 +2,16 @@ package com.turkcell.rentACar.entities.dtos.get;
 
 import com.turkcell.rentACar.entities.dtos.list.AdditionListDto;
 import com.turkcell.rentACar.entities.dtos.list.CustomerListDto;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@EqualsAndHashCode
 public class GetRentalDto {
 
     private int rentId;

@@ -1,14 +1,14 @@
 package com.turkcell.rentACar.entities.dtos.list;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
+@Builder
 public class CustomerListDto {
 
     private int userId;
