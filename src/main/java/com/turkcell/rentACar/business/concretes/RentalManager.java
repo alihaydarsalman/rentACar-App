@@ -8,7 +8,6 @@ import com.turkcell.rentACar.dataAccess.RentalDao;
 import com.turkcell.rentACar.entities.converters.RentalConverter;
 import com.turkcell.rentACar.entities.dtos.get.GetRentalDto;
 import com.turkcell.rentACar.entities.dtos.list.AdditionListDto;
-import com.turkcell.rentACar.entities.dtos.list.RentalListDto;
 import com.turkcell.rentACar.entities.requests.create.CreateRentalRequest;
 import com.turkcell.rentACar.entities.requests.update.UpdateRentalRequest;
 import com.turkcell.rentACar.entities.sourceEntities.Rental;
@@ -242,22 +241,20 @@ public class RentalManager implements RentalService {
         isRentalExistsByRentalId(rentId);
 
         Rental rental = this.rentalDao.getById(rentId);
-        GetRentalDto result=this.modelMapperService.forDto().map(rental,GetRentalDto.class);
+        GetRentalDto rentalDto = this.rentalConverter.convertRentalToDto(rental);
 
-        return new SuccessDataResult<>(result,BusinessMessages.SUCCESS_GET);
+        return new SuccessDataResult<>(rentalDto,BusinessMessages.SUCCESS_GET);
     }
 
 
     @Override
-    public DataResult<List<RentalListDto>> getByCarId(int carId) throws BusinessException {
+    public DataResult<List<GetRentalDto>> getByCarId(int carId) throws BusinessException {
 
         this.carService.isExistsByCarId(carId);
         isExistsByCarIdOnRentalTable(carId);
 
         List<Rental> rentals=this.rentalDao.findAllByCar_CarId(carId);
-        List<RentalListDto> result=rentals.stream()
-                .map(rental -> this.modelMapperService.forDto().map(rental,RentalListDto.class))
-                .collect(Collectors.toList());
+        List<GetRentalDto> result = this.rentalConverter.convertRentalToDto(rentals);
 
         return new SuccessDataResult<>(result,BusinessMessages.SUCCESS_LIST);
     }
