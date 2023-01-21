@@ -177,7 +177,7 @@ class CityManagerTest {
 
     @Test
     @DisplayName("update ile var olmayan bir id icin guncelleme istegi atilmasi durumu")
-    public void whenRequestSentWithIdThatDoesNotExist_itShouldThrowBusinessException(){
+    public void whenUpdateRequestSentWithIdThatDoesNotExist_itShouldThrowBusinessException(){
 
         UpdateCityRequest request = generateUpdateCityDto(); //34 - Istanbul
 
@@ -197,7 +197,7 @@ class CityManagerTest {
         int id = 34;
 
         when(mockCityDao.existsById(id)).thenReturn(true);
-        doNothing().when(mockCityDao).deleteById(id); // only void methods can doNothing()
+        doNothing().when(mockCityDao).deleteById(id);
 
         SuccessResult expectedResult = new SuccessResult();
         Result actualResult = cityManager.delete(id);

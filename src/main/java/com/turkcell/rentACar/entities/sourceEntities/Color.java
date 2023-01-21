@@ -1,6 +1,7 @@
 package com.turkcell.rentACar.entities.sourceEntities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "colors")
+@Builder
 public class Color {
 
     @Id

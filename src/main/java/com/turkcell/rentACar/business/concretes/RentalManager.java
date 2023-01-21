@@ -117,17 +117,25 @@ public class RentalManager implements RentalService {
     @Override
     public Result updateRentalForIndividualCustomer(UpdateRentalRequest updateRentalRequest) throws BusinessException {
 
-        Rental rental=this.modelMapperService.forRequest().map(updateRentalRequest,Rental.class);
-
         isRentalExistsByRentalId(updateRentalRequest.getRentId());
         this.carService.isExistsByCarId(updateRentalRequest.getCarId());
         this.carMaintenanceService.isCarUnderMaintenanceForRental(updateRentalRequest.getCarId(),updateRentalRequest.getRentDate());
         areDatesValid(updateRentalRequest.getRentDate());
         isRentDateAfterReturnDate(updateRentalRequest.getRentDate(),updateRentalRequest.getRentReturnDate());
         isCarCanRented(updateRentalRequest);
-        setAdditionForRental(rental, updateRentalRequest);
         this.individualCustomerService.isIndividualCustomerExistsById(updateRentalRequest.getUserId());
-        rental.setCustomer(this.individualCustomerService.getCustomerById(updateRentalRequest.getUserId()));
+
+        Rental rental = Rental.builder()
+                .rentId(updateRentalRequest.getRentId())
+                .rentDate(updateRentalRequest.getRentDate())
+                .rentReturnDate(updateRentalRequest.getRentReturnDate())
+                .car(this.carService.getCarByCarId(updateRentalRequest.getCarId()))
+                .customer(this.individualCustomerService.getCustomerById(updateRentalRequest.getUserId()))
+                .fromCity(this.cityService.getCityById(updateRentalRequest.getFromCityId()))
+                .toCity(this.cityService.getCityById(updateRentalRequest.getToCityId()))
+                .build();
+
+        setAdditionForRental(rental, updateRentalRequest);
 
         this.rentalDao.save(rental);
 
