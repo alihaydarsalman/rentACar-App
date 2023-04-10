@@ -36,7 +36,7 @@
       <li><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/business">Business Layer</a> contains business logic codes</li>
        <li><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/api">Controller Layer</a> contains Rest APIs.</li>
        <li><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/main/java/com/turkcell/rentACar/core">Core Layer</a> contains cross-cutting concerns and common requirements.</li>
-      <li><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/test/java/com/turkcell/rentACar/business/concretes">Service Tests</a> contains unit tests of the service layer.</li>
+      <li><a href="https://github.com/hzyazilimci/rentACar-App/tree/master/src/test/java/com/turkcell/rentACar/business/concretes">Service Tests</a> contains unit tests of the some services.</li>
 </ul>
 
 ---
